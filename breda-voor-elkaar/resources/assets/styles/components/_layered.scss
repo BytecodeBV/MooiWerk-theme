@@ -1,3 +1,7 @@
+.layered {
+  margin-bottom: calculaterem(20px);
+}
+
 .layered__bar {
   color: $blue;
   line-height: calculaterem(29px);
@@ -14,6 +18,7 @@
   .layered__form {
     padding-left: 0;
   }
+
   .collapse.dont-collapse-lg {
     display: block;
     height: auto !important;

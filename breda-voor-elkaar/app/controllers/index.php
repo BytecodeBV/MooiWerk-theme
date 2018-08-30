@@ -9,11 +9,7 @@ class Index extends Controller
     public function items()
     {
         global $wp_query;
-        $wp_query = new \WP_Query(array(
-            'post_type' => 'post',
-            'post_status' => 'publish',
-        ));
-        return array_map(function ($post) {
+        $return = array_map(function ($post) {
             return [
                 'title' => $post->post_title,
                 'link' => get_permalink($post->ID),
@@ -21,6 +17,9 @@ class Index extends Controller
                 'excerpt' => $post->post_excerpt,
             ];
         }, $wp_query->posts);
+
+        wp_reset_postdata();
+        return $return;
     }
 
     public function title()

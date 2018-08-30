@@ -163,7 +163,6 @@ function display_sidebar()
  */
 function bootstrap_pagination(\WP_Query $wp_query = null, $echo = true)
 {
-
     if (null === $wp_query) {
         global $wp_query;
     }
@@ -191,7 +190,7 @@ function bootstrap_pagination(\WP_Query $wp_query = null, $echo = true)
             '<ul class="pagination pagination-sm custom-pagination__list">';
 
         foreach ($pages as $page) {
-            $pagination .= '<li class="page-item active custom-pagination__item '
+            $pagination .= '<li class="page-item custom-pagination__item '
             . (strpos($page, 'current') !== false ? 'active' : '') . '">'
             . str_replace('page-numbers', 'page-link custom-pagination__link', $page) . '</li>';
         }

@@ -11,6 +11,12 @@
   font-size: calculaterem(15px); //1.25rem;
 }
 
+@include media-breakpoint-up(lg) {
+  .vacancy-list__layered {
+    min-height: calculaterem(1500px);
+  }
+}
+
 .vacancy-list__pagination {
   margin-top: calculaterem(63px);
 }

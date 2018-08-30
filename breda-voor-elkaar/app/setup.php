@@ -13,6 +13,11 @@ use Roots\Sage\Template\BladeProvider;
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('sage/main.css', asset_path('styles/main.css'), false, null);
     wp_enqueue_script('sage/main.js', asset_path('scripts/main.js'), ['jquery'], null, true);
+    // scripts.php
+    wp_localize_script('sage/main.js', 'site_data', array(
+        //'debug' => WP_DEBUG,
+        'home' => home_url('/'),
+    ));
 }, 100);
 
 /**
@@ -89,8 +94,8 @@ add_action('after_setup_theme', function () {
  */
 add_action('widgets_init', function () {
     $config = [
-        'before_widget' => '<div class="row %1$s %2$s"><div class="col-sm sidebar__item">',
-        'after_widget' => '</div></div>',
+        'before_widget' => '<div class="%1$s %2$s sidebar__item">',
+        'after_widget' => '</div>',
         'before_title' => '<h5 class="sidebar__title">',
         'after_title' => '</h5>',
     ];

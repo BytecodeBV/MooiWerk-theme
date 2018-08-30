@@ -36,6 +36,7 @@ module.exports = {
     "no-console": process.env.NODE_ENV === 'production' ? 2 : 0,
     "strict": 1,
     "eol-last": 1,
+    "arrow-parens": 0,
     "no-else-return": 1,
     "max-len": [1, 80, 2],
     "prefer-arrow-callback": 1,

@@ -1,13 +1,13 @@
-.rblog {
+.blog-list {
   background: $off-white;
   padding: calculaterem(86px) 0 calculaterem(100px);
 }
 
-.blog__header {
+.blog-list__header {
   margin-bottom: calculaterem(53px);
 }
 
-.blog__item {
+.blog-list__item {
   border-top: calculaterem(18px) solid $black;
   width: 100%;
 }

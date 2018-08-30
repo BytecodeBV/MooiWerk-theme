@@ -1,10 +1,12 @@
 .custom-pagination__item {
   margin: 0 calculaterem(5px);
   height: calculaterem(35px);
-  width: calculaterem(35px);
+  min-width: calculaterem(35px);
   text-align: center;
 }
 
 .custom-pagination__link {
-  border: calculaterem(1px) solid $black;
+  border: 0.1rem solid $black;
+  background: $white;
+  color: $primary;
 }

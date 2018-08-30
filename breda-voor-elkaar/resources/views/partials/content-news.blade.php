@@ -6,11 +6,11 @@
 			    @if ($loop->first) 
                     <div class="col-lg-6">
                         <div class="card-deck newsdeck__item_margin-bottom">
-                            <div class="card newsdeck__item newsdeck__item_small">
+                            <div class="card newsdeck__item newsdeck__item_small d-flex align-items-start flex-column">
                                 <div class="card-block">
                                     <h3 class="card-title">{{$item['title']}}</h3>
-                                    <p class="card-text">{{$item['excerpt']}}</p>
-                                    <a href="{{$item['link']}}">lees meer ›</a>
+                                    <p class="card-text">{{strip_tags($item['excerpt'])}}</p>
+                                    <a href="{{$item['link']}} " class="mt-auto">lees meer ›</a>
                                 </div>
                             </div>
                             <div class="w-100 d-sm-none my-3">
@@ -19,10 +19,10 @@
 				@endif
 				@if ($loop->iteration == 2)
 				            <div class="card border-top newsdeck__item newsdeck__item_small">
-                                <div class="card-block newsdeck__item_align">
+                                <div class="card-block newsdeck__item_align d-flex align-items-start flex-column">
                                     <h3 class="card-title">{{$item['title']}}</h3>
-                                    <p class="card-text">{{$item['excerpt']}}</p>
-                                    <a href="{{$item['link']}}">lees meer ›</a>
+                                    <p class="card-text">{{strip_tags($item['excerpt'])}}</p>
+                                    <a href="{{$item['link']}}" class="mt-auto">lees meer ›</a>
                                 </div>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                             <img class="card-img w-100" src="{{$item['image_link']}}" alt="{{ $item['title'] }} thumbnail" />
                                 <div class="card-img-overlay newsdeck__caption d-flex flex-column justify-content-end text-white">
                                     <h3 class="card-title">{{$item['title']}}</h3>
-                                    <p class="card-text">{{$item['excerpt']}}</p>
+                                    <p class="card-text">{{strip_tags($item['excerpt'])}}</p>
                                     <a href="{{$item['link']}}" class="text-white">lees meer ›</a>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                 <img class="card-img w-100" src="{{$item['image_link']}}" alt="{{ $item['title'] }} thumbnail" />
                                 <div class="card-img-overlay newsdeck__caption d-flex flex-column justify-content-end text-white">
                                     <h3 class="card-title">{{$item['title']}}</h3>
-                                    <p class="card-text">{{$item['excerpt']}}</p>
+                                    <p class="card-text">{{strip_tags($item['excerpt'])}}</p>
                                     <a href="{{$item['link']}}" class="text-white">lees meer ›</a>
                                 </div>
                             </div>
@@ -59,10 +59,10 @@
 				@if ($loop->iteration == 5)
 				        <div class="card-deck newsdeck__item_margin-top">
                             <div class="card newsdeck__item newsdeck__item_small">
-                                <div class="card-block newsdeck__item_align">
+                                <div class="card-block newsdeck__item_align d-flex align-items-start flex-column">
                                     <h3 class="card-title">{{$item['title']}}</h3>
-                                    <p class="card-text">{{$item['excerpt']}}</p>
-                                    <a href="{{$item['link']}}">lees meer ›</a>
+                                    <p class="card-text">{{strip_tags($item['excerpt'])}}</p>
+                                    <a href="{{$item['link']}}" class="mt-auto">lees meer ›</a>
                                 </div>
                             </div>
                             <div class="w-100 d-sm-none my-3">
@@ -71,17 +71,17 @@
                 @endif
 				@if ($loop->iteration == 6)
 				        <div class="card newsdeck__item newsdeck__item_small">
-                            <div class="card-block newsdeck__item_align">
+                            <div class="card-block newsdeck__item_align d-flex align-items-start flex-column">
                                 <h3 class="card-title">{{$item['title']}}</h3>
-                                <p class="card-text">{{$item['excerpt']}}</p>
-                                <a href="{{$item['link']}}">lees meer ›</a>
+                                <p class="card-text">{{strip_tags($item['excerpt'])}}</p>
+                                <a href="{{$item['link']}}" class="mt-auto">lees meer ›</a>
                             </div>
                         </div>
                     </div>
 				@endif
         @endforeach
          @empty($news)
-            <div> Not enough content to create grid</div>
+            <div class="alert alert-warning"> Niet genoeg inhoud om raster te maken</div>
         @endempty
         </div>
     </div>

@@ -3,14 +3,14 @@
         <h3 class="news-list__header">Of bent u op zoek na Copy</h3>
         <div class="row">
             
-            @foreach($links as $link)
+            @foreach($categories as $link)
                 
                 @if($loop->first || $loop->iteration % 3 == 1)
                     <div class="col-md-4 d-flex justify-content-center d-md-block">
                         <ul class="list-group list-group-flush news-list__item">
                 @endif
                             <li class="list-group-item">
-                                <a href="<?php echo get_field("url") ?>" class="news-list__link"><?php the_title();?></a>
+                                <a href="{{ $link["url"] }}" class="news-list__link">{{strip_tags($link['title'])}}</a>
                             </li>
                 @if($loop->iteration % 3 == 0 || $loop->last)
                         </ul>
@@ -21,9 +21,10 @@
                 @endif
             @endforeach
             
-            @empty($links)
-                <div> No links found</div>
+            @empty($categories)
+                <div class="alert alert-warning"> Geen links gevonden</div>
             @endempty
+
         </div>
     </div>    
 </section>

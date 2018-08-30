@@ -1,0 +1,21 @@
+.page__body,
+.member-page__body,
+.search__body,
+.blog-index__body,
+.error__body {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.page__header,
+.blog-index__header,
+.error__header,
+.post__header,
+.post__content {
+  margin-bottom: 2rem;
+}
+
+.company__logo {
+  width: calculaterem(144px);
+  height: calculaterem(144px);
+}

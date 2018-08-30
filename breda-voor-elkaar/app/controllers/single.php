@@ -21,5 +21,4 @@ class Single extends Controller
             'content' => $post->post_content,
         ];
     }
-
 }

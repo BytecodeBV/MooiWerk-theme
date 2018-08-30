@@ -44,6 +44,36 @@ add_action('customize_register', function (\WP_Customize_Manager $wp_customize) 
             'section' => 'newsletter',
         )
     ));
+
+    $wp_customize->add_section(
+        'acf_globals',
+        array(
+            'title' => __('ACF Settings', 'sage'),
+            'capability' => 'edit_theme_options', // Capability needed to tweak
+            'description' => __('Set ACF Global Setting.', 'sage'),
+        )
+    );
+
+    // Register a new setting "company_name"
+    $wp_customize->add_setting(
+        'acf_google_map',
+        array(
+            'default' => '', // Default setting/value to save
+            'type' => 'option',
+        )
+    );
+
+    // Define input for setting "company_name"
+    $wp_customize->add_control(new \WP_Customize_Control(
+        $wp_customize,
+        'acf_google_map_control', // unique ID for the control
+        array(
+            'label' => __('Google Map Key', 'sage'),
+            'settings' => 'acf_google_map',
+            'type' => 'text',
+            'section' => 'acf_globals',
+        )
+    ));
 });
 
 /**

@@ -8,7 +8,7 @@
         $logo_src= App\asset_path('images/logo.svg');
     }
 @endphp
-<nav class="navbar navbar-expand-lg navbar-light text-dark bg-light">
+<nav class="navbar navbar-expand-lg navbar-light text-dark">
   <div class="container">
   <a class="navbar-brand" href="{{ home_url('/') }}"><img src="{{$logo_src}}" alt="{{ get_bloginfo('name', 'display') }}"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav">

@@ -1,4 +1,3 @@
-//.footer {}
 .footer_top {
   display: flex;
   flex-direction: column;
@@ -13,35 +12,11 @@
 .newsletter {
   background: $black;
   padding-top: calculaterem(30px);
-  padding-right: calculaterem(10px);
-  padding-left: calculaterem(16px);
   padding-bottom: calculaterem(30px);
   color: $white;
   width: 100%;
 }
 
-@include media-breakpoint-up(md) {
-  .newsletter {
-    padding-top: calculaterem(53px);
-    padding-left: calculaterem(64px);
-    padding-right: calculaterem(32px);
-  }
-}
-
-@include media-breakpoint-up(lg) {
-  .newsletter {
-    padding-left: calculaterem(48px);
-    padding-right: calculaterem(48px);
-  }
-}
-
-@include media-breakpoint-up(xl) {
-  .newsletter {
-    padding-left: calculaterem(171px);
-  }
-}
-
-//.newsletter__wrapper {}
 .newsletter__header {
   line-height: calculaterem(29px);
   font-size: calculaterem(22px);
@@ -74,6 +49,7 @@
   width: 100%;
   height: calculaterem(57px);
   margin-bottom: calculaterem(10px);
+  border: none;
 }
 
 @include media-breakpoint-up(lg) {
@@ -97,17 +73,9 @@
 }
 
 .banner {
-  width: 100%;
-}
-
-.banner__image {
-  width: 100%;
-}
-
-@include media-breakpoint-up(md) {
-  .banner__image {
-    height: 100%;
-  }
+  min-height: calculaterem(328px);
+  background-image: url('../images/side.png');
+  background-size: cover;
 }
 
 .footer_bottom {
@@ -139,6 +107,10 @@
 .footer-menu__nav {
   line-height: calculaterem(20px);
   margin-bottom: calculaterem(78px);
+}
+
+.footer-menu__icons {
+  padding-top: 0.5rem;
 }
 
 .footer-menu__icon {
@@ -175,13 +147,35 @@
 
 .footer-menu__social-link {
   margin-right: calculaterem(21px);
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
 }
 
 .footer-menu__copyright {
   text-align: center;
+  font-family: $font-family-sans-serif;
+  line-height: calculaterem(24px);
+  font-size: calculaterem(15px);
   padding-top: calculaterem(44px);
   padding-bottom: calculaterem(32px);
   color: $gray;
+}
+
+.footer_bottom__header,
+.footer-menu__nav,
+.footer-menu__contact-name {
+  font-size: calculaterem(15px);
+  line-height: calculaterem(24px);
+}
+
+.footer_bottom_header,
+.footer-menu__contact-name,
+.footer_bottom__header,
+.newsletter__header {
+  font-weight: 700;
 }
 
 .nav_menu-2 h5 {

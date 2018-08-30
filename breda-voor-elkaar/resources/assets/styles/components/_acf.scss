@@ -1,0 +1,18 @@
+.acf-checkbox-list li label {
+  display: block;
+  font-size: calculaterem(16px);
+  font-family: 'Mohr-Regular', sans-serif;
+  line-height: calculaterem(24px);
+}
+
+ul.acf-checkbox-list li input[type="checkbox"] {
+  margin: calculaterem(-2px) calculaterem(10px) 0 0 !important;
+}
+
+.acf-button {
+  padding: 0.375rem 0.75rem;
+}
+
+.acf-input-wrap input {
+  height: calculaterem(38px);
+}

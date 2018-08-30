@@ -5,24 +5,64 @@
   font-size: calculaterem(16px); //width: calculaterem(672px);
 }
 
-.vacancy-card__header-wrapper {
-  margin-bottom: calculaterem(15px);
+@include media-breakpoint-up(md) {
+  .vacancy-card__header-wrapper {
+    margin-bottom: calculaterem(12px);
+  }
 }
 
 .vacancy-card__header {
   line-height: calculaterem(22px);
   font-size: calculaterem(19px);
   height: calculaterem(58px);
+  margin-bottom: calculaterem(6px);
+}
+
+@include media-breakpoint-up(md) {
+  .vacancy-card__header {
+    margin-bottom: 0;
+  }
 }
 
 .vacancy-card__subheader {
   line-height: calculaterem(25px);
   font-size: calculaterem(14px);
+  margin-bottom: calculaterem(16px);
+}
+
+@include media-breakpoint-up(md) {
+  .vacancy-card__subheader {
+    margin-bottom: 0;
+  }
+}
+
+.vacancy-card__figure {
+  width: calculaterem(145px);
+  height: calculaterem(113px);
+  margin-bottom: calculaterem(8px);
+}
+
+.vacancy-card__image {
+  max-width: calculaterem(114px);
+  max-height: calculaterem(76px);
+}
+
+@include media-breakpoint-up(md) {
+  .vacancy-card__figure {
+    margin-bottom: 0;
+  }
 }
 
 .vacancy-card__body {
   padding: 0;
-  margin-bottom: calculaterem(6px);
+  margin-bottom: calculaterem(8px);
+}
+
+@include media-breakpoint-up(md) {
+  .vacancy-card__body {
+    padding: 0;
+    margin-bottom: calculaterem(6px);
+  }
 }
 
 .vacancy-card__text {
@@ -40,7 +80,7 @@
 @include media-breakpoint-up(md) {
   .vacancy-card__link {
     display: inline;
-    padding-left: calculaterem(40px);
+    padding-left: 10rem;
   }
 }
 

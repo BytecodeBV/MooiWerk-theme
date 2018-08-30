@@ -16,12 +16,21 @@
 .hero__header {
   line-height: 3.6875rem;
   font-size: 3rem;
+  font-weight: 700;
+  color: $black;
 }
 
 .hero__sub-header {
-  font-size: 1.375rem;
-  line-height: 3.6875rem;
-  padding-left: .9rem
+  @include header_2;
+
+  padding-left: 0.9rem;
+  margin-bottom: calculaterem(31px);
+}
+
+@include media-breakpoint-up(lg) {
+  .hero__sub-header {
+    margin-bottom: calculaterem(27px);
+  }
 }
 
 .hero__form {
@@ -43,6 +52,7 @@
   padding: calculaterem(19px) calculaterem(17px);
   width: 100%;
   margin-bottom: calculaterem(18px);
+  box-shadow: 0 -0.09rem 0.5rem rgba(0, 0, 0, 0.2) !important; //box-shadow: -.5rem -0.2rem 2rem rgba(0, 0, 0, 0.2) !important;
 }
 
 @include media-breakpoint-up(md) {
@@ -64,6 +74,7 @@
   color: $white;
   height: 4.25rem;
   margin-bottom: calculaterem(93px);
+  width: 100%;
 }
 
 @include media-breakpoint-up(md) {
@@ -71,4 +82,9 @@
     width: 10.75rem !important;
     margin-bottom: 0 !important;
   }
+}
+
+.hero-banner {
+  min-height: 320px;
+  width: 100%;
 }

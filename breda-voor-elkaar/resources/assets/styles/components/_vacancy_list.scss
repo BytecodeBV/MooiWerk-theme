@@ -8,22 +8,27 @@
 
 .vacancy__title {
   margin-bottom: 2.8125rem;
+
+  @include header_1;
 }
 
 .vacancy-sidebar {
-  padding: 0 calculaterem(14px);
+  //padding: 0 calculaterem(14px);
+  align-items: start;
 }
 
+/*
 @include media-breakpoint-up(lg) {
   .vacancy-sidebar {
     padding: 0 calculaterem(33px);
   }
 }
+*/
 
 .vacancy-sidebar___header {
-  font-size: calculaterem(22px);
-  line-height: calculaterem(29px);
-  font-weight: 800;
+  @include header_2;
+
+  color: $white;
   padding-top: calculaterem(29px);
   margin-bottom: calculaterem(17px);
 }
@@ -43,8 +48,8 @@
   height: calculaterem(48px);
   width: calculaterem(165px);
   margin-bottom: calculaterem(32px);
-  line-height: calculaterem(26px);
-  font-size: calculaterem(16px);
+
+  @include bold_1;
 }
 
 //.vacancy__lists {}
@@ -57,11 +62,9 @@
   width: 8.25rem;
   height: 3rem;
   background: $black;
-  color: white;
   text-align: center;
-  line-height: calculaterem(35px);
-  font-size: calculaterem(22px);
-  font-family: $headings-font-family;
+
+  @include bold_2;
 }
 
 .vacancy-tab__content {
@@ -71,7 +74,10 @@
   background: $white;
 }
 
-//.vacancy-tab__header {}
+.vacancy-tab__header {
+  @include header_2;
+}
+
 .vacancy-tab__subheader {
   line-height: calculaterem(29px);
   font-size: calculaterem(22px);
@@ -81,11 +87,9 @@
 .vacancy-tab__body {
   line-height: calculaterem(24px);
   font-size: calculaterem(16px);
-  margin-bottom: calculaterem(16px);
+  margin-bottom: calculaterem(32px);
 }
 
 .vacancy-tab__link {
-  line-height: calculaterem(26px);
-  font-size: calculaterem(16px);
-  font-weight: 800;
+  @include bold_1;
 }

@@ -7,6 +7,7 @@
 use Roots\Sage\Config;
 use Roots\Sage\Container;
 
+//define('WPLANG', 'nl_NL');
 /**
  * Helper function for prettying up errors
  * @param string $message
@@ -59,8 +60,7 @@ array_map(function ($file) use ($sage_error) {
         $sage_error(sprintf(__('Error locating <code>%s</code> for inclusion.', 'sage'), $file), 'File not found');
     }
 }, ['helpers', 'setup', 'filters', 'actions', 'admin',
-    'lib/widget_walker', 'shortcodes/links', 'shortcodes/info_boxes',
-    'shortcodes/postgrid', 'shortcodes/courses']);
+    'lib/widget_walker', 'lib/bootstrap_comment_walker']);
 
 /**
  * Here's what's happening with these hooks:

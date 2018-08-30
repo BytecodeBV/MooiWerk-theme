@@ -2,11 +2,11 @@
     <div class="container d-flex justify-content-center d-md-block">
         <div class="card-deck top-news__cards">
             
-            @foreach($contentdeck as $card)
+            @foreach($vacancies as $card)
                 <div class="card top-news__card">
-                    <div class="card-body">
+                    <div class="card-body d-flex align-items-start flex-column">
                         <h3 class="card-title">{{ $card['title'] }}</h3>
-                        <p class="card-text">{{ $card['content'] }}</p>
+                        <p class="card-text mb-auto">{{ strip_tags($card['content']) }}</p>
                         <a href="{{ $card['link'] }}">lees meer ›</a>
                     </div>
                 </div>
@@ -22,8 +22,8 @@
 
             @endforeach
             
-            @empty($contentdeck)    
-                <div>No content block found</div>
+            @empty($vacancies)    
+                <div class="aert alert-warning">Geen cursus gevonden</div>
             @endempty
         </div>
     </div>

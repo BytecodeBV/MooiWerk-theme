@@ -6,60 +6,81 @@ use Sober\Controller\Controller;
 
 class FrontPage extends Controller
 {
-    public function contentdeck()
+    public function vacancies()
     {
         $args = array(
-            'post_type' => array('content'),
+            'post_type' => array('vacancies'),
             'posts_per_page' => 4,
         );
 
         $query = new \WP_Query($args);
-        return array_map(function ($post) {
+        $return = array_map(function ($post) {
             return [
                 'title' => $post->post_title,
-                'content' => get_field("snippet", $post->ID),
-                'link' => get_field("link", $post->ID),
+                'content' => wp_kses_post(wp_trim_words($post->post_content, 9, '.')),
+                'link' => get_permalink($post->ID),
             ];
         }, $query->posts);
+        wp_reset_postdata();
+        return $return;
     }
 
-    public function links()
-    {
-        $args = array(
-            'post_type' => array('link'),
-            'posts_per_page' => 9,
-        );
 
-        $query = new \WP_Query($args);
-        return array_map(function ($post) {
+    public function categories()
+    {
+        $cat = [
+            '(huis)dieren',
+            'Administratie',
+            'Boodschappen',
+            'Computer',
+            'Digitaal en IT',
+            'Erop uit',
+            'Evenementen',
+            'Gastvrouw-heer',
+            'Gezelschap',
+            'Huishoudelijk',
+            'Huiswerkbegeleiding',
+            'Oppas',
+            'Sporten',
+            'Vervoer',
+            'Vluchtelingenondersteuning',
+            'Activiteitenbegeleiding',
+        ];
+        shuffle($cat);
+
+        $return = array_map(function ($item) {
             return [
-                'title' => $post->post_title,
-                'link' => get_field("url", $post->ID),
+                'title' => $item,
+                'url' => home_url('/organisaties/'). '?categorie=' .urlencode($item),
             ];
-        }, $query->posts);
+        }, array_slice($cat, 0, 9));
+
+        return $return;
     }
 
     public function courses()
     {
         $args = array(
-            'post_type' => array('course'),
+            'post_type' => array('class'),
             'posts_per_page' => 3,
         );
         $query = new \WP_Query($args);
-        return array_map(function ($post) {
+        $return = array_map(function ($post) {
             return [
                 'title' => $post->post_title,
-                'link' => $post->post_permalink,
+                'link' => get_permalink($post->ID),
                 'excerpt' => wp_kses_post(wp_trim_words($post->post_content, 40, '...')),
-                'date' =>  date_format(date_create(get_field("date", $post->ID)), "d M"),
-                'lesson' => get_field("lesson", $post->ID),
+                'date' =>  date_i18n("j M", strtotime(get_field("date", $post->ID))),
+                'lesson' => get_field("sub_title", $post->ID),
             ];
         }, $query->posts);
+        wp_reset_postdata();
+        return $return;
     }
 
     public function courseLink()
     {
-        return \get_post_type_archive_link('vacancies');
+        return home_url('/Vrijwilligersacademie');
     }
 
     public function courseIntro()
@@ -86,18 +107,20 @@ class FrontPage extends Controller
         );
 
         $query = new \WP_Query($args);
-        return array_map(function ($post) {
+        $return = array_map(function ($post) {
             return [
                 'title' => $post->post_title,
                 'excerpt' => $post->post_content,
-                'link' => \get_permalink($post->ID),
-                'image_link' => \get_the_post_thumbnail_url($post->ID, [500, 500]),
+                'link' => get_permalink($post->ID),
+                'image_link' => get_the_post_thumbnail_url($post->ID, [500, 500]),
             ];
         }, $query->posts);
+        wp_reset_postdata();
+        return $return;
     }
 
     public function newsTitle()
     {
-        return 'Latest News';
+        return 'Nieuws';
     }
 }

@@ -17,16 +17,16 @@ class App extends Controller
             if ($home = get_option('page_for_posts', true)) {
                 return get_the_title($home);
             }
-            return __('Latest Posts', 'sage');
+            return __('Laatste berichten', 'sage');
         }
         if (is_archive()) {
             return get_the_archive_title();
         }
         if (is_search()) {
-            return sprintf(__('Search Results for %s', 'sage'), get_search_query());
+            return sprintf(__('Resultaten voor %s', 'sage'), get_search_query());
         }
         if (is_404()) {
-            return __('Not Found', 'sage');
+            return __('Niet gevonden', 'sage');
         }
         return get_the_title();
     }
@@ -42,28 +42,22 @@ class App extends Controller
         );
         return $args;
     }
-
-    // custom menu
-    public static function getCleanMenu($menu_slug)
+   
+    public function share()
     {
-        $menu_name = $menu_slug;
-        if (($locations = get_nav_menu_locations()) && isset($locations[$menu_name])) {
-            $menu = wp_get_nav_menu_object($locations[$menu_name]);
-            $menu_items = wp_get_nav_menu_items($menu->term_id);
+        global $post;
+        global $wp;
 
-            $menu_list = '<div id="main-nav" class="collapse navbar-collapse">' . "\n";
-            $menu_list .= "\t\t\t\t" . '<ul class="navbar-nav ml-auto">' . "\n";
-            foreach ((array) $menu_items as $key => $menu_item) {
-                $title = $menu_item->title;
-                $url = $menu_item->url;
-                $menu_list .= "\t\t\t\t\t" . '<li class="nav-item"><a href="' . $url . '" class="nav-link">' . $title . '</a></li>' . "\n";
-            }
-            $menu_list .= "\t\t\t\t" . '</ul>' . "\n";
-            $menu_list .= "\t\t\t" . '</div>' . "\n";
-        } else {
-            // $menu_list = '<!-- no list defined -->';
-        }
-        return $menu_list;
+        $url = home_url(add_query_arg(array(), $wp->request));
+        $title = str_replace(' ', '+', $post->post_title);
+        $language = get_locale();
+        $summary = str_replace(' ', '+', $post->post_excerpt);
+        return [
+            'twitter' => "https://twitter.com/intent/tweet?url={$url}&text={$summary}",
+            'facebook' => "https://www.facebook.com/sharer.php?u={$url}",
+            'linkedin' => "https://www.linkedin.com/shareArticle?mini=true&".
+                "url={$url}&title={$title}&summary={$summary}",
+            'gplus' => "https://plus.google.com/share?url={$url}&text={$summary}&hl={$language}",
+        ];
     }
-
 }

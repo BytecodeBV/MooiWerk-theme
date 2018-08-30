@@ -2,9 +2,14 @@
   padding-top: calculaterem(63px);
   line-height: calculaterem(24px);
   font-size: calculaterem(16px);
-  background-image: url('../images/vacancy-detail-background.png');
-  background-repeat: no-repeat;
-  background-position: top calculaterem(675px) right 0;
+}
+
+@include media-breakpoint-up(xl) {
+  .cv {
+    background-image: url('../images/vacancy-detail-background.png');
+    background-repeat: no-repeat;
+    background-position: top calculaterem(675px) right 0;
+  }
 }
 
 .cv__header {
@@ -15,35 +20,81 @@
   line-height: calculaterem(59px);
   font-size: calculaterem(48px);
   font-weight: 800;
-  max-width: calculaterem(832px);
-  height: calculaterem(118px);
+  max-width: calculaterem(832px); //height: calculaterem(118px);
   margin-bottom: calculaterem(26px); //0.8%;
+  word-wrap: break-word;
 }
 
 .cv__detail {
   line-height: calculaterem(25px);
   font-size: calculaterem(14px);
   max-width: calculaterem(499px);
-  margin-bottom: 0.1%
+  margin-bottom: 0.1%;
 }
 
 .cv__social-bar {
   border-top: calculaterem(2px) solid $black;
   height: calculaterem(37px);
   padding: 0.3% 0 0 0;
+  margin: 0 calculaterem(15px);
 }
 
 .cv__links,
 .cv__social-icons {
-  margin-bottom: calculaterem(20px);
+  margin-bottom: 3rem;
 }
 
-.cv__link {
+@include media-breakpoint-up(sm) {
+  .cv__links,
+  .cv__social-icons {
+    margin-bottom: calculaterem(20px);
+  }
+}
+
+.cv__social-icons {
+  border-top: calculaterem(1px) solid $black;
+  padding: 0 0 calculaterem(15px);
+}
+
+@include media-breakpoint-up(sm) {
+  .cv__social-icons {
+    border-top: none;
+    padding: 0;
+  }
+}
+
+.cv__social-icons a {
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+/*
+.cv__links {
+  visibility: hidden;
+}
+*/
+
+.cv__links input[type='submit'] {
   line-height: calculaterem(21px);
   font-size: calculaterem(16px);
   font-weight: 800;
   margin-right: calculaterem(12px);
   min-width: calculaterem(163px);
+  font-family: $headings-font-family;
+  background: transparent;
+  color: $black;
+  text-align: left;
+  padding-left: 0;
+}
+
+.cv__link {
+  line-height: 1.3125rem;
+  font-size: 1rem;
+  font-weight: 800;
+  margin-right: 0.75rem;
+  min-width: 10.1875rem;
   font-family: $headings-font-family;
 }
 
@@ -65,12 +116,15 @@
   padding-bottom: calculaterem(80px);
 }
 
+/*
+.cv__profile {
+  padding-left: 0;
+}
+*/
+
 .cv__title {
   line-height: calculaterem(29px);
   font-size: calculaterem(22px);
-}
-
-.cv__title {
   margin-bottom: calculaterem(10px);
 }
 
