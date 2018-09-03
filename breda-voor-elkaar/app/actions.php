@@ -58,18 +58,29 @@ add_action('init', function () {
     $organisation = get_page_by_title('Registreer Organisatie');
     $volunteer = get_page_by_title('Registreer Vrijwilliger');
     
-    if (strpos($_SERVER["REQUEST_URI"], $organisation->post_name) || strpos($_SERVER["REQUEST_URI"], $volunteer->post_name) || isset($_POST['type'])) {
-        //(strpos($_SERVER["REQUEST_URI"], 'volunteer') || $_POST['type'] == 'volunteer') ?'volunteer':'organisation'
+    if (!is_null($organisation) && strpos($_SERVER["REQUEST_URI"], $organisation->post_name)) {
         tml_add_form_field('register', 'type', array(
             'type'     => 'hidden',
             'value'    => 'organisation',
+            'priority' => 35,
+        ));
+    } elseif (!is_null($volunteer) && strpos($_SERVER["REQUEST_URI"], $volunteer->post_name)) {
+        tml_add_form_field('register', 'type', array(
+            'type'     => 'hidden',
+            'value'    => 'volunteer',
+            'priority' => 35,
+        ));
+    } elseif (isset($_POST['type'])) {
+        tml_add_form_field('register', 'type', array(
+            'type'     => 'hidden',
+            'value'    => $_POST['type'],
             'priority' => 35,
         ));
     } else {
         tml_add_form_field('register', 'type', array(
             'type'     => 'dropdown',
             'label'    => 'Rol',
-            'options'   => ['' => 'Standaard', /*'volunteer' => 'Vrijwilliger',*/ 'organisation' => 'Organisatie'],
+            'options'   => ['' => 'Standaard', 'volunteer' => 'Vrijwilliger', 'organisation' => 'Organisatie'],
             'id'       => 'type',
             'priority' => 15,
             'class' => 'form-control',
@@ -105,7 +116,6 @@ add_action('user_register', function ($user_id) {
     }
 
     update_field('logged-in', false, 'user_'.$user_id);
-    
 });
 
 
