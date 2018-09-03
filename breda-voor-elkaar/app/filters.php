@@ -89,14 +89,11 @@ add_filter('widget_nav_menu_args', function ($nav_menu_args) {
 
 //validate custom theme my login registration fields
 add_filter('registration_errors', function ($errors) {
-    if (empty($_POST['role'])) {
-        $errors->add(
-            'empty_role',
-            __(
-                '<div class="alert"><strong>ERROR<strong>: Please seect a role.</div>',
-                'mooiwerk'
-            )
-        );
+    if (empty($_POST['firstname'])) {
+        $errors->add('empty_first_name', '<strong>FOUT</strong>: Gelieve uw voornaam in te vullen..');
+    }
+    if (empty($_POST['lastname'])) {
+        $errors->add('empty_last_name', '<strong>FOUT</strong>: Gelieve uw achternaam in te voeren.');
     }
     return $errors;
 });
@@ -200,16 +197,20 @@ add_filter('wp_mail_from_name', function ($original_email_from) {
     return 'Mooiwerk Breda';
 });
 
+/*
 //Change email to HTML
 add_filter('wp_mail_content_type', function ($content_type) {
     return 'text/html';
 });
+*/
+
 
 //Add signature to email
 add_filter('wp_mail', function ($mail) {
     $mail['message'] .= '<br><br>Deze email is verstuurd vanuit <a href="mooiwerkbreda.nl">Mooiwerk Breda</a>';
     return $mail;
 });
+
 
 // Sets reply-to if it doesn't exist already.
 add_filter('wp_mail', function ($args) {
@@ -224,7 +225,7 @@ add_filter('wp_mail', function ($args) {
         return $args;
     }
 
-    $site_name = get_option('blogname');
+    $site_name = 'Mooiwerk Breda';
     $admin_email = get_option('admin_email');
 
     $reply_to_line = "Reply-To: $site_name <$admin_email>";
@@ -240,33 +241,41 @@ add_filter('wp_mail', function ($args) {
     return $args;
 });
 
+
 /**
  * In WP Admin filter Edit-Comments.php so it shows current users comments only
  * Runs only for the Author role.
  */
 add_filter('pre_get_comments', function ($query) {
-    
+        
     if (!is_singular('vacancies')) {
         return $query;
     }
         
-    if (get_current_user_id() !== get_the_author_meta('ID') || !current_user_can('administrator')) {
-        $query->query_vars['post_author'] = get_current_user_id() ;
+    if (get_current_user_id() !== get_the_author_meta('ID')) {
+        $query->query_vars['author__in'] = [get_current_user_id(), get_the_author_meta('ID')] ;
     }
 
     return $query;
 });
 
-/*
-//enable comments by default for vacancy post type
-add_filter('wp_insert_post_data', function ($data) {
-    if ($data['post_type'] == 'vacancies') {
-        $data['comment_status'] = 1;
+add_filter('login_redirect', function ($url, $query, $user) {
+    $role = $user->roles[0];
+    $custom_home = home_url('/mijn-account');
+    $setup_page = get_page_by_title('Opstelling');
+    $setup_home = home_url('/'.$setup_page->post_name);
+    if (in_array('organisation', (array) $user->roles)) {
+        if (get_field('logged-in', "user_".$user->ID) == false) {
+            //Redirect users to mijn-account
+            $url = $setup_home;
+        } else {
+            //Redirect users to mijn-account
+            $url = $custom_home;
+        }
     }
 
-    return $data;
-});
-*/
+    return $url;
+}, 10, 3);
 
 /**
  * Redirect users to custom URL based on their role after login
@@ -281,10 +290,18 @@ add_filter('woocommerce_login_redirect', function ($redirect, $user) {
     $role = $user->roles[0];
     $dashboard = admin_url();
     $custom_home = home_url('/mijn-account');
+    $setup_page = get_page_by_title('Opstelling');
+    $setup_home = home_url('/'.$setup_page->post_name);
     $myaccount = get_permalink(wc_get_page_id('myaccount'));
-    if (in_array('volunteer', (array) $user->roles) || in_array('organisation', (array) $user->roles)) {
-        //Redirect users to mijn-account
-        $redirect = $custom_home;
+    //in_array('volunteer', (array) $user->roles) ||
+    if (in_array('organisation', (array) $user->roles)) {
+        if (get_field('logged-in', "user_".$user->ID) == false) {
+            //Redirect users to mijn-account
+            $redirect = $setup_home;
+        } else {
+            //Redirect users to mijn-account
+            $redirect = $custom_home;
+        }
     } elseif ($role == 'customer' || $role == 'subscriber') {
         //Redirect customers and subscribers to the "My Account" page
         $redirect = $myaccount;
@@ -299,7 +316,7 @@ add_filter('woocommerce_login_redirect', function ($redirect, $user) {
 add_filter('woocommerce_prevent_admin_access', '__return_false');
 
 // Add New Fields to woocommerce billing address
-add_filter('woocommerce_checkout_fields' , function ($fields) {
+add_filter('woocommerce_checkout_fields', function ($fields) {
     $fields['billing']['interpolation'] = array(
         'label'     => __('Tussenvoeging', 'woocommerce'),
         'placeholder'   => _x('Tussenvoeging', 'placeholder', 'woocommerce'),
@@ -318,9 +335,52 @@ add_filter('woocommerce_checkout_fields' , function ($fields) {
 });
 
 // Add Billing House # to Address Fields
- 
 add_filter('woocommerce_order_formatted_billing_address', function ($fields, $order) {
     $fields['billing_interpolation'] = get_post_meta($order->id, '_billing_interpolation', true);
     $fields['billing_title'] = get_post_meta($order->id, '_billing_title', true);
     return $fields;
 }, 10, 2);
+
+// acf/load_value/key={$field_key} - filter for a specific field based on it's name
+add_filter('acf/load_value/key=field_5b7efba009d6d', function ($value, $post_id, $field) {
+    // run the_content filter on all textarea values
+    if (empty($value)) {
+        $value = date('Y-m-d', strtotime("+3 months", strtotime("now")));
+    }
+    
+
+    return $value;
+}, 10, 3);
+
+add_filter('tml_shortcode', function ($content, $form, $arg) {
+
+    if ($form == 'login') {
+        $organisation = get_page_by_title('Registreer Organisatie');
+        $content = str_replace(
+            '<li class="tml-register-link"><a href="'.home_url('/registreren/').'">Registreren</a></li>',
+            '<li class="tml-register-link"><a href="'.home_url('/'.$organisation->post_name).'">Registreer Organisatie</a></li>',
+            $content
+        );
+    }
+
+    return $content;
+}, 10, 3);
+
+add_filter("page_template", function ($template) {
+    global $post;
+    if (in_array(
+        $post->post_title,
+        [
+        'Opstelling',
+        'Uitloggen',
+        'Registreren',
+        'Registreer Organisatie',
+        'Registreer Vrijwilliger',
+        'Maak hier een veilig wachtwoord aan',
+        'Wachtwoord reset'
+        ]
+    )) {
+        $template = get_template_directory() .'/views/template-centered.blade.php';
+    }
+    return $template;
+});

@@ -76,7 +76,7 @@ class Bootstrap_Comment_Walker extends Walker_Comment
 					    <p class="card-text comment-awaiting-moderation label label-info text-muted small"><?php _e('Your comment is awaiting moderation.'); ?></p>
 					<?php endif; ?>							
 				</div>
-			</div>
+			
         <?php
     }
 }

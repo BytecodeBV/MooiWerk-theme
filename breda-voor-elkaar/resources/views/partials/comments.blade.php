@@ -7,7 +7,8 @@ if (post_password_required()) {
 <section id="comments" class="comments mt-3">
   @if (have_comments())
     <h2>
-      {!! sprintf(_nx('One response to &ldquo;%2$s&rdquo;', '%1$s responses to &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'sage'), number_format_i18n(get_comments_number()), '<span>' . get_the_title() . '</span>') !!}
+        Reacties
+      {{-- sprintf(_nx('One response to &ldquo;%2$s&rdquo;', '%1$s responses to &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'sage'), number_format_i18n(get_comments_number()), '<span>' . get_the_title() . '</span>') --}}
     </h2>
 
     <ol class="medias mt-5 px-sm-0 mx-sm-0">
@@ -64,7 +65,7 @@ if (post_password_required()) {
     );
     $comments_args = array(
         // change "Leave a Reply" to "Comment"
-        'title_reply'=>'Discuss this post ?',
+        'title_reply'=>'Reageer op deze vacature?',
         'fields' => apply_filters( 'comment_form_default_fields', $fields ),
         'comment_field' =>  '<p class="comment-form-comment"><div class="form-group"><label for="comment">' . _x( 'Comment', 'noun' ) .
         '</label><textarea id="comment" name="comment" class="form-control"  cols="30" rows="4" aria-required="true">' .

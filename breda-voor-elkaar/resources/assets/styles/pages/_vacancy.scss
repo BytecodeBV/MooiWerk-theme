@@ -164,3 +164,60 @@
   margin-right: 6.3%;
   min-width: calculaterem(28.75px);
 }
+
+.vacancy__meta .card {
+  padding: 1rem !important;
+  border: none;
+  margin-bottom: 1rem;
+  -webkit-transition: 0.5s all ease;
+  -moz-transition: 0.5s all ease;
+  transition: 0.5s all ease;
+}
+
+.vacancy__meta .card:hover {
+  box-shadow: calculaterem(5px) calculaterem(7px) calculaterem(9px) -calculaterem(4px) rgb(158, 158, 158);
+}
+
+.vacancy__meta .card .card-block {
+  padding-left: 50px;
+  position: relative;
+}
+
+.vacancy__meta .card .card-block::before {
+  font-family: 'Font Awesome 5 Free';
+  position: absolute;
+  font-size: 2rem;
+  color: $black;
+  left: 0;
+  top: calculaterem(5px);
+  transition: transform 0.2s ease-in-out;
+}
+
+.vacancy__meta .card .block-1::before {
+  content: "\f279";
+}
+
+.vacancy__meta .card .block-2::before {
+  content: "\f273";
+}
+
+.vacancy__meta .card .block-3::before {
+  content: "\f251";
+}
+
+.vacancy__meta .card .block-4::before {
+  content: "\f248";
+}
+
+.vacancy__meta .card .block-5::before {
+  content: "\f140";
+}
+
+.vacancy__meta .card .block-6::before {
+  content: "\f073";
+}
+
+.vacancy__meta .card:hover .card-block::before {
+  transform: rotate(360deg);
+  transition: 0.5s all ease;
+}
