@@ -356,13 +356,16 @@ add_filter('tml_shortcode', function ($content, $form, $arg) {
 
     if ($form == 'login') {
         $organisation = get_page_by_title('Registreer Organisatie');
-        $content = str_replace(
-            '<li class="tml-register-link"><a href="'.home_url('/registreren/').'">Registreren</a></li>',
-            '<li class="tml-register-link"><a href="'.home_url('/'.$organisation->post_name).'">Registreer Organisatie</a></li>',
-            $content
-        );
+        $volunteer = get_page_by_title('Registreer Vrijwilliger');
+        if (!is_null($organisation) && !is_null($volunteer)) {
+            $content = str_replace(
+                '<li class="tml-register-link"><a href="'.home_url('/registreren/').'">Registreren</a></li>',
+                '<li class="tml-register-link"><a href="'.home_url('/'.$organisation->post_name).'">Registreer Organisatie</a></li>'.
+                '<li class="tml-register-link"><a href="'.home_url('/'.$volunteer->post_name).'">Registreer Vrijwilliger</a></li>',
+                $content
+            );
+        }
     }
-
     return $content;
 }, 10, 3);
 
@@ -371,13 +374,13 @@ add_filter("page_template", function ($template) {
     if (in_array(
         $post->post_title,
         [
-        'Opstelling',
-        'Uitloggen',
-        'Registreren',
-        'Registreer Organisatie',
-        'Registreer Vrijwilliger',
-        'Maak hier een veilig wachtwoord aan',
-        'Wachtwoord reset'
+            'Opstelling',
+            'Uitloggen',
+            'Registreren',
+            'Registreer Organisatie',
+            'Registreer Vrijwilliger',
+            'Maak hier een veilig wachtwoord aan',
+            'Wachtwoord reset'
         ]
     )) {
         $template = get_template_directory() .'/views/template-centered.blade.php';
