@@ -147,7 +147,7 @@ add_filter('pre_get_posts', function ($query) {
     if (!is_admin() && $query->is_main_query()) {
         //alter query to include custom post types in search
         if ($query->is_search) {
-            if (!empty($_GET['type'])) {
+            if (!empty($_GET['type']) && $_GET['type'] != '*') {
                 $query->set('post_type', array( $_GET['type'] ));
             } else {
                 $query->set('post_type', array( 'post', 'class', 'vacancies' ));
