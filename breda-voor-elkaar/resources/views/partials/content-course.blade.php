@@ -8,7 +8,7 @@
                         <div class="vacancy-sidebar___text">
                             {!! $course_description !!}
                         </div>
-                        <a href="{{$course_link}}" class="btn btn-light d-block mx-auto vacancy-sidebar___button">alle cursussen ›</a>
+                        <a href="{{$course_link}}" class="btn btn-light d-block mx-auto vacancy-sidebar___button">{{__('alle cursussen ›', 'sage')}}</a>
                     </div>
                 </sidebar>
                 <div class="w-100 d-lg-none my-3">
@@ -20,7 +20,7 @@
                     @endforeach
 
                     @empty($courses)
-                        <div class="alert alert-warning">Geen cursussen gevonden </div>
+                        <div class="alert alert-warning">{{__('Geen cursussen gevonden', 'sage')}}</div>
                     @endempty
                 </div>
             </div>

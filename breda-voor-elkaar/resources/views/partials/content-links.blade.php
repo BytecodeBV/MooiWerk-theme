@@ -1,6 +1,6 @@
 <section class="news-list">
     <div class="container">
-        <h3 class="news-list__header">Of bent u op zoek na Copy</h3>
+        <h3 class="news-list__header">{{__('Of bent u op zoek na Copy', 'sage')}}</h3>
         <div class="row">
             
             @foreach($categories as $link)
@@ -22,7 +22,7 @@
             @endforeach
             
             @empty($categories)
-                <div class="alert alert-warning"> Geen links gevonden</div>
+                <div class="alert alert-warning">{{__('Geen links gevonden', 'sage')}}</div>
             @endempty
 
         </div>

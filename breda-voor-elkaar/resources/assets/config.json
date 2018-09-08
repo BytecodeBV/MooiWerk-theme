@@ -9,7 +9,7 @@
         ]
     },
     "publicPath": "/wp-content/themes/breda-voor-elkaar",
-    "devUrl": "http://localhost/wordpress",
+    "devUrl": "http://localhost/mooiwerk",
     "proxyUrl": "http://localhost:3000",
     "cacheBusting": "[name]_[hash:8]",
     "watch": [

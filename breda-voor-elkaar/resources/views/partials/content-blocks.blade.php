@@ -7,7 +7,7 @@
                     <div class="card-body d-flex align-items-start flex-column">
                         <h3 class="card-title">{{ $card['title'] }}</h3>
                         <p class="card-text mb-auto">{{ strip_tags($card['content']) }}</p>
-                        <a href="{{ $card['link'] }}">lees meer ›</a>
+                        <a href="{{ $card['link'] }}">{{__('lees meer ›', 'sage')}}</a>
                     </div>
                 </div>
                 <div class="w-100 d-sm-none my-3">
@@ -23,7 +23,7 @@
             @endforeach
             
             @empty($vacancies)    
-                <div class="aert alert-warning">Geen cursus gevonden</div>
+                <div class="aert alert-warning">{{__('Geen cursus gevonden', 'sage')}}</div>
             @endempty
         </div>
     </div>

@@ -3,7 +3,7 @@
     <div class="card-body">
         <h5 class="card-title blog__item-title">{{ $item['title'] }}</h5>
         <p class="card-text">{{ $item['excerpt'] }}</p>
-        <a href="{{ $item['link'] }}" class="blog__item-link">lees meer ›</a>
+        <a href="{{ $item['link'] }}" class="blog__item-link">{{__('lees meer ›', 'sage')}}</a>
     </div>
 </div>
 

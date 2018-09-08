@@ -20,8 +20,7 @@
   </div>
   <div class="footer-menu__copyright">
         <div class="container">
-            <div class="text-center">© 2018 Mooi Werk - All rights reserved
-            </div>
+            <div class="text-center">{{__('© 2018 Mooi Werk - All rights reserved', 'sage')}}</div>
         </div>
     </div>
 </footer>

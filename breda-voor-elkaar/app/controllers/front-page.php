@@ -80,6 +80,10 @@ class FrontPage extends Controller
 
     public function courseLink()
     {
+        $class_page = get_page_by_title(__('Vrijwilligersacademie', 'mooiwerk'));
+        if (!empty($class_page)) {
+            return home_url('/'.$class_page->page_name);
+        }
         return home_url('/Vrijwilligersacademie');
     }
 
@@ -121,6 +125,6 @@ class FrontPage extends Controller
 
     public function newsTitle()
     {
-        return 'Nieuws';
+        return __('Nieuws', 'sage');
     }
 }

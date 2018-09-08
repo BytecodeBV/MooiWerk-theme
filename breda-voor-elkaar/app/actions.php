@@ -31,7 +31,7 @@ add_action('init', function () {
 add_action('init', function () {
     tml_add_form_field('register', 'firstname', array(
             'type'     => 'text',
-            'label'    => __('Voornaam'),
+            'label'    => __('Voornaam', 'sage'),
             'value'    => tml_get_request_value('firstname', 'post'),
             'id'       => 'firstname',
             'priority' => 5,
@@ -40,7 +40,7 @@ add_action('init', function () {
 
     tml_add_form_field('register', 'initials', array(
         'type'     => 'text',
-        'label'    => __('Tussenvoegsel'),
+        'label'    => __('Tussenvoegsel', 'sage'),
         'value'    => tml_get_request_value('initials', 'post'),
         'id'       => 'initials',
         'priority' => 5,
@@ -49,7 +49,7 @@ add_action('init', function () {
 
     tml_add_form_field('register', 'lastname', array(
             'type'     => 'text',
-            'label'    => __('Achternaam'),
+            'label'    => __('Achternaam', 'sage'),
             'value'    => tml_get_request_value('lastname', 'post'),
             'id'       => 'lastname',
             'priority' => 5,
@@ -80,7 +80,7 @@ add_action('init', function () {
         tml_add_form_field('register', 'type', array(
             'type'     => 'dropdown',
             'label'    => 'Rol',
-            'options'   => ['' => 'Standaard', 'volunteer' => 'Vrijwilliger', 'organisation' => 'Organisatie'],
+            'options'   => ['' => __('Standaard', 'sage'), 'volunteer' => __('Vrijwilliger', 'sage'), 'organisation' => __('Organisatie', 'sage')],
             'id'       => 'type',
             'priority' => 15,
             'class' => 'form-control',
@@ -129,7 +129,7 @@ add_action('init', function () {
 add_action('tml_registered_action', function ($action, $action_obj) {
     if ('lostpassword' == $action) {
         // This changes the page title
-        $action_obj->set_title('Wachtwoord vergeten');
+        $action_obj->set_title(__('Wachtwoord vergeten', 'sage'));
 
         // This changes the link text shown on other forms. Use any string value
         // to set the text directly, `true` to use the action title, or `false`
@@ -148,8 +148,9 @@ add_action('acf/init', function () {
 
 add_action('acf/submit_form', function ($form, $post_id) {
     $setup_page = get_page_by_title('Opstelling');
+    //error prone, page might be empty
     $setup_url = home_url('/'.$setup_page->post_name);
-    $redirect = home_url('/mijn-account');
+    $redirect = false;
     switch ($form['id']) {
         case 'stage-1':
             $redirect = add_query_arg('stage', 2, $setup_url);
@@ -161,13 +162,21 @@ add_action('acf/submit_form', function ($form, $post_id) {
             $redirect = add_query_arg('stage', 4, $setup_url);
             break;
         case 'stage-4':
+            //error prone, page might not exist
             $redirect = home_url('/mijn-account');
+            break;
+        case 'new-vacancy':
+            $post = get_post($post_id);
+            //error prone, object might be null
+            $redirect = home_url('/vacatures/').$post->post_name;
             break;
     }
     
-    // redirect
-    wp_redirect($redirect);
-    exit;
+    if ($redirect) {
+        // redirect
+        wp_redirect($redirect);
+        exit;
+    }
 }, 10, 2);
 
 //change wp-login logo

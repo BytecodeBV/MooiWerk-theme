@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 
 /**
@@ -90,57 +89,13 @@ add_filter('widget_nav_menu_args', function ($nav_menu_args) {
 //validate custom theme my login registration fields
 add_filter('registration_errors', function ($errors) {
     if (empty($_POST['firstname'])) {
-        $errors->add('empty_first_name', '<strong>FOUT</strong>: Gelieve uw voornaam in te vullen..');
+        $errors->add('empty_first_name', __('<strong>FOUT</strong>: Gelieve uw voornaam in te vullen.', 'sage'));
     }
     if (empty($_POST['lastname'])) {
-        $errors->add('empty_last_name', '<strong>FOUT</strong>: Gelieve uw achternaam in te voeren.');
+        $errors->add('empty_last_name', __('<strong>FOUT</strong>: Gelieve uw achternaam in te voeren.', 'sage'));
     }
     return $errors;
 });
-
-/**
- * Translate TML ddefault domain text to Dutch.
- *
- * @param string $translation  Translated text.
- * @param string $text         Text to translate.
- * @param string $domain       Text domain. Unique identifier for retrieving translated strings.
- *
- * @return string
- */
-add_filter('gettext', function ($translation, $text, $domain) {
-    // The 'default' text domain is reserved for the WP core. If no text domain
-    // is passed to a gettext function, the 'default' domain will be used.
-    if ('default' === $domain && 'You are now logged out.' === $text) {
-        $translation = "This is the modified version of the original string...";
-    }
-
-    if ('default' === $domain && 'User registration is currently not allowed.' === $text) {
-        $translation = "This is the modified version of the original string...";
-    }
-
-    if ('default' === $domain && 'Registration complete. Please check your email.' === $text) {
-        $translation = "This is the modified version of the original string...";
-    }
-
-    if ('default' === $domain && 'Check your email for the confirmation link.' === $text) {
-        $translation = "This is the modified version of the original string...";
-    }
-
-    if ('default' === $domain && 'Check your email for your new password.' === $text) {
-        $translation = "This is the modified version of the original string...";
-    }
-    
-    if ('default' === $domain && 'Your password has been reset.' === $text) {
-        $translation = "This is the modified version of the original string...";
-    }
-
-    if ('default' === $domain && '<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new.' === $text) {
-        $translation = "This is the modified version of the original string...";
-    }
-
-    return $translation;
-}, 10, 3);
-
 
 //alter main query
 add_filter('pre_get_posts', function ($query) {
@@ -164,7 +119,7 @@ add_filter('pre_get_posts', function ($query) {
 
 //Change wp-loign title
 add_filter('login_headertitle', function () {
-    return 'Mooiwerk';
+    return __('Mooiwerk', 'sage');
 });
 
 /*
@@ -179,6 +134,7 @@ add_filter('woocommerce_get_myaccount_page_permalink', function ($permalink) {
 
 //set age to select instead of checkbox
 add_filter('acf/prepare_field/key=field_5b7ef21994886', function ($field) {
+    //semantic error prone, account page might not use the given slug
     if (is_page('mijn-account')) {
         $field['type'] = 'select';
     }
@@ -194,20 +150,12 @@ add_filter('wp_mail_from', function ($original_email_address) {
  
 //Change email from name
 add_filter('wp_mail_from_name', function ($original_email_from) {
-    return 'Mooiwerk Breda';
+    return __('Mooiwerk Breda', 'sage');
 });
-
-/*
-//Change email to HTML
-add_filter('wp_mail_content_type', function ($content_type) {
-    return 'text/html';
-});
-*/
-
 
 //Add signature to email
 add_filter('wp_mail', function ($mail) {
-    $mail['message'] .= '<br><br>Deze email is verstuurd vanuit <a href="mooiwerkbreda.nl">Mooiwerk Breda</a>';
+    $mail['message'] .= '<br><br>'.sprintf(__('Deze email is verstuurd vanuit <a href="%s">Mooiwerk Breda</a>', 'sage'), home_url());
     return $mail;
 });
 
@@ -225,7 +173,7 @@ add_filter('wp_mail', function ($args) {
         return $args;
     }
 
-    $site_name = 'Mooiwerk Breda';
+    $site_name = __('Mooiwerk Breda', 'sage');
     $admin_email = get_option('admin_email');
 
     $reply_to_line = "Reply-To: $site_name <$admin_email>";
@@ -261,6 +209,7 @@ add_filter('pre_get_comments', function ($query) {
 
 add_filter('login_redirect', function ($url, $query, $user) {
     $role = $user->roles[0];
+    //semantic error prone, page might go by a different slug
     $custom_home = home_url('/mijn-account');
     $setup_page = get_page_by_title('Opstelling');
     $setup_home = home_url('/'.$setup_page->post_name);
@@ -318,15 +267,15 @@ add_filter('woocommerce_prevent_admin_access', '__return_false');
 // Add New Fields to woocommerce billing address
 add_filter('woocommerce_checkout_fields', function ($fields) {
     $fields['billing']['interpolation'] = array(
-        'label'     => __('Tussenvoeging', 'woocommerce'),
-        'placeholder'   => _x('Tussenvoeging', 'placeholder', 'woocommerce'),
+        'label'     => __('Tussenvoeging', 'sage'),
+        'placeholder'   => _x('Tussenvoeging', 'placeholder', 'sage'),
         'required'  => false,
         'clear'     => true
      );
  
     $fields['billing']['title'] = array(
-        'label'     => __('Titel', 'woocommerce'),
-        'placeholder'   => _x('Titel', 'placeholder', 'woocommerce'),
+        'label'     => __('Titel', 'sage'),
+        'placeholder'   => _x('Titel', 'placeholder', 'sage'),
         'required'  => true,
         'clear'     => true
      );
@@ -353,15 +302,14 @@ add_filter('acf/load_value/key=field_5b7efba009d6d', function ($value, $post_id,
 }, 10, 3);
 
 add_filter('tml_shortcode', function ($content, $form, $arg) {
-
     if ($form == 'login') {
-        $organisation = get_page_by_title('Registreer Organisatie');
-        $volunteer = get_page_by_title('Registreer Vrijwilliger');
+        $organisation = get_page_by_title(__('Registreer Organisatie', 'mooiwerk'));
+        $volunteer = get_page_by_title(__('Registreer Vrijwilliger', 'mooiwerk'));
         if (!is_null($organisation) && !is_null($volunteer)) {
             $content = str_replace(
-                '<li class="tml-register-link"><a href="'.home_url('/registreren/').'">Registreren</a></li>',
-                '<li class="tml-register-link"><a href="'.home_url('/'.$organisation->post_name).'">Registreer Organisatie</a></li>'.
-                '<li class="tml-register-link"><a href="'.home_url('/'.$volunteer->post_name).'">Registreer Vrijwilliger</a></li>',
+                '<li class="tml-register-link"><a href="'.home_url('/registreren/').'">'.__('Registreren', 'mooiwerk').'</a></li>',
+                '<li class="tml-register-link"><a href="'.home_url('/'.$organisation->post_name).'">'.__('Registreer Organisatie', 'mooiwerk').'</a></li>'.
+                '<li class="tml-register-link"><a href="'.home_url('/'.$volunteer->post_name).'">'.__('Registreer Vrijwilliger', 'mooiwerk').'</a></li>',
                 $content
             );
         }
@@ -374,13 +322,13 @@ add_filter("page_template", function ($template) {
     if (in_array(
         $post->post_title,
         [
-            'Opstelling',
-            'Uitloggen',
-            'Registreren',
-            'Registreer Organisatie',
-            'Registreer Vrijwilliger',
-            'Maak hier een veilig wachtwoord aan',
-            'Wachtwoord reset'
+            __('Opstelling', 'mooiwerk'),
+            __('Uitloggen', 'mooiwerk'),
+            __('Registreren', 'mooiwerk'),
+            __('Registreer Organisatie', 'mooiwerk'),
+            __('Registreer Vrijwilliger', 'mooiwerk'),
+            __('Maak hier een veilig wachtwoord aan', 'mooiwerk'),
+            __('Wachtwoord reset', 'mooiwerk')
         ]
     )) {
         $template = get_template_directory() .'/views/template-centered.blade.php';

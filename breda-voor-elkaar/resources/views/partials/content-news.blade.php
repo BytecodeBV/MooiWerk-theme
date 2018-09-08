@@ -10,7 +10,7 @@
                                 <div class="card-block">
                                     <h3 class="card-title">{{$item['title']}}</h3>
                                     <p class="card-text">{{strip_tags($item['excerpt'])}}</p>
-                                    <a href="{{$item['link']}} " class="mt-auto">lees meer ›</a>
+                                    <a href="{{$item['link']}} " class="mt-auto">{{__('lees meer ›', 'sage')}}</a>
                                 </div>
                             </div>
                             <div class="w-100 d-sm-none my-3">
@@ -22,7 +22,7 @@
                                 <div class="card-block newsdeck__item_align d-flex align-items-start flex-column">
                                     <h3 class="card-title">{{$item['title']}}</h3>
                                     <p class="card-text">{{strip_tags($item['excerpt'])}}</p>
-                                    <a href="{{$item['link']}}" class="mt-auto">lees meer ›</a>
+                                    <a href="{{$item['link']}}" class="mt-auto">{{__('lees meer ›', 'sage')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                 <div class="card-img-overlay newsdeck__caption d-flex flex-column justify-content-end text-white">
                                     <h3 class="card-title">{{$item['title']}}</h3>
                                     <p class="card-text">{{strip_tags($item['excerpt'])}}</p>
-                                    <a href="{{$item['link']}}" class="text-white">lees meer ›</a>
+                                    <a href="{{$item['link']}}" class="text-white">{{__('lees meer ›', 'sage')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                 <div class="card-img-overlay newsdeck__caption d-flex flex-column justify-content-end text-white">
                                     <h3 class="card-title">{{$item['title']}}</h3>
                                     <p class="card-text">{{strip_tags($item['excerpt'])}}</p>
-                                    <a href="{{$item['link']}}" class="text-white">lees meer ›</a>
+                                    <a href="{{$item['link']}}" class="text-white">{{__('lees meer ›', 'sage')}}</a>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                                 <div class="card-block newsdeck__item_align d-flex align-items-start flex-column">
                                     <h3 class="card-title">{{$item['title']}}</h3>
                                     <p class="card-text">{{strip_tags($item['excerpt'])}}</p>
-                                    <a href="{{$item['link']}}" class="mt-auto">lees meer ›</a>
+                                    <a href="{{$item['link']}}" class="mt-auto">{{__('lees meer ›', 'sage')}}</a>
                                 </div>
                             </div>
                             <div class="w-100 d-sm-none my-3">
@@ -74,14 +74,14 @@
                             <div class="card-block newsdeck__item_align d-flex align-items-start flex-column">
                                 <h3 class="card-title">{{$item['title']}}</h3>
                                 <p class="card-text">{{strip_tags($item['excerpt'])}}</p>
-                                <a href="{{$item['link']}}" class="mt-auto">lees meer ›</a>
+                                <a href="{{$item['link']}}" class="mt-auto">{{__('lees meer ›', 'sage')}}</a>
                             </div>
                         </div>
                     </div>
 				@endif
         @endforeach
          @empty($news)
-            <div class="alert alert-warning"> Niet genoeg inhoud om raster te maken</div>
+            <div class="alert alert-warning">{{__('Niet genoeg inhoud om raster te maken', 'sage')}}</div>
         @endempty
         </div>
     </div>

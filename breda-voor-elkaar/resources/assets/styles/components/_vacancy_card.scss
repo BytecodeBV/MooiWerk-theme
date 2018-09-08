@@ -28,6 +28,7 @@
   line-height: calculaterem(25px);
   font-size: calculaterem(14px);
   margin-bottom: calculaterem(16px);
+  font-family: Mohr;
 }
 
 @include media-breakpoint-up(md) {
@@ -90,5 +91,5 @@
   border-top: 0;
   line-height: calculaterem(29px);
   font-size: calculaterem(14px);
-  font-family: $headings-font-family;
+  font-family: Mohr;
 }

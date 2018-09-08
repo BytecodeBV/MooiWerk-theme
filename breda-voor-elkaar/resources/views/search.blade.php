@@ -24,13 +24,13 @@
                             @endphp
                             @if($post_type == 'vacancies')
                                 @php                    
-                                    $time = human_time_diff(get_post_time('U', true, get_the_ID()), current_time('timestamp')) . ' ago';
+                                    $time = human_time_diff(get_post_time('U', true, get_the_ID()), current_time('timestamp')) . __(' ago', 'sage');
                                     $vacancy = [
                                         'title' => get_the_title(),
                                         'link' => get_the_permalink(),
                                         'image_link' => get_the_post_thumbnail_url(null, [200, 200]),
                                         'excerpt' => wp_kses_post(wp_trim_words(get_the_content(), 25, '...')),
-                                        'footer' => $time . ' - Breda, Nederland',
+                                        'footer' => $time . __(' - Breda, Nederland', 'sage'),
                                     ];
                                     $categories = get_field('categorie', get_the_ID());
                                     $vacancy['subtitle'] = is_array($categories)? implode(", ", $categories) : $categories;
