@@ -50,6 +50,7 @@
   height: calculaterem(57px);
   margin-bottom: calculaterem(10px);
   border: none;
+  font-family: Mohr;
 }
 
 @include media-breakpoint-up(lg) {
@@ -64,6 +65,7 @@
   height: calculaterem(57px);
   color: $white;
   background: $red;
+  font-family: Mohr-Alt;
 }
 
 @include media-breakpoint-up(lg) {

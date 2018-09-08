@@ -18,9 +18,9 @@ add_action('customize_register', function (\WP_Customize_Manager $wp_customize) 
     $wp_customize->add_section(
         'newsletter',
         array(
-            'title' => __('Newsletter', 'mooiwerk'),
+            'title' => __('Newsletter', 'sage'),
             'capability' => 'edit_theme_options', // Capability needed to tweak
-            'description' => __('Set Mailchimp List URL.', 'mooiwerk'),
+            'description' => __('Set Mailchimp List URL.', 'sage'),
         )
     );
 
@@ -38,7 +38,7 @@ add_action('customize_register', function (\WP_Customize_Manager $wp_customize) 
         $wp_customize,
         'mc_subscriptionlist_control', // unique ID for the control
         array(
-            'label' => __('Mailchimp List URL', 'mooiwerk'),
+            'label' => __('Mailchimp List URL', 'sage'),
             'settings' => 'mc_subscriptionlist',
             'type' => 'text',
             'section' => 'newsletter',

@@ -18,6 +18,7 @@
   font-size: 3rem;
   font-weight: 700;
   color: $black;
+  font-feature-settings: "swsh" 1;
 }
 
 .hero__sub-header {
@@ -36,6 +37,7 @@
 .hero__form {
   display: flex;
   flex-direction: column;
+  font-family: Mohr;
 }
 
 @include media-breakpoint-up(md) {
@@ -75,6 +77,7 @@
   height: 4.25rem;
   margin-bottom: calculaterem(93px);
   width: 100%;
+  font-family: Mohr;
 }
 
 @include media-breakpoint-up(md) {

@@ -5,8 +5,11 @@
 
 .newsdeck__title {
   margin-bottom: 2rem;
-
-  @include header_1;
+  font-weight: 700;
+  color: $black;
+  font-size: calculaterem(48px);
+  line-height: calculaterem(59px);
+  font-feature-settings: "swsh" 1;
 }
 
 .newsdeck__item {

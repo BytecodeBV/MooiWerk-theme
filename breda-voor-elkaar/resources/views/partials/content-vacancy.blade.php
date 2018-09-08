@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="card-body vacancy-card__body">
-        <div class="vacancy-card__text">{!! $vacancy['excerpt'] !!}<a href="{{ $vacancy['link'] }}" class="card-link vacancy-card__link">lees meer ›</a></div>       
+        <div class="vacancy-card__text">{!! $vacancy['excerpt'] !!}<a href="{{ $vacancy['link'] }}" class="card-link vacancy-card__link">{{__('lees meer ›', 'sage')}}</a></div>       
     </div>
     <div class="card-footer vacancy-card__footer">{{ $vacancy['footer'] }}</div>
 </div>

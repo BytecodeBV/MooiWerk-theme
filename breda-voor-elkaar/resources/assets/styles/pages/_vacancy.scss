@@ -14,6 +14,7 @@
 
 .cv__header {
   margin-bottom: calculaterem(34px);
+  font-family: Mohr;
 }
 
 .cv__name {
@@ -220,4 +221,8 @@
 .vacancy__meta .card:hover .card-block::before {
   transform: rotate(360deg);
   transition: 0.5s all ease;
+}
+
+ol .children {
+  padding-left: calculaterem(20px);
 }

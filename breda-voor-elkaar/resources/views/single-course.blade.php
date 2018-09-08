@@ -15,7 +15,7 @@
             <div class="row">
                 <nav class="col d-flex flex-column flex-sm-row justify-content-end border-top cv__social-bar">
                     <div class="course__social-icons">
-                        <span class="d-sm-none d-md-inline cv__social-text">Deel deze pagina</span>
+                        <span class="d-sm-none d-md-inline cv__social-text">{{__('Deel deze pagina', 'sage')}}</span>
                         <a href="{{$share['facebook']}}" target="_blank">
                             <img src="@asset('images/facebook.svg')" class="cv__social-link" alt="Facebook">
                         </a>

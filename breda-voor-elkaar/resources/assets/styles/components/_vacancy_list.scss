@@ -8,8 +8,11 @@
 
 .vacancy__title {
   margin-bottom: 2.8125rem;
-
-  @include header_1;
+  font-weight: 700;
+  color: $black;
+  font-size: calculaterem(48px);
+  line-height: calculaterem(59px);
+  font-feature-settings: "swsh" 1;
 }
 
 .vacancy-sidebar {
@@ -81,6 +84,7 @@
 .vacancy-tab__subheader {
   line-height: calculaterem(29px);
   font-size: calculaterem(22px);
+  font-family: Mohr;
   margin-bottom: calculaterem(28px);
 }
 

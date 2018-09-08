@@ -7,7 +7,7 @@ if (post_password_required()) {
 <section id="comments" class="comments mt-3">
   @if (have_comments())
     <h2>
-        Reacties
+        {{__('Reacties', 'sage')}}
       {{-- sprintf(_nx('One response to &ldquo;%2$s&rdquo;', '%1$s responses to &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'sage'), number_format_i18n(get_comments_number()), '<span>' . get_the_title() . '</span>') --}}
     </h2>
 
@@ -47,19 +47,19 @@ if (post_password_required()) {
 	$aria_req = ( $req ? " aria-required='true'" : '' );
     $fields =  array(
         'author' =>
-        '<p class="comment-form-author"><div class="form-group"><label for="author">' . __( 'Name', 'domainreference' ) . '</label> ' .
+        '<p class="comment-form-author"><div class="form-group"><label for="author">' . __( 'Name', 'sage' ) . '</label> ' .
         ( $req ? '<span class="required">*</span>' : '' ) .
         '<input id="author" class="form-control" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) .
         '" ' . $aria_req . ' /></div></p>',
 
         'email' =>
-        '<p class="comment-form-email"><div class="form-group"><label for="email">' . __( 'Email', 'domainreference' ) . '</label> ' .
+        '<p class="comment-form-email"><div class="form-group"><label for="email">' . __( 'Email', 'sage' ) . '</label> ' .
         ( $req ? '<span class="required">*</span>' : '' ) .
         '<input id="email" name="email" class="form-control" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) .
         '" ' . $aria_req . ' /></div></p>',
 
         'url' =>
-        '<p class="comment-form-url"><div class="form-group"><label for="url">' . __( 'Website', 'domainreference' ) . '</label>' .
+        '<p class="comment-form-url"><div class="form-group"><label for="url">' . __( 'Website', 'sage' ) . '</label>' .
         '<input id="url" name="url" class="form-control" type="text" value="' . esc_attr( $commenter['comment_author_url'] ) .
         '"   /></p>',
     );

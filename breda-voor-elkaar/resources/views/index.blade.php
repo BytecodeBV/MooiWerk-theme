@@ -9,9 +9,9 @@
             
             @empty($items)
                 <div class="jumbotron mt-3">
-                    <h1>Opps! Nothing found</h1>
-                    <p class="lead">There is nothing to display.</p>
-                    <a class="btn btn-lg btn-primary" href="{{wp_get_referer()}}" role="button">Go Back »</a>
+                    <h1>{{__('Opps! Nothing found', 'sage')}}</h1>
+                    <p class="lead">{{__('There is nothing to display.', 'sage')}}</p>
+                    <a class="btn btn-lg btn-primary" href="{{wp_get_referer()}}" role="button">{{__('Go Back »', 'sage')}}</a>
                   </div>
             @endempty
             <div class="row">

@@ -9,8 +9,8 @@
 @else
     <section class="hero">
         <div class="container">
-            <h1 class="hero__header">Vrijwilliger zijn?</h1>
-            <h3 class="hero__sub-header">Vind je vacature.</h3>
+            <h1 class="hero__header">{{__('Vrijwilliger zijn?', 'sage')}}</h1>
+            <h3 class="hero__sub-header">{{__('Vind je vacature.', 'sage')}}</h3>
             <div class="d-flex hero__form">
                 @include('searchform')
             </div>
