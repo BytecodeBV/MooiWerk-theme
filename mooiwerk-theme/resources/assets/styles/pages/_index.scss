@@ -1,0 +1,13 @@
+.blog-list {
+  background: $off-white;
+  padding: calculaterem(86px) 0 calculaterem(100px);
+}
+
+.blog-list__header {
+  margin-bottom: calculaterem(53px);
+}
+
+.blog-list__item {
+  border-top: calculaterem(18px) solid $black;
+  width: 100%;
+}

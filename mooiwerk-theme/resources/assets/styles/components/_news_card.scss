@@ -1,0 +1,18 @@
+.top-news__cards {
+  padding: 4.9375rem 0;
+}
+
+.top-news__card {
+  border: 0 !important;
+  border-top: $border-top !important;
+  box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.4) !important; //0 0.25rem 0.25rem rgba(0, 0, 0, 0.2)
+  width: 14.5rem;
+}
+
+.top-news__card .card-title {
+  @include header_2;
+}
+
+.top-news__card a {
+  @include bold_1;
+}

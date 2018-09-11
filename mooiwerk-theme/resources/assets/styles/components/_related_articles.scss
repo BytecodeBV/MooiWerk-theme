@@ -1,0 +1,13 @@
+.related {
+  background: $off-white;
+  padding: calculaterem(86px) 0 calculaterem(100px);
+}
+
+.related__header {
+  margin-bottom: calculaterem(53px);
+}
+
+.related__item {
+  border-top: calculaterem(18px) solid $black;
+  width: calculaterem(320px);
+}

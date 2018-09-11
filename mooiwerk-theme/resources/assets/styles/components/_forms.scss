@@ -1,0 +1,128 @@
+.layered__field-radio-wrapper {
+  position: relative;
+  padding-left: calculaterem(23px);
+}
+
+.layered__field-radio-wrapper [type=radio] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: calculaterem(16px);
+  height: calculaterem(16px);
+  border: calculaterem(1px) solid $gray;
+  background: $white;
+  border-radius: calculaterem(4px);
+}
+
+.layered__field-radio-wrapper:hover input[type=radio] ~ .checkmark {
+  background-color: $blue;
+}
+
+.layered__field-radio-wrapper input[type=radio]:checked ~ .checkmark {
+  background-color: $blue;
+}
+
+.checkmark::after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.layered__field-radio-wrapper .checkmark::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: calculaterem(8px);
+  height: calculaterem(8px);
+  border: calculaterem(1px) solid $gray;
+  background: $blue;
+  border-radius: calculaterem(4px);
+}
+
+.layered__field-radio-wrapper input[type=radio]:checked ~ .checkmark::after {
+  display: block;
+}
+
+input[type="checkbox"] {
+  line-height: 0.8rem;
+  margin-right: calculaterem(5px);
+}
+
+[type="checkbox"]::before {
+  width: calculaterem(16px);
+  height: calculaterem(16px);
+  border: calculaterem(1px) solid $gray;
+  background: $white;
+  border-radius: calculaterem(4px);
+  content: close-quote;
+  display: inline-block;
+  cursor: pointer;
+}
+
+[type="checkbox"]:checked::before {
+  font-weight: 100;
+  content: "\f00c";
+  font-size: 1rem;
+  line-height: 0.8rem;
+  color: $blue;
+  font-family: 'Font Awesome 5 Free';
+}
+
+[type="checkbox"]:hover::before {
+  border: 2px solid $blue !important;
+}
+
+/*
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+input[type='password'],
+select,
+textarea {
+  background: $white; //line-height: calculaterem(21px);
+  font-size: calculaterem(16px);
+  border: calculaterem(2px) solid $black !important; //width: 100%;
+  //margin-bottom: calculaterem(12px);
+}
+
+select {
+  padding: 0 0.75rem;
+}
+*/
+.form-control {
+  background: $white; //line-height: calculaterem(21px);
+  font-size: calculaterem(16px);
+  border: calculaterem(2px) solid $black; //width: 100%;
+  //margin-bottom: calculaterem(12px);
+}
+
+select.form-control {
+  padding: 0 0.75rem;
+}
+
+input[type='submit'],
+button[type='submit'] {
+  color: $white;
+  background: $red;
+  text-align: center;
+  font-size: calculaterem(16px);
+  //font-family: $headings-font-family;
+  font-weight: 800;
+  border: none;
+
+  @include underline-from-left;
+}
+
+.form-control:focus,
+.form-control:hover,
+.form-control:active {
+  background-color: $off-white;
+}

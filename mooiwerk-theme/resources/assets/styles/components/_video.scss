@@ -1,0 +1,19 @@
+.video {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: calculaterem(86px);
+  padding-bottom: calculaterem(100px);
+  background: $off-white;
+  background-image: url('../images/video-background.png');
+  background-repeat: no-repeat;
+  background-position: bottom 0 left 0;
+}
+
+.video__wrapper {
+  width: calculaterem(677px);
+}
+
+.video__heading {
+  margin-bottom: calculaterem(23px);
+}

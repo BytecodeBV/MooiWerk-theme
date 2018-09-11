@@ -1,0 +1,31 @@
+// Use this file for shameful sass code, you know, that !important stuff ;)
+*:focus {
+  outline: 0;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active {
+  outline: none;
+  box-shadow: none;
+}
+
+input[type].header__input {
+  color: $gray;
+  background: rgba($black, 0.7) !important;
+  border: 0 !important;
+  margin-bottom: 0;
+
+  &:hover,
+  &:focus {
+    border: 0 !important;
+    background: transparent !important;
+  }
+}
+
+.no-background {
+  background-image: unset !important;
+
+  .vacancy-list__layered {
+    min-height: unset;
+  }
+}

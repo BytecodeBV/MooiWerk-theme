@@ -1,0 +1,19 @@
+.sidebar__title {
+  line-height: calculaterem(29px);
+  font-size: calculaterem(22px);
+  margin-bottom: calculaterem(20px);
+}
+
+.sidebar__item {
+  padding: calculaterem(20px) calculaterem(30px) calculaterem(30px) calculaterem(30px);
+  margin-bottom: 1rem; //margin: 0 2rem 1rem 1rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0 0.5rem 1rem;
+  background: $white; //width: calculaterem(320px);
+}
+
+@include media-breakpoint-only(md) {
+  .sidebar__item {
+    margin-left: 8.33333%;
+    margin-right: 8.33333%;
+  }
+}

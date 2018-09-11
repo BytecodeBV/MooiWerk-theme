@@ -1,0 +1,52 @@
+.company {
+  padding-top: calculaterem(62px);
+  padding-bottom: calculaterem(103px);
+  background-image: url('../images/company-background.png');
+  background-repeat: no-repeat;
+  background-position: bottom 13rem right 0;
+}
+
+.company__name {
+  margin-bottom: calculaterem(33px);
+}
+
+.company__profile {
+  line-height: calculaterem(25px);
+  font-size: calculaterem(14px);
+  font-family: $headings-font-family;
+  margin-bottom: calculaterem(39px);
+}
+
+.company__logo-wrapper {
+  width: calculaterem(144px);
+  margin-right: calculaterem(32px);
+}
+
+.company__social-link {
+  height: calculaterem(22px);
+}
+
+.company__social-link-icon {
+  min-width: calculaterem(10px);
+}
+
+.company__bio {
+  line-height: calculaterem(24px);
+  font-size: calculaterem(16px);
+  margin-bottom: calculaterem(32px);
+}
+
+.company__categories {
+  margin: 0 calculaterem(-24px) calculaterem(61px) calculaterem(-24px);
+}
+
+.company__category {
+  margin-right: calculaterem(10px);
+}
+
+.company__vacancies-header {
+  line-height: calculaterem(29px);
+  font-size: calculaterem(22px);
+  font-family: $headings-font-family;
+  margin-bottom: calculaterem(30px);
+}

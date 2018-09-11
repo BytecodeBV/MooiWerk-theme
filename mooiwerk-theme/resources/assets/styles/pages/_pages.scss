@@ -1,0 +1,83 @@
+@import 'home';
+@import 'vacancies';
+@import 'vacancy';
+@import 'blog';
+@import 'index';
+@import 'error';
+@import 'account';
+
+.card-columns {
+  @include media-breakpoint-up(sm) {
+    column-count: 1;
+  }
+
+  @include media-breakpoint-up(md) {
+    column-count: 2;
+  }
+
+  @include media-breakpoint-up(xl) {
+    column-count: 3;
+  }
+}
+
+.row-full {
+  width: 100vw;
+  position: relative;
+  margin-left: -50vw;
+  left: 50%;
+}
+
+.col-full-padding {
+  padding-left: calculaterem(15px);
+  padding-right: calculaterem(15px);
+}
+
+@include media-breakpoint-up(sm) {
+  .col-full-padding {
+    padding-left: calc(calc(100% - 33.75rem) / 2 + 0.9375rem);
+    padding-right: calc(calc(100% - 33.75rem) / 2 + 0.9375rem);
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .col-full-padding {
+    padding-left: calc(calc(100% - 45rem) / 2 + 0.9375rem);
+    padding-right: calc(calc(100% - 45rem) / 2 + 0.9375rem);
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .col-full-padding {
+    padding-left: calc(calc(100% - 60rem) / 2 + 0.9375rem);
+    padding-right: calculaterem(15px);
+  }
+}
+
+@include media-breakpoint-up(xl) {
+  .col-full-padding {
+    padding-left: calc(calc(100% - 64rem) / 2 + 0.9375rem);
+  }
+}
+
+@include media-breakpoint-up(xxl) {
+  .col-full-padding {
+    padding-left: calc(calc(100% - 85.375rem) / 2 + 0.9375rem);
+  }
+}
+
+@include media-breakpoint-up(xxxl) {
+  .col-full-padding {
+    padding-left: calc(calc(100% - 90rem) / 2 + 0.9375rem);
+  }
+}
+
+/* scrollbar fix
+
+.row-full {
+width: 99.225vw;
+position: relative;
+margin-left: -49.59vw;
+left: 50%;
+}
+
+*/

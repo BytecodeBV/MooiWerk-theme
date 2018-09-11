@@ -1,0 +1,6 @@
+@include media-breakpoint-up(md) {
+  .blog-card__image {
+    width: calculaterem(200px);
+    height: calculaterem(250px);
+  }
+}
