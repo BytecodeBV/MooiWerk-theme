@@ -1,0 +1,404 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2018-09-11 19:58+0100\n"
+"PO-Revision-Date: 2018-09-11 20:02+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.1.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: ;__;_e;_n;_nx;_ex;_x;esc_html__;esc_html_e;_n_noop;"
+"_nx_noop\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: vendor\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
+"X-Poedit-SearchPathExcluded-2: .cache-loader\n"
+"X-Poedit-SearchPathExcluded-3: resources/assets\n"
+"X-Poedit-SearchPathExcluded-4: dist\n"
+
+#: resources/views/404.blade.php:12
+msgid "Oops!"
+msgstr ""
+
+#: resources/views/404.blade.php:13
+msgid "Je hebt een 404"
+msgstr ""
+
+#: resources/views/404.blade.php:15
+msgid "Sorry, maar de gevraagde bron is niet gevonden!"
+msgstr ""
+
+#: resources/views/404.blade.php:19
+msgid "Gaan Huis"
+msgstr ""
+
+#: resources/views/404.blade.php:22
+msgid "Contact Ondersteuning"
+msgstr ""
+
+#: resources/views/archive-course.blade.php:15
+#: resources/views/partials/content-course.blade.php:23
+msgid "Geen cursussen gevonden"
+msgstr ""
+
+#: resources/views/index.blade.php:12
+msgid "Opps! Nothing found"
+msgstr ""
+
+#: resources/views/index.blade.php:13
+msgid "There is nothing to display."
+msgstr ""
+
+#: resources/views/index.blade.php:14
+msgid "Go Back »"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:10
+msgid "Reacties"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:11
+msgid "One response to &ldquo;%2$s&rdquo;"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:28
+msgid "&larr; Older comments"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:31
+msgid "Newer comments &rarr;"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:40
+msgid "Reacties zijn gesloten."
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:50
+msgid "Name"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:56
+msgid "Email"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:62
+msgid "Website"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:70
+msgid "Comment"
+msgstr ""
+
+#: resources/views/partials/content-blocks.blade.php:10
+#: resources/views/partials/content-course-card.blade.php:7
+#: resources/views/partials/content-news.blade.php:13
+#: resources/views/partials/content-news.blade.php:25
+#: resources/views/partials/content-news.blade.php:37
+#: resources/views/partials/content-news.blade.php:54
+#: resources/views/partials/content-news.blade.php:65
+#: resources/views/partials/content-news.blade.php:77
+#: resources/views/partials/content-post.blade.php:6
+#: resources/views/partials/content-vacancy.blade.php:12
+msgid "lees meer ›"
+msgstr ""
+
+#: resources/views/partials/content-blocks.blade.php:26
+msgid "Geen cursus gevonden"
+msgstr ""
+
+#: resources/views/partials/content-course.blade.php:11
+msgid "alle cursussen ›"
+msgstr ""
+
+#: resources/views/partials/content-links.blade.php:3
+msgid "Of bent u op zoek na Copy"
+msgstr ""
+
+#: resources/views/partials/content-links.blade.php:25
+msgid "Geen links gevonden"
+msgstr ""
+
+#: resources/views/partials/content-news.blade.php:84
+msgid "Niet genoeg inhoud om raster te maken"
+msgstr ""
+
+#: resources/views/partials/content-search.blade.php:9
+msgid "bekijk >"
+msgstr ""
+
+#: resources/views/partials/entry-meta.blade.php:3
+msgid "By"
+msgstr ""
+
+#: resources/views/partials/footer.blade.php:23
+msgid "© 2018 Mooi Werk - All rights reserved"
+msgstr ""
+
+#: resources/views/partials/header.blade.php:11
+#: resources/views/partials/header.blade.php:13
+msgid "Profiel"
+msgstr ""
+
+#: resources/views/partials/header.blade.php:15
+msgid "Log Uit"
+msgstr ""
+
+#: resources/views/partials/header.blade.php:17
+msgid "Inloggen"
+msgstr ""
+
+#: resources/views/partials/newsletter.blade.php:6
+msgid "Wil je op de hoogte blijven?"
+msgstr ""
+
+#: resources/views/partials/newsletter.blade.php:7
+msgid ""
+"Laat dan je e-mailadres achter om de meest recente vacatures, kandidaten en "
+"ander nieuws te ontvangen."
+msgstr ""
+
+#: resources/views/partials/newsletter.blade.php:10
+msgid "Aanmelden"
+msgstr ""
+
+#: resources/views/partials/page-header.blade.php:12
+msgid "Vrijwilliger zijn?"
+msgstr ""
+
+#: resources/views/partials/page-header.blade.php:13
+msgid "Vind je vacature."
+msgstr ""
+
+#: resources/views/search.blade.php:14
+msgid "Sorry, er zijn geen resultaten gevonden."
+msgstr ""
+
+#: resources/views/search.blade.php:27
+msgid " ago"
+msgstr ""
+
+#: resources/views/search.blade.php:33
+msgid " - Breda, Nederland"
+msgstr ""
+
+#: resources/views/searchform.blade.php:2
+#: resources/views/searchform.blade.php:5
+msgid "Zoek"
+msgstr ""
+
+#: resources/views/single-course.blade.php:18
+msgid "Deel deze pagina"
+msgstr ""
+
+#: app/actions.php:34
+msgid "Voornaam"
+msgstr ""
+
+#: app/actions.php:43
+msgid "Tussenvoegsel"
+msgstr ""
+
+#: app/actions.php:52
+msgid "Achternaam"
+msgstr ""
+
+#: app/actions.php:83
+msgid "Standaard"
+msgstr ""
+
+#: app/actions.php:83
+msgid "Vrijwilliger"
+msgstr ""
+
+#: app/actions.php:83
+msgid "Organisatie"
+msgstr ""
+
+#: app/actions.php:132
+msgid "Wachtwoord vergeten"
+msgstr ""
+
+#: app/admin.php:21
+msgid "Newsletter"
+msgstr ""
+
+#: app/admin.php:23
+msgid "Set Mailchimp List URL."
+msgstr ""
+
+#: app/admin.php:41
+msgid "Mailchimp List URL"
+msgstr ""
+
+#: app/admin.php:51
+msgid "ACF Settings"
+msgstr ""
+
+#: app/admin.php:53
+msgid "Set ACF Global Setting."
+msgstr ""
+
+#: app/admin.php:71
+msgid "Google Map Key"
+msgstr ""
+
+#: app/controllers/app.php:20
+msgid "Laatste berichten"
+msgstr ""
+
+#: app/controllers/app.php:26
+#, php-format
+msgid "Resultaten voor %s"
+msgstr ""
+
+#: app/controllers/app.php:29
+msgid "Niet gevonden"
+msgstr ""
+
+#: app/controllers/front-page.php:83
+msgid "Vrijwilligersacademie"
+msgstr ""
+
+#: app/controllers/front-page.php:128
+msgid "Nieuws"
+msgstr ""
+
+#: app/filters.php:32
+msgid "Continued"
+msgstr ""
+
+#: app/filters.php:92
+msgid "<strong>FOUT</strong>: Gelieve uw voornaam in te vullen."
+msgstr ""
+
+#: app/filters.php:95
+msgid "<strong>FOUT</strong>: Gelieve uw achternaam in te voeren."
+msgstr ""
+
+#: app/filters.php:122
+msgid "Mooiwerk"
+msgstr ""
+
+#: app/filters.php:153 app/filters.php:176
+msgid "Mooiwerk Breda"
+msgstr ""
+
+#: app/filters.php:158
+#, php-format
+msgid "Deze email is verstuurd vanuit <a href=\"%s\">Mooiwerk Breda</a>"
+msgstr ""
+
+#: app/filters.php:270 app/filters.php:271
+msgid "Tussenvoeging"
+msgstr ""
+
+#: app/filters.php:277 app/filters.php:278
+msgid "Titel"
+msgstr ""
+
+#: app/filters.php:306 app/filters.php:311 app/filters.php:328
+msgid "Registreer Organisatie"
+msgstr ""
+
+#: app/filters.php:307 app/filters.php:312 app/filters.php:329
+msgid "Registreer Vrijwilliger"
+msgstr ""
+
+#: app/filters.php:310 app/filters.php:327
+msgid "Registreren"
+msgstr ""
+
+#: app/filters.php:325
+msgid "Opstelling"
+msgstr ""
+
+#: app/filters.php:326
+msgid "Uitloggen"
+msgstr ""
+
+#: app/filters.php:330
+msgid "Maak hier een veilig wachtwoord aan"
+msgstr ""
+
+#: app/filters.php:331
+msgid "Wachtwoord reset"
+msgstr ""
+
+#: app/helpers.php:180
+msgid "« Prev"
+msgstr ""
+
+#: app/helpers.php:181
+msgid "Next »"
+msgstr ""
+
+#: app/lib/bootstrap_comment_walker.php:61
+msgid "Edit"
+msgstr ""
+
+#: app/lib/bootstrap_comment_walker.php:76
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: app/setup.php:48
+msgid "Primary Navigation"
+msgstr ""
+
+#: app/setup.php:103
+msgid "Primary"
+msgstr ""
+
+#: app/setup.php:113
+msgid "Footer Column 1"
+msgstr ""
+
+#: app/setup.php:117
+msgid "Footer Column 2"
+msgstr ""
+
+#: app/setup.php:121
+msgid "Footer Column 3"
+msgstr ""
+
+#: app/setup.php:125
+msgid "Footer Column 4"
+msgstr ""
+
+#: resources/functions.php:18
+msgid "Sage &rsaquo; Error"
+msgstr ""
+
+#: resources/functions.php:28
+msgid "You must be using PHP 7.1 or greater."
+msgstr ""
+
+#: resources/functions.php:28
+msgid "Invalid PHP version"
+msgstr ""
+
+#: resources/functions.php:35
+msgid "You must be using WordPress 4.7.0 or greater."
+msgstr ""
+
+#: resources/functions.php:35
+msgid "Invalid WordPress version"
+msgstr ""
+
+#: resources/functions.php:44
+msgid "You must run <code>composer install</code> from the Sage directory."
+msgstr ""
+
+#: resources/functions.php:45
+msgid "Autoloader not found."
+msgstr ""
+
+#: resources/functions.php:60
+#, php-format
+msgid "Error locating <code>%s</code> for inclusion."
+msgstr ""

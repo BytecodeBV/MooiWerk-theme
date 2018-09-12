@@ -1,0 +1,87 @@
+@mixin font-mohr($size: false, $colour: false, $weight: false, $lh: false) {
+  font-family: Mohr-Regular, sans-serif;
+
+  @if $size {
+    font-size: $size;
+  }
+
+  @if $colour {
+    color: $colour;
+  }
+
+  @if $weight {
+    font-weight: $weight;
+  }
+
+  @if $lh {
+    line-height: $lh;
+  }
+}
+
+@mixin font-mohr-alt($size: false, $colour: false, $weight: false, $lh: false) {
+  font-family: MohrAlt-Regular, Mohr-Regular, sans-serif;
+
+  @if $size {
+    font-size: $size;
+  }
+
+  @if $colour {
+    color: $colour;
+  }
+
+  @if $weight {
+    font-weight: $weight;
+  }
+
+  @if $lh {
+    line-height: $lh;
+  }
+}
+
+@mixin header_1 {
+  font-family: MohrAlt-Regular, Mohr-Regular, sans-serif;
+  font-weight: 700;
+  color: $black;
+  font-size: calculaterem(48px);
+  line-height: calculaterem(59px);
+}
+
+@mixin header_2 {
+  font-family: MohrAlt-Regular, Mohr-Regular, sans-serif;
+  font-weight: 700;
+  color: $black;
+  font-size: calculaterem(22px);
+  line-height: calculaterem(29px);
+}
+
+@mixin header_3 {
+  font-family: MohrAlt-Regular, Mohr-Regular, sans-serif;
+  font-weight: 700;
+  color: $white;
+  font-size: calculaterem(36px);
+  line-height: calculaterem(39px);
+}
+
+@mixin bold_1 {
+  font-family: MohrAlt-Regular, Mohr-Regular, sans-serif;
+  font-weight: 700;
+  color: $black;
+  font-size: calculaterem(16px);
+  line-height: calculaterem(26px);
+}
+
+@mixin bold_3 {
+  font-family: MohrAlt-Regular, Mohr-Regular, sans-serif;
+  font-weight: 700;
+  color: $white;
+  font-size: calculaterem(16px);
+  line-height: calculaterem(26px);
+}
+
+@mixin bold_2 {
+  font-family: MohrAlt-Regular, Mohr-Regular, sans-serif;
+  font-weight: 700;
+  color: $white;
+  font-size: calculaterem(22px);
+  line-height: calculaterem(35px);
+}

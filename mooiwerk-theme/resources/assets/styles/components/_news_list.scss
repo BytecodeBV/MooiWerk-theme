@@ -1,0 +1,29 @@
+.news-list {
+  padding-top: 2.3125rem !important;
+  padding-bottom: 5rem !important;
+}
+
+.news-list__header {
+  @include header_2;
+}
+
+.list-group-item {
+  border: 1px solid $black;
+}
+
+.news-list__item {
+  width: 20rem;
+}
+
+@include media-breakpoint-up(md) {
+  .news-list__item {
+    width: auto;
+  }
+}
+
+.news-list__link {
+  color: $blue;
+  line-height: calculaterem(32px); //1.6875rem;
+  font-size: calculaterem(20px); //1.25rem;
+  font-family: Mohr-Regular;
+}
