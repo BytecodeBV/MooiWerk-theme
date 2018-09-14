@@ -9,8 +9,8 @@
         ]
     },
     "publicPath": "/wp-content/themes/mooiwerk-theme",
-    "devUrl": "http://localhost/mooiwerk",
-    "proxyUrl": "http://localhost:3000",
+    "devUrl": "http://breda.bytedev.nl",
+    "proxyUrl": "http://breda.bytedev.nl:3000",
     "cacheBusting": "[name]_[hash:8]",
     "watch": [
         "app/**/*.php",

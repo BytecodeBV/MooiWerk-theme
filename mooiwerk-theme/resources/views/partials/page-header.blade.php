@@ -2,7 +2,7 @@
     $header = NULL;
 
     if(is_singular()) {
-        //Load post's Banner
+        //Load posts Banner
         $header = get_field('page_header', get_the_ID());
     } else if(is_author()){
         //Load selected user banner

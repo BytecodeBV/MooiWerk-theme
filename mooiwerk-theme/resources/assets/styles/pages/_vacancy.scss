@@ -104,6 +104,10 @@
   font-family: $headings-font-family;
 }
 
+.cv__link i {
+  font-size: calculaterem(21px);
+}
+
 .cv__social-text {
   line-height: calculaterem(24px);
   margin-right: calculaterem(26px);
@@ -197,7 +201,10 @@
 
 .vacancy__meta .card .card-block::before,
 .cv__extra-list .cv__extra-list-item::before {
-  font-family: 'Font Awesome 5 Free';
+  //font-family: 'Font Awesome 5 Free';
+  //@extend fa-icon;
+  @extend .fas;
+
   position: absolute;
   font-size: 2rem;
   color: $black;

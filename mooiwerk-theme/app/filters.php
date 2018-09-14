@@ -327,6 +327,7 @@ add_filter("page_template", function ($template) {
             __('Opstelling', 'mooiwerk'),
             __('Uitloggen', 'mooiwerk'),
             __('Registreren', 'mooiwerk'),
+            __('Nieuw account', 'mooiwerk'),
             __('Registreer Organisatie', 'mooiwerk'),
             __('Registreer Vrijwilliger', 'mooiwerk'),
             __('Maak hier een veilig wachtwoord aan', 'mooiwerk'),

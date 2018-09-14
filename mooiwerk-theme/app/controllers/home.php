@@ -51,7 +51,7 @@ class Home extends Controller
         $return = [];
         if ($rows) {
             $return = array_map(function ($row) {
-                $image = wp_get_attachment_image_src( $row['avatar'], 'thumbnail' );
+                $image = wp_get_attachment_image_src($row['avatar'], 'thumbnail');
                 return [
                     'name' => $row['name'],
                     'avatar' => $image[0],
@@ -80,7 +80,7 @@ class Home extends Controller
                 'image_link' => get_the_post_thumbnail_url($post->ID, array('500', '500')),
                 'excerpt' => $post->post_excerpt,
             ];
-        }, $wp_query->posts);
+        }, array_slice($wp_query->posts, 0, 10));
 
         wp_reset_postdata();
         return $return;

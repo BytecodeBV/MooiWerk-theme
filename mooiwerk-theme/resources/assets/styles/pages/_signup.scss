@@ -1,0 +1,17 @@
+.signup__content {
+  padding: calculaterem(200px) calculaterem(15px);
+  text-align: center;
+}
+
+.signup__actions {
+  margin-top: calculaterem(15px);
+  margin-bottom: calculaterem(15px);
+}
+
+.signup__actions .btn {
+  margin-right: calculaterem(10px);
+  padding: 0.5rem 1rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  border-radius: 0.3rem;
+}
