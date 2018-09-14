@@ -1,11 +1,11 @@
 @import 'fonts';
-@import 'reset';
 @import 'color';
 @import 'typography';
 @import 'animations';
 
 body {
   background-color: $white;
+  word-wrap: break-word;
 }
 
 .wrapper {

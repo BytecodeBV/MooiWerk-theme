@@ -103,9 +103,9 @@ add_filter('pre_get_posts', function ($query) {
         //alter query to include custom post types in search
         if ($query->is_search) {
             if (!empty($_GET['type']) && $_GET['type'] != '*') {
-                $query->set('post_type', array( $_GET['type'] ));
+                $query->set('post_type', [$_GET['type']]);
             } else {
-                $query->set('post_type', array( 'post', 'class', 'vacancies' ));
+                $query->set('post_type', ['post', 'class', 'vacancies']);
             }
         }
         // alter the query to change item count for the home and category pages
@@ -132,6 +132,7 @@ add_filter('woocommerce_get_myaccount_page_permalink', function ($permalink) {
 }, 1);
 */
 
+/*
 //set age to select instead of checkbox
 add_filter('acf/prepare_field/key=field_5b7ef21994886', function ($field) {
     //semantic error prone, account page might not use the given slug
@@ -140,6 +141,7 @@ add_filter('acf/prepare_field/key=field_5b7ef21994886', function ($field) {
     }
     return $field;
 });
+*/
 
 /*
 //change email from address
