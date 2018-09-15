@@ -1,7 +1,7 @@
 <section @php post_class('contact') @endphp>
     <div class="page__body container">
         <h1 class="page__header text-uppercase">{{get_the_title()}}</h1>
-        <div class="page__intro">{!! get_the_content() !!}</div>
+        <div class="page__intro">{!! apply_filters('the_content', get_the_content()) !!}</div>
         <div class="row page__content mt-5">
             <div class="col-md-6 contact__cards">
                 <div class="col-sm-12 my-4">

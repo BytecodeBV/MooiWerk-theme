@@ -6,55 +6,37 @@ use Sober\Controller\Controller;
 
 class FrontPage extends Controller
 {
-    public function vacancies()
+    public function blocks()
     {
-        $args = array(
-            'post_type' => array('vacancies'),
-            'posts_per_page' => 4,
-        );
-
-        $query = new \WP_Query($args);
-        $return = array_map(function ($post) {
-            return [
-                'title' => $post->post_title,
-                'content' => wp_kses_post(wp_trim_words($post->post_content, 9, '.')),
-                'link' => get_permalink($post->ID),
-            ];
-        }, $query->posts);
-        wp_reset_postdata();
+        $rows = get_field('content_blocks');
+        $return = [];
+        if ($rows) {
+            $return = array_map(function ($row) {
+                return [
+                    'title' => $row['title'],
+                    'content' => $row['description'],
+                    'link' => $row['link'],
+                ];
+            }, $rows);
+        }
+       
         return $return;
     }
 
 
-    public function categories()
+    public function links()
     {
-        $cat = [
-            '(huis)dieren',
-            'Administratie',
-            'Boodschappen',
-            'Computer',
-            'Digitaal en IT',
-            'Erop uit',
-            'Evenementen',
-            'Gastvrouw-heer',
-            'Gezelschap',
-            'Huishoudelijk',
-            'Huiswerkbegeleiding',
-            'Oppas',
-            'Sporten',
-            'Vervoer',
-            'Vluchtelingenondersteuning',
-            'Activiteitenbegeleiding',
-        ];
-        shuffle($cat);
-
-        $return = array_map(function ($item) {
-            return [
-                'title' => $item,
-                'url' => home_url('/organisaties/'). '?categorie=' .urlencode($item),
-            ];
-        }, array_slice($cat, 0, 9));
-
+        $rows = get_field('links');
+        $return = [];
+        if ($rows) {
+            $return = array_map(function ($row) {
+                return [
+                    'title' => $row['location'],
+                    'url' => $row['url'],
+                ];
+            }, $rows);
+        }
+       
         return $return;
     }
 
