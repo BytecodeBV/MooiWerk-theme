@@ -19,3 +19,8 @@
   width: calculaterem(144px);
   height: calculaterem(144px);
 }
+
+.member-page__menu .sidebar-nav {
+  list-style: none;
+  padding-left: 0;
+}

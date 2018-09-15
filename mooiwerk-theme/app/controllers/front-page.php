@@ -6,6 +6,11 @@ use Sober\Controller\Controller;
 
 class FrontPage extends Controller
 {
+    public function __construct()
+    {
+        $this->page_id = get_option('page_on_front');
+    }
+
     public function blocks()
     {
         $rows = get_field('content_blocks');
