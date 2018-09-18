@@ -195,4 +195,10 @@ add_action('login_enqueue_scripts', function () {
     <?php
 });
 
+remove_action('woocommerce_before_checkout_form', 'woocommerce_checkout_coupon_form', 10);
 
+//Show custom checkout fields in admin
+add_action('woocommerce_admin_order_data_after_billing_address', function ($order) {
+    echo '<p><strong>'.__('Titel', 'mooiwerk-breda-theme').':</strong> ' . get_post_meta($order->get_id(), '_billing_title', true) . '</p>';
+    echo '<p><strong>'.__('Tussenvoeging', 'mooiwerk-breda-theme').':</strong> ' . get_post_meta($order->get_id(), '_billing_interpolation', true) . '</p>';
+}, 20, 1);

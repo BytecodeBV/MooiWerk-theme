@@ -94,6 +94,28 @@ add_action('customize_register', function (\WP_Customize_Manager $wp_customize) 
     
     //Populate options with headers
     $options = wp_list_pluck($headers, 'post_title', 'ID');
+
+    // Register a new setting "company_name"
+    $wp_customize->add_setting(
+        'vacancy_archive_header',
+        array(
+            'default' => '', // Default setting/value to save
+            'type' => 'option',
+        )
+    );
+
+    // Define input for setting "company_name"
+    $wp_customize->add_control(new \WP_Customize_Control(
+        $wp_customize,
+        'vacancy_archive_header_control', // unique ID for the control
+        array(
+            'label' => __('Header for Vacancy Archive Page', 'mooiwerk-breda-theme'),
+            'settings' => 'vacancy_archive_header',
+            'type' => 'select',
+            'section' => 'header_globals',
+            'choices' => $options
+        )
+    ));
     
     // Register a new setting "company_name"
     $wp_customize->add_setting(
