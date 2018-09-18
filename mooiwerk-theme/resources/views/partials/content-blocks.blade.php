@@ -2,7 +2,7 @@
     <div class="container d-flex justify-content-center d-md-block">
         <div class="card-deck top-news__cards">
             
-            @foreach($vacancies as $card)
+            @foreach($blocks as $card)
                 <div class="card top-news__card">
                     <div class="card-body d-flex align-items-start flex-column">
                         <h3 class="card-title">{{ $card['title'] }}</h3>
@@ -22,8 +22,8 @@
 
             @endforeach
             
-            @empty($vacancies)    
-                <div class="aert alert-warning">{{__('Geen cursus gevonden', 'mooiwerk-breda-theme')}}</div>
+            @empty($blocks)    
+                <div class="alert alert-warning">{{__('Geen cursus gevonden', 'mooiwerk-breda-theme')}}</div>
             @endempty
         </div>
     </div>

@@ -1,13 +1,13 @@
 .error__content {
-  padding: 40px 15px;
+  padding: calculaterem(40px) (15px);
   text-align: center;
 }
 
 .error__actions {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: calculaterem(15px);
+  margin-bottom: calculaterem(15px);
 }
 
 .error__actions .btn {
-  margin-right: 10px;
+  margin-right: calculaterem(10px);
 }

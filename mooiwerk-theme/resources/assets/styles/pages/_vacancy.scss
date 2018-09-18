@@ -77,17 +77,22 @@
 }
 */
 
-.cv__links input[type='submit'] {
+.cv__links button[type='submit'] {
   line-height: calculaterem(21px);
   font-size: calculaterem(16px);
   font-weight: 800;
   margin-right: calculaterem(12px);
-  min-width: calculaterem(163px);
   font-family: $headings-font-family;
   background: transparent;
   color: $black;
   text-align: left;
   padding-left: 0;
+}
+
+.cv__links button[type="submit"]:hover::before,
+.cv__links button[type="submit"]:focus::before,
+.cv__links button[type="submit"]:active::before {
+  font-size: 18px;
 }
 
 .cv__link {
@@ -97,6 +102,10 @@
   margin-right: 0.75rem;
   min-width: 10.1875rem;
   font-family: $headings-font-family;
+}
+
+.cv__link i {
+  font-size: calculaterem(21px);
 }
 
 .cv__social-text {
@@ -179,19 +188,34 @@
   box-shadow: calculaterem(5px) calculaterem(7px) calculaterem(9px) -calculaterem(4px) rgb(158, 158, 158);
 }
 
-.vacancy__meta .card .card-block {
+.cv__extra-list {
+  list-style: none;
+  padding-left: calculaterem(20px);
+}
+
+.vacancy__meta .card .card-block,
+.cv__extra-list .cv__extra-list-item {
   padding-left: 50px;
   position: relative;
 }
 
-.vacancy__meta .card .card-block::before {
-  font-family: 'Font Awesome 5 Free';
+.vacancy__meta .card .card-block::before,
+.cv__extra-list .cv__extra-list-item::before {
+  //font-family: 'Font Awesome 5 Free';
+  //@extend fa-icon;
+  @extend .fas;
+
   position: absolute;
   font-size: 2rem;
   color: $black;
   left: 0;
   top: calculaterem(5px);
   transition: transform 0.2s ease-in-out;
+}
+
+.cv__extra-list .cv__extra-list-item::before {
+  font-size: 1.5rem;
+  top: 0;
 }
 
 .vacancy__meta .card .block-1::before {
@@ -218,6 +242,18 @@
   content: "\f073";
 }
 
+.cv__extra-list .academie::before {
+  content: "\f19d";
+}
+
+.cv__extra-list .work::before {
+  content: "\f0b1";
+}
+
+.cv__extra-list .cash::before {
+  content: "\f0d6";
+}
+
 .vacancy__meta .card:hover .card-block::before {
   transform: rotate(360deg);
   transition: 0.5s all ease;
@@ -225,4 +261,9 @@
 
 ol .children {
   padding-left: calculaterem(20px);
+}
+
+.company-widget .company-widget__logo {
+  max-width: 14.25rem;
+  max-height: 9.5rem;
 }

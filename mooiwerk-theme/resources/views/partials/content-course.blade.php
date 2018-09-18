@@ -6,7 +6,7 @@
                     <div class="bg-danger text-light p-4">
                         <h3 class="vacancy-sidebar___header">{{$course_intro}}</h3>
                         <div class="vacancy-sidebar___text">
-                            {!! $course_description !!}
+                            {!! apply_filters('the_content', $course_description) !!}
                         </div>
                         <a href="{{$course_link}}" class="btn btn-light d-block mx-auto vacancy-sidebar___button">{{__('alle cursussen ›', 'mooiwerk-breda-theme')}}</a>
                     </div>

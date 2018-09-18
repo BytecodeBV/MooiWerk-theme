@@ -4,7 +4,7 @@
             <article class="col-lg-8">
                 <h1 class="page__header">{{ $item['title'] }}</h1>
                 <div class="page__content" >
-                    {!! do_shortcode($item['content']) !!}
+                    {!! apply_filters('the_content', $item['content']); !!}
                 </div>
                 
                 @php comments_template('/partials/comments.blade.php') @endphp

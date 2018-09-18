@@ -5,8 +5,7 @@
 
     <section @php post_class('error') @endphp>
         <div class="error__body container">
-            @if (!have_posts())
-                <div class="row">
+                <div class="row my-4">
                     <div class="col-lg-6 offset-lg-3">
                         <div class="error__content">
                             <h1 class="error__header">{{__('Oops!', 'mooiwerk-breda-theme')}}</h1>
@@ -24,8 +23,7 @@
                             </div>
                         </div>
                     </div>
-                </div>      
-            @endif
+                </div> 
 
         </div>
     </section>
