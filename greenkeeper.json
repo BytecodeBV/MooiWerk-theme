@@ -1,0 +1,10 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "mooiwerk-theme/package.json",
+        "mooiwerk-theme/resources/assets/styles/vendors/animate/package.json"
+      ]
+    }
+  }
+}
