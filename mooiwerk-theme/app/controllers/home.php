@@ -11,6 +11,11 @@ class Home extends Controller
         $this->page_id = get_option('page_for_posts');
     }
 
+    public function homeId()
+    {
+        return $this->page_id;
+    }
+
     public function blocks()
     {
         $rows = get_field('content_blocks', $this->page_id);

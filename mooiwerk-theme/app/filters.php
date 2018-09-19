@@ -1,4 +1,5 @@
 <?php
+
 namespace App;
 
 /**
@@ -149,7 +150,7 @@ add_filter('wp_mail_from', function ($original_email_address) {
     return 'info@example.com';
 });
 */
- 
+
 //Change email from name
 add_filter('wp_mail_from_name', function ($original_email_from) {
     return __('Mooiwerk Breda', 'mooiwerk-breda-theme');
@@ -157,17 +158,16 @@ add_filter('wp_mail_from_name', function ($original_email_from) {
 
 //Add signature to email
 add_filter('wp_mail', function ($mail) {
-    $mail['message'] .= '<br><br>'.sprintf(__('Deze email is verstuurd vanuit <a href="%s">Mooiwerk Breda</a>', 'mooiwerk-breda-theme'), home_url());
+    $mail['message'] .= '<br><br>' . sprintf(__('Deze email is verstuurd vanuit <a href="%s">Mooiwerk Breda</a>', 'mooiwerk-breda-theme'), home_url());
     return $mail;
 });
-
 
 // Sets reply-to if it doesn't exist already.
 add_filter('wp_mail', function ($args) {
     if (!isset($args['headers'])) {
-        $args['headers'] = array();
+        $args['headers'] = [];
     }
-    
+
     $headers_ser = serialize($args['headers']);
 
     // Does it exist already?
@@ -191,17 +191,15 @@ add_filter('wp_mail', function ($args) {
     return $args;
 });
 
-
 /**
  * In WP Admin filter Edit-Comments.php so it shows current users comments only
  * Runs only for the Author role.
  */
 add_filter('pre_get_comments', function ($query) {
-        
     if (!is_singular('vacancies')) {
         return $query;
     }
-        
+
     if (get_current_user_id() !== get_the_author_meta('ID')) {
         $query->query_vars['author__in'] = [get_current_user_id(), get_the_author_meta('ID')] ;
     }
@@ -214,9 +212,9 @@ add_filter('login_redirect', function ($url, $query, $user) {
     //semantic error prone, page might go by a different slug
     $custom_home = home_url('/mijn-account');
     $setup_page = get_page_by_title('Opstelling');
-    $setup_home = home_url('/'.$setup_page->post_name);
+    $setup_home = home_url('/' . $setup_page->post_name);
     if (in_array('organisation', (array) $user->roles)) {
-        if (get_field('logged-in', "user_".$user->ID) == false) {
+        if (get_field('logged-in', 'user_' . $user->ID) == false) {
             //Redirect users to mijn-account
             $url = $setup_home;
         } else {
@@ -242,11 +240,11 @@ add_filter('woocommerce_login_redirect', function ($redirect, $user) {
     $dashboard = admin_url();
     $custom_home = home_url('/mijn-account');
     $setup_page = get_page_by_title('Opstelling');
-    $setup_home = home_url('/'.$setup_page->post_name);
+    $setup_home = home_url('/' . $setup_page->post_name);
     $myaccount = get_permalink(wc_get_page_id('myaccount'));
     //in_array('volunteer', (array) $user->roles) ||
     if (in_array('organisation', (array) $user->roles)) {
-        if (get_field('logged-in', "user_".$user->ID) == false) {
+        if (get_field('logged-in', 'user_' . $user->ID) == false) {
             //Redirect users to mijn-account
             $redirect = $setup_home;
         } else {
@@ -268,58 +266,47 @@ add_filter('woocommerce_prevent_admin_access', '__return_false');
 
 // Add New Fields to woocommerce billing address
 add_filter('woocommerce_checkout_fields', function ($fields) {
-    $fields['billing']['interpolation'] = array(
-        'label'     => __('Tussenvoeging', 'mooiwerk-breda-theme'),
-        'placeholder'   => _x('Tussenvoeging', 'placeholder', 'mooiwerk-breda-theme'),
-        'required'  => false,
-        'clear'     => true
-     );
- 
-    $fields['billing']['title'] = array(
-        'label'     => __('Titel', 'mooiwerk-breda-theme'),
-        'placeholder'   => _x('Titel', 'placeholder', 'mooiwerk-breda-theme'),
-        'required'  => true,
-        'clear'     => true
-     );
-    
-     return $fields;
-});
+    $fields['billing']['billing_interpolation'] = [
+        'label' => __('Tussenvoeging', 'mooiwerk-breda-theme'),
+        'placeholder' => _x('Tussenvoeging', 'placeholder', 'mooiwerk-breda-theme'),
+        'required' => false,
+        'clear' => true
+     ];
 
-// Add Billing House # to Address Fields
-add_filter('woocommerce_order_formatted_billing_address', function ($fields, $order) {
-    $fields['billing_interpolation'] = get_post_meta($order->id, '_billing_interpolation', true);
-    $fields['billing_title'] = get_post_meta($order->id, '_billing_title', true);
+    $fields['billing']['billing_title'] = [
+        'label' => __('Titel', 'mooiwerk-breda-theme'),
+        'placeholder' => _x('Titel', 'placeholder', 'mooiwerk-breda-theme'),
+        'required' => true,
+        'clear' => true
+     ];
+
     return $fields;
-}, 10, 2);
+});
 
 // acf/load_value/key={$field_key} - filter for a specific field based on it's name
 add_filter('acf/load_value/key=field_5b7efba009d6d', function ($value, $post_id, $field) {
     // run the_content filter on all textarea values
     if (empty($value)) {
-        $value = date('Y-m-d', strtotime("+3 months", strtotime("now")));
+        $value = date('Y-m-d', strtotime('+3 months', strtotime('now')));
     }
-    
 
     return $value;
 }, 10, 3);
 
 add_filter('tml_shortcode', function ($content, $form, $arg) {
     if ($form == 'login') {
-        $organisation = get_page_by_title(__('Registreer Organisatie', 'mooiwerk'));
-        $volunteer = get_page_by_title(__('Registreer Vrijwilliger', 'mooiwerk'));
+        $signup_landing = get_page_by_title(__('Account aanmaken', 'mooiwerk'));
         if (!is_null($organisation) && !is_null($volunteer)) {
             $content = str_replace(
-                '<li class="tml-register-link"><a href="'.home_url('/registreren/').'">'.__('Registreren', 'mooiwerk').'</a></li>',
-                '<li class="tml-register-link"><a href="'.home_url('/'.$organisation->post_name).'">'.__('Registreer Organisatie', 'mooiwerk').'</a></li>'.
-                '<li class="tml-register-link"><a href="'.home_url('/'.$volunteer->post_name).'">'.__('Registreer Vrijwilliger', 'mooiwerk').'</a></li>',
-                $content
+                '<li class="tml-register-link"><a href="' . home_url('/registreren/') . '">' . __('Registreren', 'mooiwerk') . '</a></li>',
+                '<li class="tml-register-link"><a href="' . home_url('/' . $signup_landing->post_name) . '">' . __('Registreer', 'mooiwerk') . '</a></li>',                $content
             );
         }
     }
     return $content;
 }, 10, 3);
 
-add_filter("page_template", function ($template) {
+add_filter('page_template', function ($template) {
     global $post;
     if (in_array(
         $post->post_title,
@@ -334,7 +321,90 @@ add_filter("page_template", function ($template) {
             __('Wachtwoord reset', 'mooiwerk')
         ]
     )) {
-        $template = get_template_directory() .'/views/template-centered.blade.php';
+        $template = get_template_directory() . '/views/template-centered.blade.php';
     }
     return $template;
 });
+
+//disable payment
+add_filter('woocommerce_cart_needs_payment', '__return_false');
+
+//redirect to checkout
+add_filter('woocommerce_add_to_cart_redirect', function ($url) {
+    $url = get_permalink(get_option('woocommerce_checkout_page_id'));
+    return $url;
+});
+
+/**
+ * Add Bootstrap Class to WooCommerce Checkout Fields
+ */
+add_filter('woocommerce_form_field_args', function ($args, $key, $value) {
+    array_push($args['input_class'], 'form-control');
+    array_push($args['class'], 'form-group', 'mb-3');
+
+    return $args;
+}, 10, 3);
+
+//ensure only one ticket is purchased per customer
+add_filter('woocommerce_is_sold_individually', function ($return, $product) {
+    if ($product->product_type == 'wcs_ticket') {
+        return true;
+    }
+    return $return;
+}, 10, 2);
+
+//fallback if sold individually doesn't work
+add_filter('woocommerce_quantity_input_args', function ($args, $product) {
+    if ($product->product_type == 'wcs_ticket') {
+        if (!is_cart()) {
+            $args['max_value'] = 1;
+        } else {
+            // For product pages, tho not necessary (just caution)
+            $args['max_value'] = 1;
+        }
+    }
+    return $args;
+}, 10, 2);
+
+/**
+ * Disables repeat purchase for ticket, might be a bad idea cause of recurring classes if any
+ */
+/*add_filter('woocommerce_is_purchasable', function ($purchasable, $product) {
+    // check only for tickets
+    error_log('is purchaseable: ' . json_encode($product));
+    if ($product->product_type == 'wcs_ticket') {
+        // return false if the customer has bought the product
+        if (wc_customer_bought_product(wp_get_current_user()->user_email, get_current_user_id(), $product->get_id())) {
+            return false;
+        }
+    }
+
+    return $purchasable;
+}, 10, 2);*/
+
+//Remove "successfully added to your cart" alert form checkout page
+add_filter( 'wc_add_to_cart_message_html', '__return_null' );
+
+/**
+ * Pre-populate Woocommerce checkout fields
+ */
+add_filter('woocommerce_checkout_get_value', function ($input, $key) {
+    global $current_user;
+    switch ($key) {
+        case 'billing_first_name':
+        case 'shipping_first_name':
+            return $current_user->first_name;
+            break;
+
+        case 'billing_last_name':
+        case 'shipping_last_name':
+            return $current_user->last_name;
+            break;
+        case 'billing_email':
+            return $current_user->user_email;
+            break;
+        case 'billing_phone':
+            return $current_user->phone;
+            break;
+    }
+}, 10, 2);

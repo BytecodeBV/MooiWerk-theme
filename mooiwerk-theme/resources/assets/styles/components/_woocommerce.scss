@@ -1,0 +1,15 @@
+// Fix billing field wrapper
+.woocommerce-input-wrapper {
+  width: 100%;
+}
+
+//possibly restyle checkout form select classes:.select2-selection__rendered, .select2-selection__arrow
+//fix Order button form-row conflict
+.place-order {
+  flex-direction: column;
+  align-items: flex-start;
+
+  #place-order {
+    padding: 0.7rem;
+  }
+}

@@ -1,12 +1,17 @@
 @php
     $header = NULL;
 
-    if(is_singular()) {
+    if (is_singular()) {
         //Load posts Banner
         $header = get_field('page_header', get_the_ID());
-    } else if(is_author()){
+    } else if (is_author()){
         //Load selected user banner
         $header = get_field('page_header', 'user_'.get_current_user_id());
+    } else if(is_home()){
+        //Load selected user banner
+        $header = get_field('page_header', $home_id);
+    } else if (is_post_type_archive('vacancies')) {
+        $header = get_option('vacancy_archive_header');
     }
 
     if (empty($header) && is_author()) {
