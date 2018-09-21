@@ -60,4 +60,42 @@ class App extends Controller
             'gplus' => "https://plus.google.com/share?url={$url}&text={$summary}&hl={$language}",
         ];
     }
+
+    public static function teams()
+    {
+        $args = array(
+            'post_type' => array('team'),
+        );
+        $query = new \WP_Query($args);
+        $return = array_map(function ($post) {
+            $image = wp_get_attachment_image_src(get_field('avatar', $post->ID), 'thumbnail');
+            return [
+                'name' => $post->post_title,
+                'avatar' => $image[0],
+                'bio' => get_field('bio', $post->ID),
+                'email' => get_field("email", $post->ID),
+                'phone' => get_field("phone", $post->ID),
+            ];
+        }, $query->posts);
+        wp_reset_postdata();
+        
+        return $return;
+    }
+
+    public static function getBlocks($id)
+    {
+        $rows = get_field('content_blocks', $id);
+        $return = [];
+        if ($rows) {
+            $return = array_map(function ($row) {
+                return [
+                    'title' => $row['title'],
+                    'content' => $row['description'],
+                    'link' => $row['link'],
+                ];
+            }, $rows);
+        }
+       
+        return $return;
+    }
 }

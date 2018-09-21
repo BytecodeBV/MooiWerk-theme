@@ -65,15 +65,16 @@ input[type="checkbox"] {
   content: close-quote;
   display: inline-block;
   cursor: pointer;
+
+  @extend .fas;
 }
 
 [type="checkbox"]:checked::before {
-  font-weight: 100;
-  content: "\f00c";
+  //font-weight: 100;
+  content: fa-content($fa-var-check);
   font-size: 1rem;
   line-height: 0.8rem;
   color: $blue;
-  font-family: 'Font Awesome 5 Free';
 }
 
 [type="checkbox"]:hover::before {

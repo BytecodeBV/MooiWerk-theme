@@ -270,14 +270,16 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
         'label' => __('Tussenvoeging', 'mooiwerk-breda-theme'),
         'placeholder' => _x('Tussenvoeging', 'placeholder', 'mooiwerk-breda-theme'),
         'required' => false,
-        'clear' => true
+        'clear' => true,
+        'priority' => 30
      ];
 
     $fields['billing']['billing_title'] = [
-        'label' => __('Titel', 'mooiwerk-breda-theme'),
-        'placeholder' => _x('Titel', 'placeholder', 'mooiwerk-breda-theme'),
+        'label' => __('Aanhef', 'mooiwerk-breda-theme'),
+        'placeholder' => _x('Aanhef', 'placeholder', 'mooiwerk-breda-theme'),
         'required' => true,
-        'clear' => true
+        'clear' => true,
+        'priority' => 5
      ];
 
     return $fields;
@@ -299,7 +301,8 @@ add_filter('tml_shortcode', function ($content, $form, $arg) {
         if (!is_null($organisation) && !is_null($volunteer)) {
             $content = str_replace(
                 '<li class="tml-register-link"><a href="' . home_url('/registreren/') . '">' . __('Registreren', 'mooiwerk') . '</a></li>',
-                '<li class="tml-register-link"><a href="' . home_url('/' . $signup_landing->post_name) . '">' . __('Registreer', 'mooiwerk') . '</a></li>',                $content
+                '<li class="tml-register-link"><a href="' . home_url('/' . $signup_landing->post_name) . '">' . __('Registreer', 'mooiwerk') . '</a></li>', 
+                $content
             );
         }
     }
@@ -366,22 +369,6 @@ add_filter('woocommerce_quantity_input_args', function ($args, $product) {
     return $args;
 }, 10, 2);
 
-/**
- * Disables repeat purchase for ticket, might be a bad idea cause of recurring classes if any
- */
-/*add_filter('woocommerce_is_purchasable', function ($purchasable, $product) {
-    // check only for tickets
-    error_log('is purchaseable: ' . json_encode($product));
-    if ($product->product_type == 'wcs_ticket') {
-        // return false if the customer has bought the product
-        if (wc_customer_bought_product(wp_get_current_user()->user_email, get_current_user_id(), $product->get_id())) {
-            return false;
-        }
-    }
-
-    return $purchasable;
-}, 10, 2);*/
-
 //Remove "successfully added to your cart" alert form checkout page
 add_filter( 'wc_add_to_cart_message_html', '__return_null' );
 
@@ -408,3 +395,13 @@ add_filter('woocommerce_checkout_get_value', function ($input, $key) {
             break;
     }
 }, 10, 2);
+
+// Only allow alphanumeric and underscores in username
+add_filter('validate_username', function ($valid, $username) {
+    if ($valid) {
+        if (preg_match("/^[a-z0-9]+$/", $username)) {
+            return true;
+        }
+    }
+    return false;
+}, 1, 2);

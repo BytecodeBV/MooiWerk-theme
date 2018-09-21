@@ -79,7 +79,7 @@
 }
 
 @include media-breakpoint-up(md) {
-  .vacancy-card__link {
+  .vacancy-card__link-spacer {
     display: inline;
     padding-left: 10rem;
   }
