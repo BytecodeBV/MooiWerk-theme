@@ -1,4 +1,11 @@
-#contact .card:hover i,
-#contact .card:hover h4 {
-  color: #87d37c;
+@include media-breakpoint-up(xxl) {
+  .contact__card {
+    width: 80%;
+  }
+}
+
+.contact__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }

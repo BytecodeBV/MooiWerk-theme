@@ -26,4 +26,8 @@
   line-height: calculaterem(32px); //1.6875rem;
   font-size: calculaterem(20px); //1.25rem;
   font-family: Mohr-Regular;
+
+  &:hover {
+    color: $dark;
+  }
 }

@@ -1,5 +1,9 @@
 .layered {
   margin-bottom: calculaterem(20px);
+
+  a {
+    color: $primary;
+  }
 }
 
 .layered__bar {

@@ -6,6 +6,7 @@
 @import 'error';
 @import 'signup';
 @import 'account';
+@import 'contact';
 
 .card-columns {
   @include media-breakpoint-up(sm) {

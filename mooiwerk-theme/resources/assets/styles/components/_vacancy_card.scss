@@ -16,6 +16,10 @@
   font-size: calculaterem(19px);
   height: calculaterem(58px);
   margin-bottom: calculaterem(6px);
+
+  a {
+    color: $primary;
+  }
 }
 
 @include media-breakpoint-up(md) {
@@ -76,6 +80,11 @@
   font-family: $headings-font-family;
   display: block;
   margin-top: calculaterem(10px);
+  color: $primary;
+
+  &:hover {
+    color: $dark;
+  }
 }
 
 @include media-breakpoint-up(md) {

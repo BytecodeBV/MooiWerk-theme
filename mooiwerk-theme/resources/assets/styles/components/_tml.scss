@@ -1,0 +1,9 @@
+.tml-links {
+  a {
+    color: $primary;
+
+    &:hover {
+      color: $dark;
+    }
+  }
+}

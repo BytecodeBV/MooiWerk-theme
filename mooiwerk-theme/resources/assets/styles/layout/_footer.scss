@@ -109,6 +109,10 @@
 .footer-menu__nav {
   line-height: calculaterem(20px);
   margin-bottom: calculaterem(78px);
+
+  a {
+    color: $primary;
+  }
 }
 
 .footer-menu__icons {
