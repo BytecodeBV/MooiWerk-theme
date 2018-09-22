@@ -1,39 +1,62 @@
 <section @php post_class('contact') @endphp>
     <div class="page__body container">
-        <h1 class="page__header text-uppercase">{{get_the_title()}}</h1>
-        <div class="page__intro">{!! apply_filters('the_content', get_the_content()) !!}</div>
-        <div class="row page__content mt-5">
-            <div class="col-md-6 contact__cards">
-                <div class="col-sm-12 my-4">
-                    <div class="card contatct__card border-0">
-                        <div class="card-body text-center">
-                            <i class="fa fa-phone fa-2x mb-2" aria-hidden="true"></i>
-                            <h4 class="text-uppercase mb-4">call us</h4>
-                            <p class="big-text">{{get_field('phone')}}</p>
-                        </div>
-                    </div>
+        <div class="row page__content contact__cards mt-5">
+            <div class="col-lg-6 mb-3">
+                <h1 class="mb-3">Contact</h1>
+                <div class="media contact__card mb-3 shadow bg-white rounded">
+                    <a class="media-left" href="#">
+                        <img class="media-object p-2" src="@asset('images/phone.png')" width="120" alt="">
+                    </a>
+                    <div class="media-body px-3 pt-3">
+                        {!! get_field('phone') !!}
+                    </div>                    
                 </div>
-                <div class="col-sm-12 my-4">
-                    <div class="card  contatct__card border-0">
-                        <div class="card-body text-center">
-                            <i class="fa fa-map-marker fa-2x mb-2" aria-hidden="true"></i>
-                            <h4 class="text-uppercase mb-4">office location</h4>
-                            <address class="big-text">{{get_field('address')}} </address>
-                        </div>
-                    </div>
+                <div class="media contact__card mb-3 shadow bg-white rounded">
+                    <a class="media-left" href="#">
+                        <img class="media-object p-2" src="@asset('images/envelope.png')" width="120" alt="">
+                    </a>
+                    <div class="media-body px-3 pt-3">
+                        {!! get_field('address') !!}
+                    </div>                    
                 </div>
-                <div class="col-sm-12 my-4">
-                    <div class="card  contatct__card border-0">
-                        <div class="card-body text-center">
-                            <i class="fa fa-globe fa-2x mb-2" aria-hidden="true"></i>
-                            <h4 class="text-uppercase mb-4">email</h4>
-                            <p class="big-text">{{get_field('email')}}</p>
-                        </div>
-                    </div>
+                <div class="media contact__card mb-3 shadow bg-white rounded">
+                    <a class="media-left" href="#">
+                        <img class="media-object p-2" src="@asset('images/at.png')" width="120" alt="">
+                    </a>
+                    <div class="media-body px-3 pt-3">
+                        {{get_field('email')}}
+                    </div>                    
                 </div>
+                <div class="media contact__card mb-3 shadow bg-white rounded">
+                    <a class="media-left" href="#">
+                        <img class="media-object p-2" src="@asset('images/map-marker.png')" width="120" alt="">
+                    </a>
+                    <div class="media-body px-3 pt-3">
+                        {!! get_field('info') !!}
+                    </div>                    
+                </div>                
             </div>
-            <div class="col-md-6  contact__form">
-                {!! do_shortcode(get_field('form', false, false)) !!}
+            <div class="col-lg-6 mb-3">
+                @php
+                    $teams = App::teams();
+                @endphp
+                @if($teams)
+                    <h1 class="mb-3"> TEAM </h1>
+                    @foreach($teams as $team)
+                        <div class="media contact__card mb-3 shadow bg-white rounded">
+                            <a class="media-left" href="#">
+                                <img class="media-object" src="{{$team['avatar']}}" width="120" alt="">
+                            </a>
+                            <div class="media-body ml-3 mt-2">
+                                <h4 class="media-heading">{{$team['name']}}</h4>
+                                    <ul class="m-0 contact__list">
+                                        <li class="contact__list-item"><i class="fa fa-phone"></i> {{$team['phone']}}</li>
+                                        <li class="contact__list-item"><i class="fa fa-envelope"></i> {{$team['email']}}</li>
+                                    </ul>
+                            </div>                    
+                        </div>
+                    @endforeach
+                @endif
             </div>
         </div>
     </div>

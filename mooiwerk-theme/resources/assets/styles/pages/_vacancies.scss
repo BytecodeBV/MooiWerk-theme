@@ -6,6 +6,16 @@
   background-position: bottom 13rem left 0;
 }
 
+.vacancy-list_drop-padding {
+  padding-top: calculaterem(30px);
+}
+
+.tab-pager {
+  a {
+    color: $primary;
+  }
+}
+
 .vacancy-list__layered {
   line-height: calculaterem(20px); //1.6875rem;
   font-size: calculaterem(15px); //1.25rem;

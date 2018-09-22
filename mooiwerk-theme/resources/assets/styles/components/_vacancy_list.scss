@@ -96,4 +96,8 @@
 
 .vacancy-tab__link {
   @include bold_1;
+
+  &:hover {
+    color: $dark;
+  }
 }
