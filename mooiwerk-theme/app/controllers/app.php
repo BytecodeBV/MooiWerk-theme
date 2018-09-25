@@ -98,4 +98,20 @@ class App extends Controller
        
         return $return;
     }
+
+    
+
+    /**
+     * Get the first sentence of a string
+     *
+     * @link   https://www.winwar.co.uk/2015/01/how-to-grab-the-first-sentence-of-a-wordpress-post/?utm_source=codesnippet
+     * 
+     * @param  string 		$string 		The string in question
+     * @return string 						The first setence of said string
+     */
+    public static function getSentence($string)
+    {
+        $sentence = preg_split('/(\.|!|\?)\s/', $string, 2, PREG_SPLIT_DELIM_CAPTURE);
+        return $sentence['0'] . $sentence['1'];
+    }
 }

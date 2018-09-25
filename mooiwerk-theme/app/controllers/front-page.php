@@ -6,9 +6,15 @@ use Sober\Controller\Controller;
 
 class FrontPage extends Controller
 {
+    public $featured = [
+        'big' => [],
+        'small' => []
+    ];
+
     public function __construct()
     {
         $this->page_id = get_option('page_on_front');
+        $this->setFeatured();
     }
 
     public function blocks()
@@ -57,7 +63,7 @@ class FrontPage extends Controller
                 'title' => $post->post_title,
                 'link' => get_permalink($post->ID),
                 'excerpt' => wp_kses_post(wp_trim_words($post->post_content, 40, '...')),
-                'date' =>  date_i18n("j M", strtotime(get_field("date", $post->ID))),
+                'date' =>  date_i18n("j M", get_field("_wcs_timestamp", $post->ID)),
                 'lesson' => get_field("sub_title", $post->ID),
             ];
         }, $query->posts);
@@ -89,25 +95,58 @@ class FrontPage extends Controller
         return get_field('course_title');
     }
 
+    public function setFeatured()
+    {
+        $rows = get_field('featured');
+        error_log(json_encode($rows));
+        if (count($rows) == 6) {
+            foreach ($rows as $row) {
+                if ($row['is_big']) {
+                    array_push(
+                        $this->featured['big'],
+                        [
+                            'title' => get_the_title($row['post_id']),
+                            'excerpt' => $row['excerpt'],
+                            'link' => get_permalink($row['post_id']),
+                            'image_link' => get_the_post_thumbnail_url($row['post_id'], [500, 500]),
+                        ]
+                    );
+                } else {
+                    array_push(
+                        $this->featured['small'],
+                        [
+                            'title' => get_the_title($row['post_id']),
+                            'excerpt' => $row['excerpt'],
+                            'link' => get_permalink($row['post_id']),
+                            'image_link' => get_the_post_thumbnail_url($row['post_id'], [500, 500]),
+                        ]
+                    );
+                }
+            }
+            error_log(json_encode($this->featured));
+        } else {
+            $this->featured = false;
+        }
+    }
+
     public function news()
     {
-        $args = array(
-            'post_type' => array('post'),
-            'posts_per_page' => 6,
-            'category_name' => 'news',
-        );
+        if (empty($this->featured)) {
+            return [];
+        }
 
-        $query = new \WP_Query($args);
-        $return = array_map(function ($post) {
-            return [
-                'title' => $post->post_title,
-                'excerpt' => $post->post_content,
-                'link' => get_permalink($post->ID),
-                'image_link' => get_the_post_thumbnail_url($post->ID, [500, 500]),
-            ];
-        }, $query->posts);
-        wp_reset_postdata();
-        return $return;
+        error_log(json_encode($this->featured));
+        if (count($this->featured['big']) == 2) {
+            return $this->featured;
+        } elseif (count($this->featured['big']) == 1) {
+            array_push($this->featured['big'], array_shift($this->featured['small']));
+        } elseif (count($this->featured['big']) > 2) {
+            $this->featured['small'] = array_merge($this->featured['small'], array_slice($this->featured['big'], 2));
+        } else {
+            $this->featured['big'] = array_slice($this->featured['small'], 0, 2);
+        }
+
+        return $this->featured;
     }
 
     public function newsTitle()

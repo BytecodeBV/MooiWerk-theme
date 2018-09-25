@@ -202,3 +202,5 @@ add_action('woocommerce_admin_order_data_after_billing_address', function ($orde
     echo '<p><strong>'.__('Titel', 'mooiwerk-breda-theme').':</strong> ' . get_post_meta($order->get_id(), '_billing_title', true) . '</p>';
     echo '<p><strong>'.__('Tussenvoeging', 'mooiwerk-breda-theme').':</strong> ' . get_post_meta($order->get_id(), '_billing_interpolation', true) . '</p>';
 }, 20, 1);
+
+

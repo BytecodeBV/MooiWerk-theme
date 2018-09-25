@@ -7,7 +7,7 @@
                     {!! apply_filters('the_content', $item['content']); !!}
                 </div>
                 
-                @php comments_template('/partials/comments.blade.php') @endphp
+                {{-- comments_template('/partials/comments.blade.php') --}}
             </article>
             <aside class="col-lg-4">
                 @include('partials.sidebar')
