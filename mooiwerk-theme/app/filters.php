@@ -88,15 +88,20 @@ add_filter('widget_nav_menu_args', function ($nav_menu_args) {
 });
 
 //validate custom theme my login registration fields
-add_filter('registration_errors', function ($errors) {
+add_filter('registration_errors', function ($errors, $sanitized_user_login, $user_email) {
     if (empty($_POST['firstname'])) {
         $errors->add('empty_first_name', __('<strong>FOUT</strong>: Gelieve uw voornaam in te vullen.', 'mooiwerk-breda-theme'));
     }
     if (empty($_POST['lastname'])) {
         $errors->add('empty_last_name', __('<strong>FOUT</strong>: Gelieve uw achternaam in te voeren.', 'mooiwerk-breda-theme'));
     }
+
+    if (! preg_match('/^[a-z0-9]+$/', $sanitized_user_login)) {
+        $errors->add('invalid_username', __('<strong>FOUT</strong>: Gebruikersnaam mag alleen kleine letters en geen speciale tekens bevatten.', 'mooiwerk-breda-theme'));
+    }
+
     return $errors;
-});
+}, 10, 3);
 
 //alter main query
 add_filter('pre_get_posts', function ($query) {
@@ -122,34 +127,6 @@ add_filter('pre_get_posts', function ($query) {
 add_filter('login_headertitle', function () {
     return __('Mooiwerk', 'mooiwerk-breda-theme');
 });
-
-/*
-//prevent woo-commerce users admin dashboard access
-add_filter('woocommerce_prevent_admin_access', '__return_false');
-
-//prevent my-account override on login
-add_filter('woocommerce_get_myaccount_page_permalink', function ($permalink) {
-    return admin_url();
-}, 1);
-*/
-
-/*
-//set age to select instead of checkbox
-add_filter('acf/prepare_field/key=field_5b7ef21994886', function ($field) {
-    //semantic error prone, account page might not use the given slug
-    if (is_page('mijn-account')) {
-        $field['type'] = 'select';
-    }
-    return $field;
-});
-*/
-
-/*
-//change email from address
-add_filter('wp_mail_from', function ($original_email_address) {
-    return 'info@example.com';
-});
-*/
 
 //Change email from name
 add_filter('wp_mail_from_name', function ($original_email_from) {
@@ -209,17 +186,15 @@ add_filter('pre_get_comments', function ($query) {
 
 add_filter('login_redirect', function ($url, $query, $user) {
     $role = $user->roles[0];
-    //semantic error prone, page might go by a different slug
-    $custom_home = home_url('/mijn-account');
-    $setup_page = get_page_by_title('Opstelling');
-    $setup_home = home_url('/' . $setup_page->post_name);
+    
     if (in_array('organisation', (array) $user->roles)) {
-        if (get_field('logged-in', 'user_' . $user->ID) == false) {
-            //Redirect users to mijn-account
-            $url = $setup_home;
+        $setup_page = get_page_by_title('Opstelling');
+        if (get_field('logged-in', 'user_' . $user->ID) == false && !empty($setup_page)) {
+            //Redirect users to to multipage setup page
+            $url = home_url('/' . $setup_page->post_name);
         } else {
             //Redirect users to mijn-account
-            $url = $custom_home;
+            $url = home_url('/mijn-account');
         }
     }
 
@@ -237,26 +212,22 @@ add_filter('login_redirect', function ($url, $query, $user) {
 add_filter('woocommerce_login_redirect', function ($redirect, $user) {
     // Get the first of all the roles assigned to the user
     $role = $user->roles[0];
-    $dashboard = admin_url();
-    $custom_home = home_url('/mijn-account');
-    $setup_page = get_page_by_title('Opstelling');
-    $setup_home = home_url('/' . $setup_page->post_name);
-    $myaccount = get_permalink(wc_get_page_id('myaccount'));
     //in_array('volunteer', (array) $user->roles) ||
     if (in_array('organisation', (array) $user->roles)) {
-        if (get_field('logged-in', 'user_' . $user->ID) == false) {
-            //Redirect users to mijn-account
-            $redirect = $setup_home;
+        $setup_page = get_page_by_title('Opstelling');
+        if (get_field('logged-in', 'user_' . $user->ID) == false && !empty($setup_page)) {
+            //Redirect users to multipage setup page
+            $redirect = home_url('/' . $setup_page->post_name);
         } else {
             //Redirect users to mijn-account
-            $redirect = $custom_home;
+            $redirect = home_url('/mijn-account');
         }
     } elseif ($role == 'customer' || $role == 'subscriber') {
         //Redirect customers and subscribers to the "My Account" page
-        $redirect = $myaccount;
+        $redirect = get_permalink(wc_get_page_id('myaccount'));
     } else {
         //Redirect authors and above to the dashboard
-        $redirect = $dashboard;
+        $redirect = admin_url();
     }
     return $redirect;
 }, 10, 2);
@@ -296,15 +267,13 @@ add_filter('acf/load_value/key=field_5b7efba009d6d', function ($value, $post_id,
 }, 10, 3);
 
 add_filter('tml_shortcode', function ($content, $form, $arg) {
-    if ($form == 'login') {
+    if ($form == 'login' || $form == 'lostpassword') {
         $signup_landing = get_page_by_title(__('Account aanmaken', 'mooiwerk'));
-        if (!is_null($organisation) && !is_null($volunteer)) {
-            $content = str_replace(
-                '<li class="tml-register-link"><a href="' . home_url('/registreren/') . '">' . __('Registreren', 'mooiwerk') . '</a></li>',
-                '<li class="tml-register-link"><a href="' . home_url('/' . $signup_landing->post_name) . '">' . __('Registreer', 'mooiwerk') . '</a></li>',
-                $content
-            );
-        }
+        $content = str_replace(
+            '<li class="tml-register-link"><a href="' . home_url('/registreren/') . '">' . __('Registreren', 'mooiwerk') . '</a></li>',
+            '<li class="tml-register-link"><a href="' . home_url('/' . $signup_landing->post_name) . '/">' . __('Registreer', 'mooiwerk') . '</a></li>',
+            $content
+        );
     }
     return $content;
 }, 10, 3);
@@ -314,10 +283,8 @@ add_filter('page_template', function ($template) {
     if (in_array(
         $post->post_title,
         [
-            __('Opstelling', 'mooiwerk'),
             __('Uitloggen', 'mooiwerk'),
             __('Registreren', 'mooiwerk'),
-            __('Nieuw account', 'mooiwerk'),
             __('Registreer Organisatie', 'mooiwerk'),
             __('Registreer Vrijwilliger', 'mooiwerk'),
             __('Maak hier een veilig wachtwoord aan', 'mooiwerk'),
@@ -395,11 +362,3 @@ add_filter('woocommerce_checkout_get_value', function ($input, $key) {
             break;
     }
 }, 10, 2);
-
-// Only allow alphanumeric in username
-add_filter('registration_errors', function ($errors, $sanitized_user_login, $user_email) {
-    if (! preg_match('/^[a-z0-9]+$/', $sanitized_user_login)) {
-        $errors->add('invalid_username', __('<strong>ERROR</strong>: Gebruikersnaam mag geen speciale tekens bevatten, alleen alfanumerieke letters.', 'mooiwerk-breda-theme'));
-    }
-    return $errors;
-}, 10, 3);
