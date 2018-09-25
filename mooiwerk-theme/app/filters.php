@@ -301,7 +301,7 @@ add_filter('tml_shortcode', function ($content, $form, $arg) {
         if (!is_null($organisation) && !is_null($volunteer)) {
             $content = str_replace(
                 '<li class="tml-register-link"><a href="' . home_url('/registreren/') . '">' . __('Registreren', 'mooiwerk') . '</a></li>',
-                '<li class="tml-register-link"><a href="' . home_url('/' . $signup_landing->post_name) . '">' . __('Registreer', 'mooiwerk') . '</a></li>', 
+                '<li class="tml-register-link"><a href="' . home_url('/' . $signup_landing->post_name) . '">' . __('Registreer', 'mooiwerk') . '</a></li>',
                 $content
             );
         }
@@ -370,7 +370,7 @@ add_filter('woocommerce_quantity_input_args', function ($args, $product) {
 }, 10, 2);
 
 //Remove "successfully added to your cart" alert form checkout page
-add_filter( 'wc_add_to_cart_message_html', '__return_null' );
+add_filter('wc_add_to_cart_message_html', '__return_null');
 
 /**
  * Pre-populate Woocommerce checkout fields
@@ -396,12 +396,10 @@ add_filter('woocommerce_checkout_get_value', function ($input, $key) {
     }
 }, 10, 2);
 
-// Only allow alphanumeric and underscores in username
-add_filter('validate_username', function ($valid, $username) {
-    if ($valid) {
-        if (preg_match("/^[a-z0-9]+$/", $username)) {
-            return true;
-        }
+// Only allow alphanumeric in username
+add_filter('registration_errors', function ($errors, $sanitized_user_login, $user_email) {
+    if (! preg_match('/^[a-z0-9]+$/', $sanitized_user_login)) {
+        $errors->add('invalid_username', __('<strong>ERROR</strong>: Gebruikersnaam mag geen speciale tekens bevatten, alleen alfanumerieke letters.', 'mooiwerk-breda-theme'));
     }
-    return false;
-}, 1, 2);
+    return $errors;
+}, 10, 3);
