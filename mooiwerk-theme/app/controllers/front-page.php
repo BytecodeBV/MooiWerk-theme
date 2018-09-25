@@ -98,7 +98,6 @@ class FrontPage extends Controller
     public function setFeatured()
     {
         $rows = get_field('featured');
-        error_log(json_encode($rows));
         if (count($rows) == 6) {
             foreach ($rows as $row) {
                 if ($row['is_big']) {
@@ -123,7 +122,6 @@ class FrontPage extends Controller
                     );
                 }
             }
-            error_log(json_encode($this->featured));
         } else {
             $this->featured = false;
         }
@@ -135,7 +133,6 @@ class FrontPage extends Controller
             return [];
         }
 
-        error_log(json_encode($this->featured));
         if (count($this->featured['big']) == 2) {
             return $this->featured;
         } elseif (count($this->featured['big']) == 1) {
