@@ -1,0 +1,856 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Mooiwerk\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-20 01:59+0100\n"
+"PO-Revision-Date: 2018-09-22 12:23+0000\n"
+"Last-Translator: bytecode <info@bytecode.nl>\n"
+"Language-Team: Nederlands\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Loco https://localise.biz/\n"
+"Language: nl_NL"
+
+#: resources/functions.php:18
+msgid "Sage &rsaquo; Error"
+msgstr ""
+
+#: resources/functions.php:28
+msgid "You must be using PHP 7.1 or greater."
+msgstr ""
+
+#: resources/functions.php:28
+msgid "Invalid PHP version"
+msgstr ""
+
+#: resources/functions.php:35
+msgid "You must be using WordPress 4.7.0 or greater."
+msgstr ""
+
+#: resources/functions.php:35
+msgid "Invalid WordPress version"
+msgstr ""
+
+#: resources/functions.php:44
+msgid "You must run <code>composer install</code> from the Sage directory."
+msgstr ""
+
+#: resources/functions.php:45
+msgid "Autoloader not found."
+msgstr ""
+
+#: resources/functions.php:60
+#, php-format
+msgid "Error locating <code>%s</code> for inclusion."
+msgstr ""
+
+#: resources/woocommerce/cart/cart-empty.php:33
+msgid "Return to shop"
+msgstr ""
+
+#: resources/woocommerce/cart/cart.php:32
+#: resources/woocommerce/cart/cart.php:76
+#: resources/woocommerce/checkout/form-pay.php:27
+#: resources/woocommerce/checkout/review-order.php:26
+#: resources/woocommerce/order/order-details.php:45
+msgid "Product"
+msgstr ""
+
+#: resources/woocommerce/cart/cart.php:33
+#: resources/woocommerce/cart/cart.php:96
+msgid "Price"
+msgstr ""
+
+#: resources/woocommerce/cart/cart.php:34
+#: resources/woocommerce/cart/cart.php:102
+#: resources/woocommerce/global/quantity-input.php:31
+msgid "Quantity"
+msgstr ""
+
+#: resources/woocommerce/cart/cart.php:35
+#: resources/woocommerce/cart/cart.php:120
+#: resources/woocommerce/myaccount/my-orders.php:16
+#: resources/woocommerce/order/order-details.php:46
+msgid "Total"
+msgstr ""
+
+#: resources/woocommerce/cart/cart.php:57
+#: resources/woocommerce/cart/mini-cart.php:47
+msgid "Remove this item"
+msgstr ""
+
+#: resources/woocommerce/cart/cart.php:91
+msgid "Available on backorder"
+msgstr ""
+
+#: resources/woocommerce/cart/cart.php:138
+msgid "Coupon:"
+msgstr ""
+
+#: resources/woocommerce/cart/cart.php:138
+#: resources/woocommerce/checkout/form-coupon.php:34
+msgid "Coupon code"
+msgstr ""
+
+#: resources/woocommerce/cart/cart.php:138
+#: resources/woocommerce/checkout/form-coupon.php:38
+msgid "Apply coupon"
+msgstr ""
+
+#: resources/woocommerce/cart/cart.php:143
+msgid "Update cart"
+msgstr ""
+
+#: resources/woocommerce/cart/mini-cart.php:72
+msgid "Subtotal"
+msgstr ""
+
+#: resources/woocommerce/cart/mini-cart.php:80
+msgid "No products in the cart."
+msgstr ""
+
+#: resources/woocommerce/cart/proceed-to-checkout-button.php:27
+msgid "Proceed to checkout"
+msgstr ""
+
+#: resources/woocommerce/checkout/form-checkout.php:29
+msgid "You must be logged in to checkout."
+msgstr ""
+
+#: resources/woocommerce/checkout/form-checkout.php:55
+msgid "Your order"
+msgstr ""
+
+#: resources/woocommerce/checkout/form-coupon.php:26
+msgid "Have a coupon?"
+msgstr ""
+
+#: resources/woocommerce/checkout/form-coupon.php:26
+msgid "Click here to enter your code"
+msgstr ""
+
+#: resources/woocommerce/checkout/form-coupon.php:31
+msgid "If you have a coupon code, please apply it below."
+msgstr ""
+
+#: resources/woocommerce/checkout/form-pay.php:28
+msgid "Qty"
+msgstr ""
+
+#: resources/woocommerce/checkout/form-pay.php:29
+msgid "Totals"
+msgstr ""
+
+#: resources/woocommerce/checkout/form-pay.php:79
+msgid ""
+"Sorry, it seems that there are no available payment methods for your "
+"location. Please contact us if you require assistance or wish to make "
+"alternate arrangements."
+msgstr ""
+
+#: resources/woocommerce/checkout/payment.php:33
+msgid ""
+"Sorry, it seems that there are no available payment methods for your state. "
+"Please contact us if you require assistance or wish to make alternate "
+"arrangements."
+msgstr ""
+
+#: resources/woocommerce/checkout/payment.php:33
+msgid "Please fill in your details above to see available payment methods."
+msgstr ""
+
+#: resources/woocommerce/checkout/payment.php:40
+msgid ""
+"Since your browser does not support JavaScript, or it is disabled, please "
+"ensure you click the <em>Update Totals</em> button before placing your order."
+" You may be charged more than the amount stated above if you fail to do so."
+msgstr ""
+
+#: resources/woocommerce/checkout/payment.php:41
+msgid "Update totals"
+msgstr ""
+
+#: resources/woocommerce/checkout/thankyou.php:30
+msgid ""
+"Unfortunately your order cannot be processed as the originating "
+"bank/merchant has declined your transaction. Please attempt your purchase "
+"again."
+msgstr ""
+
+#: resources/woocommerce/checkout/thankyou.php:33
+msgid "Pay"
+msgstr ""
+
+#: resources/woocommerce/checkout/thankyou.php:35
+msgid "My account"
+msgstr ""
+
+#: resources/woocommerce/checkout/thankyou.php:41
+#: resources/woocommerce/checkout/thankyou.php:83
+msgid "Thank you. Your order has been received."
+msgstr ""
+
+#: resources/woocommerce/checkout/thankyou.php:46
+msgid "Order number:"
+msgstr ""
+
+#: resources/woocommerce/checkout/thankyou.php:51
+msgid "Date:"
+msgstr ""
+
+#: resources/woocommerce/checkout/thankyou.php:57
+msgid "Email:"
+msgstr ""
+
+#: resources/woocommerce/checkout/thankyou.php:63
+msgid "Total:"
+msgstr ""
+
+#: resources/woocommerce/checkout/thankyou.php:69
+msgid "Payment method:"
+msgstr ""
+
+#: resources/woocommerce/global/form-login.php:35
+#: resources/woocommerce/myaccount/form-lost-password.php:27
+msgid "Username or email"
+msgstr ""
+
+#: resources/woocommerce/global/form-login.php:39
+#: resources/woocommerce/myaccount/form-login.php:47
+#: resources/woocommerce/myaccount/form-login.php:97
+msgid "Password"
+msgstr ""
+
+#: resources/woocommerce/global/form-login.php:48
+#: resources/woocommerce/myaccount/form-login.php:36
+#: resources/woocommerce/myaccount/form-login.php:55
+msgid "Login"
+msgstr ""
+
+#: resources/woocommerce/global/form-login.php:51
+#: resources/woocommerce/myaccount/form-login.php:57
+msgid "Remember me"
+msgstr ""
+
+#: resources/woocommerce/global/form-login.php:55
+#: resources/woocommerce/myaccount/form-login.php:61
+msgid "Lost your password?"
+msgstr ""
+
+#: resources/woocommerce/global/quantity-input.php:28
+#, php-format
+msgid "%s quantity"
+msgstr ""
+
+#: resources/woocommerce/global/quantity-input.php:41
+msgctxt "Product quantity input tooltip"
+msgid "Qty"
+msgstr ""
+
+#: resources/woocommerce/myaccount/downloads.php:41
+#: resources/woocommerce/myaccount/orders.php:101
+msgid "Go shop"
+msgstr ""
+
+#: resources/woocommerce/myaccount/downloads.php:43
+msgid "No downloads available yet."
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-account.php:27
+msgid "First name"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-account.php:31
+msgid "Last name"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-account.php:37
+msgid "Display name"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-account.php:38
+msgid ""
+"This will be how your name will be displayed in the account section and in "
+"reviews"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-account.php:43
+#: resources/woocommerce/myaccount/form-login.php:90
+msgid "Email address"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-account.php:48
+msgid "Password change"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-account.php:51
+msgid "Current password (leave blank to leave unchanged)"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-account.php:55
+msgid "New password (leave blank to leave unchanged)"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-account.php:59
+msgid "Confirm new password"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-account.php:69
+msgid "Save changes"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-address.php:20
+#: resources/woocommerce/myaccount/my-address.php:27
+#: resources/woocommerce/myaccount/my-address.php:32
+msgid "Billing address"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-address.php:20
+#: resources/woocommerce/myaccount/my-address.php:28
+msgid "Shipping address"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-edit-address.php:49
+msgid "Save address"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-login.php:43
+msgid "Username or email address"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-login.php:55
+msgid "Log in"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-login.php:74
+#: resources/woocommerce/myaccount/form-login.php:107
+msgid "Register"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-login.php:83
+msgid "Username"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-lost-password.php:24
+msgid ""
+"Lost your password? Please enter your username or email address. You will "
+"receive a link to create a new password via email."
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-lost-password.php:37
+msgid "Reset password"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-reset-password.php:24
+msgid "Enter a new password below."
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-reset-password.php:27
+msgid "New password"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-reset-password.php:31
+msgid "Re-enter new password"
+msgstr ""
+
+#: resources/woocommerce/myaccount/form-reset-password.php:44
+msgid "Save"
+msgstr ""
+
+#: resources/woocommerce/myaccount/my-address.php:41
+msgid "The following addresses will be used on the checkout page by default."
+msgstr ""
+
+#: resources/woocommerce/myaccount/my-address.php:53
+#: app/lib/bootstrap_comment_walker.php:61
+msgid "Edit"
+msgstr ""
+
+#: resources/woocommerce/myaccount/my-address.php:57
+msgid "You have not set up this type of address yet."
+msgstr ""
+
+#: resources/woocommerce/myaccount/my-orders.php:13
+msgid "Order"
+msgstr ""
+
+#: resources/woocommerce/myaccount/my-orders.php:14
+msgid "Date"
+msgstr ""
+
+#: resources/woocommerce/myaccount/my-orders.php:15
+msgid "Status"
+msgstr ""
+
+#: resources/woocommerce/myaccount/my-orders.php:30
+msgid "Recent orders"
+msgstr ""
+
+#: resources/woocommerce/myaccount/my-orders.php:55
+#: resources/woocommerce/myaccount/orders.php:51
+msgctxt "hash before order number"
+msgid "#"
+msgstr ""
+
+#: resources/woocommerce/myaccount/my-orders.php:67
+#: resources/woocommerce/myaccount/orders.php:63
+#, php-format
+msgid "%1$s for %2$s item"
+msgid_plural "%1$s for %2$s items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: resources/woocommerce/myaccount/orders.php:89
+msgid "Previous"
+msgstr ""
+
+#: resources/woocommerce/myaccount/orders.php:93
+msgid "Next"
+msgstr ""
+
+#: resources/woocommerce/myaccount/orders.php:103
+msgid "No order has been made yet."
+msgstr ""
+
+#: resources/woocommerce/order/order-details.php:39
+msgid "Order details"
+msgstr ""
+
+#: resources/woocommerce/order/order-details.php:84
+msgid "Note:"
+msgstr ""
+
+#: resources/woocommerce/product-searchform.php:26
+msgid "Search for:"
+msgstr ""
+
+#: resources/woocommerce/product-searchform.php:27
+msgid "Search products&hellip;"
+msgstr ""
+
+#: resources/woocommerce/product-searchform.php:30
+msgctxt "submit button"
+msgid "Search"
+msgstr ""
+
+#: resources/woocommerce/single-product/rating.php:37
+#, php-format
+msgid "%s customer review"
+msgid_plural "%s customer reviews"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/actions.php:34
+msgid "Voornaam"
+msgstr ""
+
+#: app/actions.php:43
+msgid "Tussenvoegsel"
+msgstr ""
+
+#: app/actions.php:52
+msgid "Achternaam"
+msgstr ""
+
+#: app/actions.php:83
+msgid "Standaard"
+msgstr ""
+
+#: app/actions.php:83
+msgid "Vrijwilliger"
+msgstr ""
+
+#: app/actions.php:83
+msgid "Organisatie"
+msgstr ""
+
+#: app/actions.php:132
+msgid "Wachtwoord vergeten"
+msgstr ""
+
+#: app/actions.php:202 app/filters.php:277
+msgid "Titel"
+msgstr ""
+
+#: app/actions.php:203 app/filters.php:270
+msgid "Tussenvoeging"
+msgstr ""
+
+#: app/admin.php:21
+msgid "Newsletter"
+msgstr ""
+
+#: app/admin.php:23
+msgid "Set Mailchimp List URL."
+msgstr ""
+
+#: app/admin.php:41
+msgid "Mailchimp List URL"
+msgstr ""
+
+#: app/admin.php:51
+msgid "ACF Settings"
+msgstr ""
+
+#: app/admin.php:53
+msgid "Set ACF Global Setting."
+msgstr ""
+
+#: app/admin.php:71
+msgid "Google Map Key"
+msgstr ""
+
+#: app/admin.php:81
+msgid "Site Headers"
+msgstr ""
+
+#: app/admin.php:83
+msgid "Set Default Header for Post Types"
+msgstr ""
+
+#: app/admin.php:112
+msgid "Header for Vacancy Archive Page"
+msgstr ""
+
+#: app/admin.php:134
+msgid "Header for Vacancy Posts"
+msgstr ""
+
+#: app/admin.php:156
+msgid "Header for Organisation Profiles"
+msgstr ""
+
+#: app/admin.php:178
+msgid "Header for Volunteer Profiles"
+msgstr ""
+
+#: app/controllers/app.php:20
+msgid "Laatste berichten"
+msgstr ""
+
+#: app/controllers/app.php:26
+#, php-format
+msgid "Resultaten voor %s"
+msgstr ""
+
+#: app/controllers/app.php:29
+msgid "Niet gevonden"
+msgstr ""
+
+#: app/controllers/front-page.php:70
+msgid "Vrijwilligersacademie"
+msgstr ""
+
+#: app/controllers/front-page.php:115
+msgid "Nieuws"
+msgstr ""
+
+#: app/controllers/home.php:75
+msgid "Teams"
+msgstr "Team"
+
+#: app/filters.php:33
+msgid "Continued"
+msgstr ""
+
+#: app/filters.php:93
+msgid "<strong>FOUT</strong>: Gelieve uw voornaam in te vullen."
+msgstr ""
+
+#: app/filters.php:96
+msgid "<strong>FOUT</strong>: Gelieve uw achternaam in te voeren."
+msgstr ""
+
+#: app/filters.php:123
+msgid "Mooiwerk"
+msgstr ""
+
+#: app/filters.php:156 app/filters.php:178
+msgid "Mooiwerk Breda"
+msgstr ""
+
+#: app/filters.php:161
+#, php-format
+msgid "Deze email is verstuurd vanuit <a href=\"%s\">Mooiwerk Breda</a>"
+msgstr ""
+
+#: app/filters.php:271
+msgctxt "placeholder"
+msgid "Tussenvoeging"
+msgstr ""
+
+#: app/filters.php:278
+msgctxt "placeholder"
+msgid "Titel"
+msgstr ""
+
+#: app/filters.php:298 resources/views/page-registreer.blade.php:12
+msgid "Account aanmaken"
+msgstr ""
+
+#: app/filters.php:301 app/filters.php:317
+msgid "Registreren"
+msgstr ""
+
+#: app/filters.php:302
+msgid "Registreer"
+msgstr ""
+
+#: app/filters.php:315
+msgid "Opstelling"
+msgstr ""
+
+#: app/filters.php:316
+msgid "Uitloggen"
+msgstr ""
+
+#: app/filters.php:318
+msgid "Nieuw account"
+msgstr ""
+
+#: app/filters.php:319
+msgid "Registreer Organisatie"
+msgstr ""
+
+#: app/filters.php:320
+msgid "Registreer Vrijwilliger"
+msgstr ""
+
+#: app/filters.php:321
+msgid "Maak hier een veilig wachtwoord aan"
+msgstr ""
+
+#: app/filters.php:322
+msgid "Wachtwoord reset"
+msgstr ""
+
+#: app/helpers.php:180
+msgid "« Prev"
+msgstr ""
+
+#: app/helpers.php:181
+msgid "Next »"
+msgstr ""
+
+#: app/lib/bootstrap_comment_walker.php:76
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: app/setup.php:48
+msgid "Primary Navigation"
+msgstr ""
+
+#: app/setup.php:103
+msgid "Primary"
+msgstr ""
+
+#: app/setup.php:113
+msgid "Footer Column 1"
+msgstr ""
+
+#: app/setup.php:117
+msgid "Footer Column 2"
+msgstr ""
+
+#: app/setup.php:121
+msgid "Footer Column 3"
+msgstr ""
+
+#: app/setup.php:125
+msgid "Footer Column 4"
+msgstr ""
+
+#: resources/views/404.blade.php:11
+msgid "Oops!"
+msgstr ""
+
+#: resources/views/404.blade.php:12
+msgid "Je hebt een 404"
+msgstr ""
+
+#: resources/views/404.blade.php:14
+msgid "Sorry, maar de gevraagde bron is niet gevonden!"
+msgstr ""
+
+#: resources/views/404.blade.php:18
+msgid "Gaan Huis"
+msgstr ""
+
+#: resources/views/404.blade.php:21
+msgid "Contact Ondersteuning"
+msgstr ""
+
+#: resources/views/archive-course.blade.php:15
+#: resources/views/partials/content-course.blade.php:23
+msgid "Geen cursussen gevonden"
+msgstr ""
+
+#: resources/views/index.blade.php:12
+#: resources/views/partials/content-home-posts.blade.php:7
+msgid "Opps! Nothing found"
+msgstr ""
+
+#: resources/views/index.blade.php:13
+#: resources/views/partials/content-home-posts.blade.php:8
+msgid "There is nothing to display."
+msgstr ""
+
+#: resources/views/index.blade.php:14
+#: resources/views/partials/content-home-posts.blade.php:9
+msgid "Go Back »"
+msgstr ""
+
+#: resources/views/page-registreer.blade.php:14
+msgid ""
+"Maak een account om aan de slag te gaan. Volg de link die het best bij u past"
+msgstr ""
+
+#: resources/views/page-registreer.blade.php:25
+msgid "ik ben een organisatie"
+msgstr ""
+
+#: resources/views/page-registreer.blade.php:28
+msgid "ik ben een vrijwilliger"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:10
+msgid "Reacties"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:28
+msgid "&larr; Older comments"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:31
+msgid "Newer comments &rarr;"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:40
+msgid "Reacties zijn gesloten."
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:50
+msgid "Name"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:56
+msgid "Email"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:62
+msgid "Website"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:70
+msgctxt "noun"
+msgid "Comment"
+msgstr ""
+
+#: resources/views/partials/content-blocks.blade.php:10
+#: resources/views/partials/content-course-card.blade.php:7
+#: resources/views/partials/content-news.blade.php:13
+#: resources/views/partials/content-news.blade.php:25
+#: resources/views/partials/content-news.blade.php:37
+#: resources/views/partials/content-news.blade.php:54
+#: resources/views/partials/content-news.blade.php:65
+#: resources/views/partials/content-news.blade.php:77
+#: resources/views/partials/content-post.blade.php:6
+#: resources/views/partials/content-vacancy.blade.php:12
+msgid "lees meer ›"
+msgstr ""
+
+#: resources/views/partials/content-blocks.blade.php:26
+#: resources/views/partials/content-teams.blade.php:25
+msgid "Geen cursus gevonden"
+msgstr ""
+
+#: resources/views/partials/content-course.blade.php:11
+msgid "alle cursussen ›"
+msgstr "Alle activiteiten ›"
+
+#: resources/views/partials/content-links.blade.php:3
+msgid "Of bent u op zoek na Copy"
+msgstr "Of bent u opzoek naar"
+
+#: resources/views/partials/content-links.blade.php:31
+msgid "Geen links gevonden"
+msgstr ""
+
+#: resources/views/partials/content-news.blade.php:84
+msgid "Niet genoeg inhoud om raster te maken"
+msgstr ""
+
+#: resources/views/partials/content-search.blade.php:9
+msgid "bekijk >"
+msgstr ""
+
+#: resources/views/partials/entry-meta.blade.php:3
+msgid "By"
+msgstr ""
+
+#: resources/views/partials/footer.blade.php:23
+msgid "© 2018 Mooi Werk - All rights reserved"
+msgstr "© 2018 MOOIWERK - All rights reserved"
+
+#: resources/views/partials/header.blade.php:11
+#: resources/views/partials/header.blade.php:13
+msgid "Profiel"
+msgstr ""
+
+#: resources/views/partials/header.blade.php:15
+msgid "Log Uit"
+msgstr ""
+
+#: resources/views/partials/header.blade.php:17
+msgid "Inloggen"
+msgstr ""
+
+#: resources/views/partials/newsletter.blade.php:6
+msgid "Wil je op de hoogte blijven?"
+msgstr ""
+
+#: resources/views/partials/newsletter.blade.php:7
+msgid ""
+"Laat dan je e-mailadres achter om de meest recente vacatures, kandidaten en "
+"ander nieuws te ontvangen."
+msgstr ""
+
+#: resources/views/partials/newsletter.blade.php:10
+msgid "Aanmelden"
+msgstr ""
+
+#: resources/views/partials/page-header.blade.php:45
+msgid "Vrijwilliger zijn?"
+msgstr ""
+
+#: resources/views/partials/page-header.blade.php:46
+msgid "Vind je vacature."
+msgstr ""
+
+#: resources/views/search.blade.php:14
+msgid "Sorry, er zijn geen resultaten gevonden."
+msgstr ""
+
+#: resources/views/search.blade.php:27
+msgid " ago"
+msgstr ""
+
+#: resources/views/search.blade.php:33
+msgid " - Breda, Nederland"
+msgstr ""
+
+#: resources/views/searchform.blade.php:2
+#: resources/views/searchform.blade.php:5
+msgid "Zoek"
+msgstr ""
+
+#: resources/views/single-course.blade.php:18
+msgid "Deel deze pagina"
+msgstr ""
