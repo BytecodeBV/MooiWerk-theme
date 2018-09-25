@@ -97,7 +97,7 @@ add_filter('registration_errors', function ($errors, $sanitized_user_login, $use
     }
 
     if (! preg_match('/^[a-z0-9]+$/', $sanitized_user_login)) {
-        $errors->add('invalid_username', __('<strong>ERROR</strong>: Gebruikersnaam mag geen speciale tekens bevatten, alleen alfanumerieke letters.', 'mooiwerk-breda-theme'));
+        $errors->add('invalid_username', __('<strong>FOUT</strong>: Gebruikersnaam mag alleen kleine letters en geen speciale tekens bevatten.', 'mooiwerk-breda-theme'));
     }
 
     return $errors;
