@@ -299,12 +299,6 @@ add_filter('page_template', function ($template) {
 //disable payment
 add_filter('woocommerce_cart_needs_payment', '__return_false');
 
-//redirect to checkout
-add_filter('woocommerce_add_to_cart_redirect', function ($url) {
-    $url = get_permalink(get_option('woocommerce_checkout_page_id'));
-    return $url;
-});
-
 /**
  * Add Bootstrap Class to WooCommerce Checkout Fields
  */
@@ -362,3 +356,17 @@ add_filter('woocommerce_checkout_get_value', function ($input, $key) {
             break;
     }
 }, 10, 2);
+
+// acf/load_value - filter for every value load
+add_filter('acf/load_value', function ($value, $post_id, $field) {
+    if ($field['key'] == "field_5bb48c0adb986" || $field['key'] == "field_5bb48c0adb987") {
+        $user = wp_get_current_user();
+        
+        if ($user->ID != 0) {
+            if (empty($value) || $value != $user->user_email) {
+                $value = $user->user_email;
+            }
+        }
+    }
+    return $value;
+}, 10, 3);

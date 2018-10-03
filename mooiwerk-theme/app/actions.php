@@ -203,4 +203,45 @@ add_action('woocommerce_admin_order_data_after_billing_address', function ($orde
     echo '<p><strong>'.__('Tussenvoeging', 'mooiwerk-breda-theme').':</strong> ' . get_post_meta($order->get_id(), '_billing_interpolation', true) . '</p>';
 }, 20, 1);
 
+//swap update user email
+add_action('acf/save_post', function ($post_id) {
+     // bail early if no ACF data
+    if (empty($_POST['acf'])) {
+        return;
+    }
+    
+    $fields = $_POST['acf'];
+
+    if (isset($fields['field_5bb48c0adb986']) && filter_var($fields['field_5bb48c0adb986'], FILTER_VALIDATE_EMAIL)) {
+        $user = wp_get_current_user();
+        if ($user->user_email  != $fields['field_5bb48c0adb986']) {
+            $user->user_email = $fields['field_5bb48c0adb986'];
+            wp_update_user($user);
+        }
+    }
+
+    if (isset($fields['field_5bb48c0adb986']) && filter_var($fields['field_5bb48c0adb987'], FILTER_VALIDATE_EMAIL)) {
+        $user = wp_get_current_user();
+        if ($user->user_email  != $fields['field_5bb48c0adb987']) {
+            $user->user_email = $fields['field_5bb48c0adb987'];
+            wp_update_user($user);
+        }
+    }
+}, 20, 1);
+
+/**
+ * Add CSS to the admin pages to adjust user-edit.php form
+ */
+add_action('admin_head', function () {
+    echo '<style>
+	/** 
+	 * Hide ACF email fileds
+	 */
+    #profile-page .acf-field-5bb4920ddb986, #profile-page .acf-field-5bb4920ddb987 {
+    	display: none;
+    }
+  	</style>';
+});
+
+
 
