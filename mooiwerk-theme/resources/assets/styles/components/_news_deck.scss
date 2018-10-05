@@ -47,6 +47,27 @@
   padding: 1rem 1.187rem;
 }
 
+@include media-breakpoint-up(xs) {
+  .newsdeck__item_small {
+    flex: 1 0 95% !important;
+    margin-bottom: 1.2rem !important;
+  }
+}
+
+@include media-breakpoint-only(md) {
+  .newsdeck__item_small {
+    flex: 1 0 0% !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+@include media-breakpoint-up(xxl) {
+  .newsdeck__item_small {
+    flex: 1 0 0% !important;
+    margin-bottom: 0 !important;
+  }
+}
+
 .newsdeck__item_align {
   display: flex;
   flex-direction: column;

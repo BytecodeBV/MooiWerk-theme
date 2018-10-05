@@ -64,7 +64,7 @@ class FrontPage extends Controller
                 'link' => get_permalink($post->ID),
                 'excerpt' => wp_kses_post(wp_trim_words($post->post_content, 40, '...')),
                 'date' =>  date_i18n("j M", get_field("_wcs_timestamp", $post->ID)),
-                'lesson' => get_field("sub_title", $post->ID),
+                'lesson' => get_field("_wcs_sub_title", $post->ID),
             ];
         }, $query->posts);
         wp_reset_postdata();

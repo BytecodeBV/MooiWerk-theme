@@ -165,7 +165,34 @@ add_action('acf/submit_form', function ($form, $post_id) {
             //error prone, page might not exist
             $redirect = home_url('/mijn-account');
             break;
-        case 'new-vacancy':
+        case 'new-vacancy-1':
+            $redirect = add_query_arg(
+                array(
+                    'stage' => '2',
+                    'post' => $post_id,
+                ),
+                home_url('/nieuwe-vacature')
+            );
+            break;
+        case 'new-vacancy-2':
+            $redirect = add_query_arg(
+                array(
+                    'stage' => '3',
+                    'post' => $post_id,
+                ),
+                home_url('/nieuwe-vacature')
+            );
+            break;
+        case 'new-vacancy-3':
+            $redirect = add_query_arg(
+                array(
+                    'stage' => '4',
+                    'post' => $post_id,
+                ),
+                home_url('/nieuwe-vacature')
+            );
+            break;
+        case 'new-vacancy-4':
             $post = get_post($post_id);
             //error prone, object might be null
             $redirect = home_url('/vacatures/').$post->post_name;

@@ -13,8 +13,10 @@ error_log(json_encode($list));
                         <div class="card-deck newsdeck__item_margin-bottom">
                             <div class="card newsdeck__item newsdeck__item_small">
                                 <div class="card-block newsdeck__item_align d-flex align-items-start flex-column h-100">
-                                    <h3 class="card-title">{{ strip_tags($item['title']) }}</h3>
-                                    <p class="card-text">{{strip_tags( wp_kses_post( wp_trim_words( $item['excerpt'], 10, '...' ) ) )}}</p>
+                                    <h3 class="card-title">{{wp_trim_words( strip_tags($item['title']), 13, '...' )}}</h3>
+                                    @if (str_word_count(strip_tags($item['title'])) < 7)
+                                        <p class="card-text">{{wp_kses_post( wp_trim_words( strip_tags( $item['excerpt'] ), 10, '...' ) )}}</p>
+                                    @endif
                                     <a href="{{$item['link']}} " class="mt-auto">{{__('lees meer ›', 'mooiwerk-breda-theme')}}</a>
                                 </div>
                             </div>
@@ -25,8 +27,10 @@ error_log(json_encode($list));
 				@if ($loop->iteration == 2)
 				            <div class="card border-top newsdeck__item newsdeck__item_small">
                                 <div class="card-block newsdeck__item_align d-flex align-items-start flex-column h-100">
-                                    <h3 class="card-title">{{strip_tags($item['title'])}}</h3>
-                                    <p class="card-text">{{strip_tags( wp_kses_post( wp_trim_words( $item['excerpt'], 10, '...' ) ) )}}</p>
+                                    <h3 class="card-title">{{wp_trim_words( strip_tags($item['title']), 13, '...' ) }}</h3>
+                                    @if (str_word_count(strip_tags($item['title'])) < 7)
+                                        <p class="card-text">{{wp_kses_post( wp_trim_words( strip_tags( $item['excerpt'] ), 10, '...' ) )}}</p>
+                                    @endif
                                     <a href="{{$item['link']}}" class="mt-auto">{{__('lees meer ›', 'mooiwerk-breda-theme')}}</a>
                                 </div>
                             </div>
@@ -39,8 +43,8 @@ error_log(json_encode($list));
                             <div class="card-block newsdeck__item_align">
                             <img class="card-img w-100" src="{{$item['image_link']}}" alt="{{ $item['title'] }} thumbnail" />
                                 <div class="card-img-overlay newsdeck__caption d-flex flex-column justify-content-end text-white">
-                                    <h3 class="card-title">{{strip_tags($item['title'])}}</h3>
-                                    <p class="card-text">{{strip_tags( wp_kses_post( wp_trim_words( $item['excerpt'], 25, '...' ) ) )}}</p>
+                                    <h3 class="card-title">{{wp_trim_words( strip_tags($item['title']), 6, '...' )}}</h3>
+                                    <p class="card-text">{{wp_kses_post( wp_trim_words( strip_tags( $item['excerpt'] ), 25, '...' ) )}}</p>
                                     <a href="{{$item['link']}}" class="text-white">{{__('lees meer ›', 'mooiwerk-breda-theme')}}</a>
                                 </div>
                             </div>
@@ -56,8 +60,8 @@ error_log(json_encode($list));
                             <div class="card-block">
                                 <img class="card-img w-100" src="{{$item['image_link']}}" alt="{{ $item['title'] }} thumbnail" />
                                 <div class="card-img-overlay newsdeck__caption d-flex flex-column justify-content-end text-white">
-                                    <h3 class="card-title">{{strip_tags($item['title'])}}</h3>
-                                    <p class="card-text">{{strip_tags( wp_kses_post( wp_trim_words( $item['excerpt'], 25, '...' ) ) )}}</p>
+                                    <h3 class="card-title">{{wp_trim_words( strip_tags($item['title']), 6, '...' )}}</h3>
+                                    <p class="card-text">{{wp_kses_post( wp_trim_words( strip_tags( $item['excerpt'] ), 25, '...' ) )}}</p>
                                     <a href="{{$item['link']}}" class="text-white">{{__('lees meer ›', 'mooiwerk-breda-theme')}}</a>
                                 </div>
                             </div>
@@ -69,8 +73,10 @@ error_log(json_encode($list));
 				        <div class="card-deck newsdeck__item_margin-top">
                             <div class="card newsdeck__item newsdeck__item_small">
                                 <div class="card-block newsdeck__item_align d-flex align-items-start flex-column h-100">
-                                    <h3 class="card-title">{{strip_tags($item['title'])}}</h3>
-                                    <p class="card-text">{{strip_tags( wp_kses_post( wp_trim_words( $item['excerpt'], 10, '...' ) ) )}}</p>
+                                    <h3 class="card-title">{{wp_trim_words( strip_tags($item['title']), 13, '...' ) }}</h3>
+                                    @if (str_word_count(strip_tags($item['title'])) < 7)
+                                        <p class="card-text">{{wp_kses_post( wp_trim_words( strip_tags( $item['excerpt'] ), 10, '...' ) )}}</p>
+                                    @endif
                                     <a href="{{$item['link']}}" class="mt-auto">{{__('lees meer ›', 'mooiwerk-breda-theme')}}</a>
                                 </div>
                             </div>
@@ -81,8 +87,10 @@ error_log(json_encode($list));
 				@if ($loop->iteration == 2)
 				        <div class="card newsdeck__item newsdeck__item_small">
                             <div class="card-block newsdeck__item_align d-flex align-items-start flex-column h-100">
-                                <h3 class="card-title">{{strip_tags($item['title'])}}</h3>
-                                <p class="card-text">{{strip_tags( wp_kses_post( wp_trim_words( $item['excerpt'], 10, '...' ) ) )}}</p>
+                                <h3 class="card-title">{{wp_trim_words( strip_tags($item['title']), 13, '...' ) }}</h3>
+                                @if (str_word_count(strip_tags($item['title'])) < 7)
+                                    <p class="card-text">{{wp_kses_post( wp_trim_words( strip_tags( $item['excerpt'] ), 10, '...' ) )}}</p>
+                                @endif
                                 <a href="{{$item['link']}}" class="mt-auto">{{__('lees meer ›', 'mooiwerk-breda-theme')}}</a>
                             </div>
                         </div>
