@@ -53,21 +53,20 @@ class FrontPage extends Controller
 
     public function courses()
     {
-        $args = array(
-            'post_type' => array('class'),
-            'posts_per_page' => 3,
-        );
-        $query = new \WP_Query($args);
-        $return = array_map(function ($post) {
-            return [
-                'title' => $post->post_title,
-                'link' => get_permalink($post->ID),
-                'excerpt' => wp_kses_post(wp_trim_words($post->post_content, 40, '...')),
-                'date' =>  date_i18n("j M", get_field("_wcs_timestamp", $post->ID)),
-                'lesson' => get_field("_wcs_sub_title", $post->ID),
-            ];
-        }, $query->posts);
-        wp_reset_postdata();
+        $rows = get_field('courses');
+        $return = [];
+        if ($rows) {
+            $return = array_map(function ($row) {
+                $course = get_post($row['course']);
+                return [
+                    'title' => $course->post_title,
+                    'link' => get_permalink($course->ID),
+                    'excerpt' => wp_kses_post(wp_trim_words($course->post_content, 40, '...')),
+                    'date' =>  date_i18n("j M", get_field("_wcs_timestamp", $course->ID)),
+                    'lesson' => get_field("_wcs_sub_title", $course->ID),
+                ];
+            }, $rows);
+        }
         return $return;
     }
 
@@ -75,9 +74,9 @@ class FrontPage extends Controller
     {
         $class_page = get_page_by_title(__('Vrijwilligersacademie', 'mooiwerk'));
         if (!empty($class_page)) {
-            return home_url('/'.$class_page->page_name);
+            return home_url('/'.$class_page->post_name);
         }
-        return home_url('/Vrijwilligersacademie');
+        return home_url("/Vrijwilligersacademie");
     }
 
     public function courseIntro()

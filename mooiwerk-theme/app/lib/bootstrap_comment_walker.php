@@ -58,6 +58,13 @@ class Bootstrap_Comment_Walker extends Walker_Comment
                         <div class="comment-content">
                         <?php comment_text(); ?>
                         <div class="d-inline d-block">
+                            <?php
+                                //DELETE: logic to show application status in the comment 
+                                $action = false; // replace false with get_field('action', $comment)to activate
+                                if ($action && in_array($action, ['Weiger', 'Accepteer', 'Reageer'])) :
+                            ?>			
+                                <span><?php the_field('action', $comment); ?></span> - 
+                            <?php endif; ?>
 							<?php edit_comment_link(__('Edit'), '', ''); ?>
 							<?php
                                 comment_reply_link(array_merge($args, array(
