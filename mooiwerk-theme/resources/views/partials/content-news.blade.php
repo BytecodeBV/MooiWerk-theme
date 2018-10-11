@@ -1,7 +1,6 @@
 @php 
 $big = $news['big'];
 $small = array_chunk($news['small'], 2);
-error_log(json_encode($list));
  @endphp
 <section class="newsdeck">
     <div class="container">
