@@ -6,17 +6,17 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-20 01:59+0100\n"
+"POT-Creation-Date: 2018-10-03 19:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 2.1.1\n"
 
 #: resources/functions.php:18
 msgid "Sage &rsaquo; Error"
@@ -475,11 +475,11 @@ msgstr ""
 msgid "Wachtwoord vergeten"
 msgstr ""
 
-#: app/actions.php:202 app/filters.php:277
+#: app/actions.php:202
 msgid "Titel"
 msgstr ""
 
-#: app/actions.php:203 app/filters.php:270
+#: app/actions.php:203 app/filters.php:241
 msgid "Tussenvoeging"
 msgstr ""
 
@@ -544,15 +544,15 @@ msgstr ""
 msgid "Niet gevonden"
 msgstr ""
 
-#: app/controllers/front-page.php:70
+#: app/controllers/front-page.php:76
 msgid "Vrijwilligersacademie"
 msgstr ""
 
-#: app/controllers/front-page.php:115
+#: app/controllers/front-page.php:151
 msgid "Nieuws"
 msgstr ""
 
-#: app/controllers/home.php:75
+#: app/controllers/home.php:77
 msgid "Teams"
 msgstr ""
 
@@ -568,66 +568,69 @@ msgstr ""
 msgid "<strong>FOUT</strong>: Gelieve uw achternaam in te voeren."
 msgstr ""
 
-#: app/filters.php:123
+#: app/filters.php:100
+msgid ""
+"<strong>FOUT</strong>: Gebruikersnaam mag alleen kleine letters en geen "
+"speciale tekens bevatten."
+msgstr ""
+
+#: app/filters.php:128
 msgid "Mooiwerk"
 msgstr ""
 
-#: app/filters.php:156 app/filters.php:178
+#: app/filters.php:133 app/filters.php:155
 msgid "Mooiwerk Breda"
 msgstr ""
 
-#: app/filters.php:161
+#: app/filters.php:138
 #, php-format
 msgid "Deze email is verstuurd vanuit <a href=\"%s\">Mooiwerk Breda</a>"
 msgstr ""
 
-#: app/filters.php:271
+#: app/filters.php:242
 msgctxt "placeholder"
 msgid "Tussenvoeging"
 msgstr ""
 
-#: app/filters.php:278
-msgctxt "placeholder"
-msgid "Titel"
+#: app/filters.php:249
+msgid "Aanhef"
 msgstr ""
 
-#: app/filters.php:298 resources/views/page-registreer.blade.php:12
+#: app/filters.php:250
+msgctxt "placeholder"
+msgid "Aanhef"
+msgstr ""
+
+#: app/filters.php:271
 msgid "Account aanmaken"
 msgstr ""
 
-#: app/filters.php:301 app/filters.php:317
+#: app/filters.php:273 app/filters.php:287
+#: resources/views/page-registreer.blade.php:12
 msgid "Registreren"
 msgstr ""
 
-#: app/filters.php:302
+#: app/filters.php:274
 msgid "Registreer"
 msgstr ""
 
-#: app/filters.php:315
-msgid "Opstelling"
-msgstr ""
-
-#: app/filters.php:316
+#: app/filters.php:286
 msgid "Uitloggen"
 msgstr ""
 
-#: app/filters.php:318
-msgid "Nieuw account"
-msgstr ""
-
-#: app/filters.php:319
+#: app/filters.php:288
 msgid "Registreer Organisatie"
 msgstr ""
 
-#: app/filters.php:320
+#: app/filters.php:289
 msgid "Registreer Vrijwilliger"
 msgstr ""
 
-#: app/filters.php:321
+#: app/filters.php:290
 msgid "Maak hier een veilig wachtwoord aan"
 msgstr ""
 
-#: app/filters.php:322
+#: app/filters.php:291
 msgid "Wachtwoord reset"
 msgstr ""
 
@@ -709,15 +712,23 @@ msgstr ""
 
 #: resources/views/page-registreer.blade.php:14
 msgid ""
-"Maak een account om aan de slag te gaan. Volg de link die het best bij u past"
+"Om toegang te krijgen tot álle mogelijkheden van de vacature-site is het "
+"belangrijk dat je geregistreerd bent."
 msgstr ""
 
-#: resources/views/page-registreer.blade.php:25
-msgid "ik ben een organisatie"
+#: resources/views/page-registreer.blade.php:15
+msgid ""
+"Je kunt je jezelf op twee manier registreren; als vrijwilliger die op zoek "
+"in naar MOOIWERK of je kunt jouw organisatie registreren voor het plaatsen "
+"van vacatures. Hieronder kun je beslissing hoe je wil registreren."
 msgstr ""
 
-#: resources/views/page-registreer.blade.php:28
-msgid "ik ben een vrijwilliger"
+#: resources/views/page-registreer.blade.php:26
+msgid "Als vrijwilliger"
+msgstr ""
+
+#: resources/views/page-registreer.blade.php:29
+msgid "Als organisatie"
 msgstr ""
 
 #: resources/views/partials/comments.blade.php:10
@@ -748,19 +759,27 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
-#: resources/views/partials/comments.blade.php:70
+#: resources/views/partials/comments.blade.php:67
+msgid "Reageer op deze vacature?"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:69
+msgid "Een reactie achterlaten op commentaar"
+msgstr ""
+
+#: resources/views/partials/comments.blade.php:74
 msgctxt "noun"
 msgid "Comment"
 msgstr ""
 
 #: resources/views/partials/content-blocks.blade.php:10
 #: resources/views/partials/content-course-card.blade.php:7
-#: resources/views/partials/content-news.blade.php:13
-#: resources/views/partials/content-news.blade.php:25
-#: resources/views/partials/content-news.blade.php:37
-#: resources/views/partials/content-news.blade.php:54
-#: resources/views/partials/content-news.blade.php:65
-#: resources/views/partials/content-news.blade.php:77
+#: resources/views/partials/content-news.blade.php:18
+#: resources/views/partials/content-news.blade.php:30
+#: resources/views/partials/content-news.blade.php:44
+#: resources/views/partials/content-news.blade.php:61
+#: resources/views/partials/content-news.blade.php:74
+#: resources/views/partials/content-news.blade.php:86
 #: resources/views/partials/content-post.blade.php:6
 #: resources/views/partials/content-vacancy.blade.php:12
 msgid "lees meer ›"
@@ -769,6 +788,14 @@ msgstr ""
 #: resources/views/partials/content-blocks.blade.php:26
 #: resources/views/partials/content-teams.blade.php:25
 msgid "Geen cursus gevonden"
+msgstr ""
+
+#: resources/views/partials/content-contact.blade.php:5
+msgid "Contact"
+msgstr ""
+
+#: resources/views/partials/content-contact.blade.php:52
+msgid "TEAM"
 msgstr ""
 
 #: resources/views/partials/content-course.blade.php:11
@@ -783,7 +810,7 @@ msgstr ""
 msgid "Geen links gevonden"
 msgstr ""
 
-#: resources/views/partials/content-news.blade.php:84
+#: resources/views/partials/content-news.blade.php:93
 msgid "Niet genoeg inhoud om raster te maken"
 msgstr ""
 

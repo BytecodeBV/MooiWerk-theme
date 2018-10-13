@@ -17,3 +17,13 @@
     margin-right: 8.33333%;
   }
 }
+
+.sidebar-nav__item {
+  a {
+    color: $primary;
+
+    &:hover {
+      color: $dark;
+    }
+  }
+}

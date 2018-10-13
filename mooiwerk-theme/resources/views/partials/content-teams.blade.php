@@ -12,8 +12,16 @@
                             <div class="card-text team-card__bio">{!! $team['bio'] !!}</div>
                             <div class="team-card__meta">                            
                                 <ul class="team-card__meta-content">
-                                    <li class="team-card__meta-item team-card__phone-wrapper"><i class="fa fa-phone"></i> <span class="team-card__phone">{{$team['phone']}}</span></li>
-                                    <li class="team-card__meta-item team-card__email-wrapper"><i class="fa fa-envelope"></i> <span class="team-card__email">{{$team['email']}}</span></li>
+                                    <li class="team-card__meta-item team-card__phone-wrapper">
+                                        <i class="fa fa-phone"></i> <span class="team-card__phone"><a href="tel:{{$team['phone']}}" >{{$team['phone']}}</a></span>
+                                    </li>
+                                    <li class="team-card__meta-item team-card__email-wrapper">
+                                        <i class="fa fa-envelope"></i> 
+                                        <span class="team-card__email" data-toggle="tooltip" data-placement="top" title="{{$team['email']}}">
+                                            <a href="mailto:{{$team['email']}}" target="_top">{{__("Mail", "mooiwerk")." ".$team['name']}}
+                                            </a>
+                                        </span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

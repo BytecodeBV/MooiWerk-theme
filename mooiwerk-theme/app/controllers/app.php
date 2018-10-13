@@ -65,6 +65,7 @@ class App extends Controller
     {
         $args = array(
             'post_type' => array('team'),
+            'posts_per_page' => -1
         );
         $query = new \WP_Query($args);
         $return = array_map(function ($post) {
