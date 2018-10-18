@@ -17,6 +17,7 @@ add_action('wp_enqueue_scripts', function () {
     wp_localize_script('sage/main.js', 'site_data', array(
         //'debug' => WP_DEBUG,
         'home' => home_url('/'),
+        'ajax_url' => admin_url('admin-ajax.php')
     ));
 }, 100);
 

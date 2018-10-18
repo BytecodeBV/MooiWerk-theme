@@ -17,5 +17,31 @@ export default {
         jQuery(() => {
             jQuery('[data-toggle="tooltip"]').tooltip();
         });
+
+        // submit newsletter
+        jQuery(document).ready(() => {
+            jQuery('#subscribe').on('click', e => {
+                e.preventDefault();
+                const email = jQuery('.newsletter__input').val();
+                const emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,6})?$/;
+                if (emailReg.test(email)) {
+                    jQuery.ajax({
+                        url: site_data.ajax_url,
+                        type: 'post',
+                        data: {
+                            action: 'subscribe',
+                            email,
+                        },
+                        success: response => {
+                            if (response.status) {
+                                jQuery('.newsletter__wrapper .message').html(`
+                                Subscribed
+                                `);
+                            }
+                        },
+                    });
+                }
+            });
+        });
     },
 };

@@ -256,13 +256,23 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
     return $fields;
 });
 
-// acf/load_value/key={$field_key} - filter for a specific field based on it's name
+// set default value for vacancy expiry
 add_filter('acf/load_value/key=field_5b7efba009d6d', function ($value, $post_id, $field) {
-    // run the_content filter on all textarea values
     if (empty($value)) {
         $value = date('Y-m-d', strtotime('+3 months', strtotime('now')));
     }
 
+    return $value;
+}, 10, 3);
+
+// change status to expiry if vacancy has expired
+add_filter('acf/load_value/key=field_5bc8a669b23c2', function ($value, $post_id, $field) {
+    $expiry = get_field('date', $post_id);
+    $date = date_create_from_format('d/m/Y', $expiry);
+    $date = date_format($date, 'm/d/Y');
+    if ($value != 'verlopen' && isExpired($date)) {
+        $value = 'verlopen';
+    }
     return $value;
 }, 10, 3);
 
