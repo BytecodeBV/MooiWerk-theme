@@ -18,15 +18,39 @@ add_action('customize_register', function (\WP_Customize_Manager $wp_customize) 
     $wp_customize->add_section(
         'newsletter',
         array(
-            'title' => __('Newsletter', 'mooiwerk-breda-theme'),
+            'title' => __('Newsletter Form', 'mooiwerk-breda-theme'),
             'capability' => 'edit_theme_options', // Capability needed to tweak
-            'description' => __('Set Mailchimp List URL.', 'mooiwerk-breda-theme'),
+            'description' => __('Set Active Campaign Parameters.', 'mooiwerk-breda-theme'),
         )
     );
 
     // Register a new setting "company_name"
     $wp_customize->add_setting(
-        'mc_subscriptionlist',
+        'ac_url',
+        array(
+            'default' => '', // Default setting/value to save
+            'type' => 'option',
+        )
+    );
+
+    $wp_customize->add_setting(
+        'ac_token',
+        array(
+            'default' => '', // Default setting/value to save
+            'type' => 'option',
+        )
+    );
+
+    $wp_customize->add_setting(
+        'ac_list',
+        array(
+            'default' => '', // Default setting/value to save
+            'type' => 'option',
+        )
+    );
+
+    $wp_customize->add_setting(
+        'ac_form',
         array(
             'default' => '', // Default setting/value to save
             'type' => 'option',
@@ -36,10 +60,43 @@ add_action('customize_register', function (\WP_Customize_Manager $wp_customize) 
     // Define input for setting "company_name"
     $wp_customize->add_control(new \WP_Customize_Control(
         $wp_customize,
-        'mc_subscriptionlist_control', // unique ID for the control
+        'ac_token_control', // unique ID for the control
         array(
-            'label' => __('Mailchimp List URL', 'mooiwerk-breda-theme'),
-            'settings' => 'mc_subscriptionlist',
+            'label' => __('Active Campaign API Token', 'mooiwerk-breda-theme'),
+            'settings' => 'ac_token',
+            'type' => 'text',
+            'section' => 'newsletter',
+        )
+    ));
+
+    $wp_customize->add_control(new \WP_Customize_Control(
+        $wp_customize,
+        'ac_url_control', // unique ID for the control
+        array(
+            'label' => __('Active Campaign API URL', 'mooiwerk-breda-theme'),
+            'settings' => 'ac_url',
+            'type' => 'text',
+            'section' => 'newsletter',
+        )
+    ));
+
+    $wp_customize->add_control(new \WP_Customize_Control(
+        $wp_customize,
+        'ac_list_control', // unique ID for the control
+        array(
+            'label' => __('Active Campaign List ID', 'mooiwerk-breda-theme'),
+            'settings' => 'ac_list',
+            'type' => 'text',
+            'section' => 'newsletter',
+        )
+    ));
+
+    $wp_customize->add_control(new \WP_Customize_Control(
+        $wp_customize,
+        'ac_form_control', // unique ID for the control
+        array(
+            'label' => __('Active Canmpaign Form ID', 'mooiwerk-breda-theme'),
+            'settings' => 'ac_form',
             'type' => 'text',
             'section' => 'newsletter',
         )
