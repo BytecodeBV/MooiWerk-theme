@@ -271,14 +271,13 @@ add_action('admin_head', function () {
 });
 
 /**
- * Hook into wp_ajax_ to save post ids, then display those posts using get_posts() function
+ * Hook into wp_ajax_ to add email to active campaign
  */
 
 add_action('wp_ajax_subscribe', 'newsletter_subscription');
 add_action('wp_ajax_nopriv_subscribe', 'newsletter_subscription');
 
 function newsletter_subscription() {
-    // By default, this sample code is designed to get the result from your ActiveCampaign installation and print out the result
     $url = get_option('ac_url', 'https://breda-actief.api-us1.com');
 
     $params = [
