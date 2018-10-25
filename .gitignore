@@ -15,7 +15,7 @@ ehthumbs.db
 Thumbs.db
 
 # General
-build/
+/build/
 dist/
 docs/
 .next/
