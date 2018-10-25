@@ -96,7 +96,7 @@ add_filter('registration_errors', function ($errors, $sanitized_user_login, $use
         $errors->add('empty_last_name', __('<strong>FOUT</strong>: Gelieve uw achternaam in te voeren.', 'mooiwerk-breda-theme'));
     }
 
-    if (! preg_match('/^[a-z0-9]+$/', $sanitized_user_login)) {
+    if (!preg_match('/^[a-z0-9]+$/', $sanitized_user_login)) {
         $errors->add('invalid_username', __('<strong>FOUT</strong>: Gebruikersnaam mag alleen kleine letters en geen speciale tekens bevatten.', 'mooiwerk-breda-theme'));
     }
 
@@ -186,7 +186,7 @@ add_filter('pre_get_comments', function ($query) {
 
 add_filter('login_redirect', function ($url, $query, $user) {
     $role = $user->roles[0];
-    
+
     if (in_array('organisation', (array) $user->roles)) {
         $setup_page = get_page_by_title('Opstelling');
         if (get_field('logged-in', 'user_' . $user->ID) == false && !empty($setup_page)) {
@@ -267,8 +267,9 @@ add_filter('acf/load_value/key=field_5b7efba009d6d', function ($value, $post_id,
 
 // change status to expiry if vacancy has expired
 add_filter('acf/load_value/key=field_5bc8a669b23c2', function ($value, $post_id, $field) {
+
     $expiry = get_field('date', $post_id);
-    $date = date_create_from_format('d/m/Y', $expiry);
+    $date = date_create_from_format('d/m/Y', $expiry) ? date_create_from_format('d/m/Y', $expiry) : date_create_from_format('Y-m-d', $expiry);
     $date = date_format($date, 'm/d/Y');
     if ($value != 'verlopen' && isExpired($date)) {
         $value = 'verlopen';
@@ -367,11 +368,18 @@ add_filter('woocommerce_checkout_get_value', function ($input, $key) {
     }
 }, 10, 2);
 
+/**
+ * Redirect users after add to cart.
+ */
+add_filter('woocommerce_add_to_cart_redirect', function ($url) {
+    error_log('cart url: ' . wc_get_cart_url());
+    return wc_get_cart_url();
+});
+
 // acf/load_value - filter for every value load
 add_filter('acf/load_value', function ($value, $post_id, $field) {
-    if ($field['key'] == "field_5bb48c0adb986" || $field['key'] == "field_5bb48c0adb987") {
+    if ($field['key'] == 'field_5bb48c0adb986' || $field['key'] == 'field_5bb48c0adb987') {
         $user = wp_get_current_user();
-        
         if ($user->ID != 0) {
             if (empty($value) || $value != $user->user_email) {
                 $value = $user->user_email;
@@ -380,4 +388,3 @@ add_filter('acf/load_value', function ($value, $post_id, $field) {
     }
     return $value;
 }, 10, 3);
-

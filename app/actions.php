@@ -268,7 +268,7 @@ add_action('admin_head', function () {
 });
 
 /**
- * Hook into wp_ajax_ to save post ids, then display those posts using get_posts() function
+ * Hook into wp_ajax_ to add email to active campaign
  */
 
 add_action('wp_ajax_subscribe', 'newsletter_subscription');
@@ -276,11 +276,10 @@ add_action('wp_ajax_nopriv_subscribe', 'newsletter_subscription');
 
 function newsletter_subscription()
 {
-    // By default, this sample code is designed to get the result from your ActiveCampaign installation and print out the result
-    $url = get_option('ac_token');
+    $url = get_option('ac_url', 'https://breda-actief.api-us1.com');
 
     $params = [
-        'api_key' => get_option('ac_url'),
+        'api_key' => get_option('ac_token', '9491504f449c8a021e7ef6cd8353dc677acb0a429fa2fdecd4eabcf1135806d0a4397498'),
         'api_action' => 'contact_sync',
         'api_output' => 'serialize',
     ];
@@ -314,44 +313,29 @@ function newsletter_subscription()
     // clean up the url
     $url = rtrim($url, '/ ');
 
-    // This sample code uses the CURL library for php to establish a connection,
-    // submit your request, and show (print out) the response.
-    if (!function_exists('curl_init')) {
-        wp_send_json_error('CURL not supported. (introduced in PHP 4.0.2)');
-    }
-
-    // If JSON is used, check if json_decode is present (PHP 5.2.0+)
-    if ($params['api_output'] == 'json' && !function_exists('json_decode')) {
-        wp_send_json_error('JSON not supported. (introduced in PHP 5.2.0)');
-    }
-
     // define a final API request - GET
     $api = $url . '/admin/api.php?' . $query;
+    $response = wp_remote_post(
+        $api,
+        [
+            'method' => 'POST',
+            'timeout' => 45,
+            'redirection' => 5,
+            'httpversion' => '1.0',
+            'blocking' => true,
+            'headers' => [],
+            'body' => $data,
+            'cookies' => []
+        ]
+    );
 
-    $request = curl_init($api); // initiate curl object
-    curl_setopt($request, CURLOPT_HEADER, 0); // set to 0 to eliminate header info from response
-    curl_setopt($request, CURLOPT_RETURNTRANSFER, 1); // Returns response data instead of TRUE(1)
-    curl_setopt($request, CURLOPT_POSTFIELDS, $data); // use HTTP POST to send form data
-    //curl_setopt($request, CURLOPT_SSL_VERIFYPEER, FALSE); // uncomment if you get no gateway response and are using HTTPS
-    curl_setopt($request, CURLOPT_FOLLOWLOCATION, true);
-
-        $response = (string)curl_exec($request); // execute curl post and store results in $response
-
-        // additional options may be required depending upon your server configuration
-    // you can find documentation on curl options at http://www.php.net/curl_setopt
-    curl_close($request); // close curl object
-
-    if (!$response) {
-        wp_send_json_error('Nothing was returned. Do you have a connection to Email Marketing server?');
+    if (is_wp_error($response)) {
+        $error_message = $response->get_error_message();
+        wp_send_json_error($error_message);
+    } else {
+        // unserializer
+        $result = unserialize($response['body']);
+        wp_send_json_success($result);
     }
-
-    // This line takes the response and breaks it into an array using:
-    // JSON decoder
-    //$result = json_decode($response);
-    // unserializer
-    $result = unserialize($response);
-    // XML parser...
-    // ...
-
-    wp_send_json_success($result);
 }
+

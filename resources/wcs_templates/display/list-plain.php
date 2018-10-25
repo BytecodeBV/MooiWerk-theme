@@ -36,7 +36,7 @@
 						<div v-if="filter_var(options.show_excerpt)" class="wcs-class__excerpt" v-html="event.excerpt"></div>
 					</div>
 				</div>
-				<div v-if="event.meta.available" class="wcs-class__time"><div class="wcs-class__inner-flex"><span>{{event.meta.available}} <span class="ti-ticket"></span></span> <span>left</span> <!----></div></div>
+				<div v-if="event.meta.available" class="wcs-class__time m-3"><div class="wcs-class__inner-flex"><span>{{event.meta.available}}</span> <span>Tickets</span> <!----></div></div>
 				<div class="wcs-class__action">
 					<div class="wcs-class__inner-flex">
 						<a v-if="hasModal(event) && options.label_info.length > 0" href="#" class="wcs-btn wcs-modal-call" v-on:click="openModal( event, options, $event )">{{options.label_info}}</a>

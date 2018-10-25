@@ -5,11 +5,11 @@
                 <div class="newsletter__wrapper d-lg-flex flex-lg-column justify-content-lg-center align-items-lg-start">
                     <h3 class="newsletter__header">{{__('Wil je op de hoogte blijven?', 'mooiwerk-breda-theme')}}</h3>
                     <p class="newsletter__text">{{__('Laat dan je e-mailadres achter om de meest recente vacatures, kandidaten en ander nieuws te ontvangen.', 'mooiwerk-breda-theme')}}</p>
-                    <form action="{{get_option('mc_subscriptionlist')}}" method="post" class="d-lg-flex">                
+                    <form class="d-lg-flex">                
                         <input name="email" class="form-control newsletter__input" placeholder="{{__('Je e-mail adres', 'mooiwerk-breda-theme')}}" required/>
                         <button id="subscribe" class="btn btn-danger newsletter__button">{{__('Aanmelden', 'mooiwerk-breda-theme')}}</button>
                     </form>
-                    <p class="message"></p>
+                    <p class="message mt-2"></p>
                 </div>
             </div>  
             <div class="banner col-lg-6">                

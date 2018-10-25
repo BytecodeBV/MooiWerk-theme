@@ -41,7 +41,7 @@
 							<taxonomy-list :options="options" :tax="'wcs_instructor'" :event="data" v-on:open-modal="openTaxModal"></taxonomy-list>
 						</li>
 						<li v-if="data.meta.available">
-							<span class="ti-ticket"></span> {{data.meta.available}} left
+							<span class="ti-ticket"></span> {{data.meta.available}} Tickets Beschikbaar
 						</li>
 					</ul>
 					<div class="wcs-modal__action">
