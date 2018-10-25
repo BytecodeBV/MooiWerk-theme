@@ -270,5 +270,75 @@ add_action('admin_head', function () {
   	</style>';
 });
 
+/**
+ * Hook into wp_ajax_ to add email to active campaign
+ */
+
+add_action('wp_ajax_subscribe', 'newsletter_subscription');
+add_action('wp_ajax_nopriv_subscribe', 'newsletter_subscription');
+
+function newsletter_subscription() {
+    $url = get_option('ac_url', 'https://breda-actief.api-us1.com');
+
+    $params = [
+        'api_key' => get_option('ac_token', '9491504f449c8a021e7ef6cd8353dc677acb0a429fa2fdecd4eabcf1135806d0a4397498'),
+        'api_action' => 'contact_sync',
+        'api_output' => 'serialize',
+    ];
+
+    $post = [
+        'email' => $_POST['email'],
+    ];
+
+    if ($form = get_option('ac_form')) {
+        $post['form'] = $form;
+    }
+
+    if ($list = get_option('ac_list')) {
+        $post['p[' . $list . ']'] = $list;
+    }
+
+    // This section takes the input fields and converts them to the proper format
+    $query = '';
+    foreach ($params as $key => $value) {
+        $query .= urlencode($key) . '=' . urlencode($value) . '&';
+    }
+    $query = rtrim($query, '& ');
+
+    // This section takes the input data and converts it to the proper format
+    $data = '';
+    foreach ($post as $key => $value) {
+        $data .= urlencode($key) . '=' . urlencode($value) . '&';
+    }
+    $data = rtrim($data, '& ');
+
+    // clean up the url
+    $url = rtrim($url, '/ ');
+
+    // define a final API request - GET
+    $api = $url . '/admin/api.php?' . $query;
+    $response = wp_remote_post(
+        $api,
+        [
+            'method' => 'POST',
+            'timeout' => 45,
+            'redirection' => 5,
+            'httpversion' => '1.0',
+            'blocking' => true,
+            'headers' => [],
+            'body' => $data,
+            'cookies' => []
+        ]
+    );
+
+    if (is_wp_error($response)) {
+        $error_message = $response->get_error_message();
+        wp_send_json_error($error_message);
+    } else {
+        // unserializer
+        $result = unserialize($response['body']);
+        wp_send_json_success($result);
+    }
+}
 
 
