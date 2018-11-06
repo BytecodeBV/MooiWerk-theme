@@ -97,7 +97,7 @@ class FrontPage extends Controller
     public function setFeatured()
     {
         $rows = get_field('featured');
-        if (count($rows) == 6) {
+        if (is_array($rows) && count($rows) == 6) {
             foreach ($rows as $row) {
                 if ($row['is_big']) {
                     array_push(
