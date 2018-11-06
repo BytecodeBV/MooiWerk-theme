@@ -14,7 +14,7 @@ const rootPath = (userConfig.paths && userConfig.paths.root)
 const config = merge({
   open: true,
   copy: 'images/**/*',
-  proxyUrl: 'http://staging.mooiwerk.local:3000',
+  proxyUrl: 'http://breda.bytedev.nl:3000',
   cacheBusting: '[name]_[hash]',
   paths: {
     root: rootPath,

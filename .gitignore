@@ -3,8 +3,8 @@
 .cache-loader
 vendor
 resources/assets/config-local.json
-resources/assets/config.json
-resources/assets/build/config.js
+#resources/assets/config.json
+#resources/assets/build/config.js
 
 # OS specific
 .DS_Store
