@@ -10,6 +10,8 @@ $blue: #6bc4cb;
 $purple: #ba50a2;
 $yellow: #ef7a1a;
 $green: #50ba3a;
+$navbar-dark-toggler-icon-bg: none;
+$navbar-light-toggler-icon-bg: none;
 // Typography
 $font-family-sans-serif: Lucida, Mohr-Regular,
   Mohr-Thin,
@@ -73,3 +75,5 @@ $link-hover-color: darken($link-color, 15%);
 //** Link hover decoration.
 $link-hover-decoration: underline;
 
+$cta-btn-color: #000;
+$cta-btn-alt-color: salmon;
