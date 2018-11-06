@@ -1,11 +1,12 @@
-@php 
-$big = $news['big'];
-$small = array_chunk($news['small'], 2);
- @endphp
 <section class="newsdeck">
     <div class="container">
         <h1 class="newsdeck__title">{{$news_title}}</h1>
         <div class="row">
+        @if (!empty($news))
+            @php 
+                $big = $news['big'];
+                $small = is_array($news['small'])? array_chunk($news['small'], 2) : [];
+            @endphp
              @foreach($small[0] as $item)
 			    @if ($loop->first) 
                     <div class="col-lg-6">
@@ -96,6 +97,7 @@ $small = array_chunk($news['small'], 2);
                     </div>
 				@endif
         @endforeach
+        @endif
          @empty($news)
             <div class="alert alert-warning">{{__('Niet genoeg inhoud om raster te maken', 'mooiwerk-breda-theme')}}</div>
         @endempty
