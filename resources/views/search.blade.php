@@ -28,7 +28,7 @@
                                     $vacancy = [
                                         'title' => get_the_title(),
                                         'link' => get_the_permalink(),
-                                        'image_link' => get_field('logo', 'user_'.get_the_ID()),
+                                        'image_link' => get_field('logo', 'user_'.get_the_author_meta('ID')),
                                         'excerpt' => wp_kses_post(wp_trim_words(get_the_content(), 25, '...')),
                                         'footer' => $time . __(' - Breda, Nederland', 'mooiwerk-breda-theme'),
                                     ];
