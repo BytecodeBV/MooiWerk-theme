@@ -274,7 +274,8 @@ add_action('admin_head', function () {
 add_action('wp_ajax_subscribe', 'newsletter_subscription');
 add_action('wp_ajax_nopriv_subscribe', 'newsletter_subscription');
 
-function newsletter_subscription() {
+function newsletter_subscription()
+{
     $url = get_option('ac_url', 'https://breda-actief.api-us1.com');
 
     $params = [
@@ -337,3 +338,29 @@ function newsletter_subscription() {
         wp_send_json_success($result);
     }
 }
+
+add_shortcode('permalink', function ($atts) {
+    extract(shortcode_atts(array(
+        'id' => null,
+        'title' => "",
+        'text' => "",  // default value if none supplied
+        'class' => "btn btn-outline-primary btn-lg signup__link"
+    ), $atts));
+    
+    $link = '';
+
+    if (!empty($id)) {
+        $link = get_permalink($id);
+    } elseif (!empty($title)) {
+        $post = get_page_by_title($title);
+        if ($post) {
+            $link = get_permalink($post);
+        }
+    }
+    
+    if ($text) {
+        return "<a href='$link' class='$class'>$text</a>";
+    } else {
+        return $link;
+    }
+});
