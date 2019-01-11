@@ -365,12 +365,4 @@ add_shortcode('permalink', function ($atts) {
     }
 });
 
-/**
- * Fix for New_User_Approve
- */
-add_action('register_post', function () {
-    if (!function_exists('login_header')) {
-        require_once ABSPATH . 'wp-login.php';
-    }
-});
 
