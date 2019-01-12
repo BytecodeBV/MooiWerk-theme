@@ -389,11 +389,6 @@ add_filter('acf/load_value', function ($value, $post_id, $field) {
 }, 10, 3);
 
 add_filter('new_user_approve_registration_message', function ($message) {
-    $user_meta = get_userdata($user_id);
-    $user_roles = $user_meta->roles;
-    if (in_array('volunteer', $user_roles)) {
-        do_action('new_user_approve_approve_user', $user_id);
-    }
     $redirect_to = ! empty($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : site_url('wp-login.php?checkemail=confirm');
     wp_safe_redirect($redirect_to);
     exit;

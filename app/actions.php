@@ -365,4 +365,13 @@ add_shortcode('permalink', function ($atts) {
     }
 });
 
-
+/**
+ * Automatically accept volunteer registrations.
+ */
+add_action('user_register', function ($user_id) {
+    $user_meta = get_userdata($user_id);
+    $user_roles=$user_meta->roles;
+    if (in_array('volunteer', $user_roles)) {
+        do_action('new_user_approve_approve_user', $user_id);
+    }
+}, 10, 3);
