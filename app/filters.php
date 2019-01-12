@@ -267,7 +267,6 @@ add_filter('acf/load_value/key=field_5b7efba009d6d', function ($value, $post_id,
 
 // change status to expiry if vacancy has expired
 add_filter('acf/load_value/key=field_5bc8a669b23c2', function ($value, $post_id, $field) {
-
     $expiry = get_field('date', $post_id);
     $date = date_create_from_format('d/m/Y', $expiry) ? date_create_from_format('d/m/Y', $expiry) : date_create_from_format('Y-m-d', $expiry);
     $date = date_format($date, 'm/d/Y');
@@ -388,15 +387,32 @@ add_filter('acf/load_value', function ($value, $post_id, $field) {
     return $value;
 }, 10, 3);
 
-add_filter('new_user_approve_registration_message', function ($message) {
-    $redirect_to = ! empty($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : site_url('wp-login.php?checkemail=confirm');
-    wp_safe_redirect($redirect_to);
-    exit;
-}, 10, 3);
-
-add_filter('login_message', function ($message) {
-    if (!empty($_GET['message'])) {
-        $message .= $_GET['message'];
+add_filter('new_user_approve_pending_message', function ($message) {
+    if (!empty($message)) {
+        $_GET['nua_message'] = base64_encode($message);
     }
     return $message;
-}, 10, 3);
+});
+
+add_filter('new_user_approve_registration_message', function ($message) {
+    $arg = '';
+    if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] = 'volunteer') {
+        $arg = 'checkemail=confirm';
+    } elseif (!empty($_GET['nua_message'])) {
+        $arg = 'registration_required='.$_GET['nua_message'];
+    }
+    $arg .= '&new_user_approve_registration_message='.base64_encode($message);
+    $redirect_to = ! empty($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : site_url('wp-login.php?'.$arg);
+    wp_safe_redirect($redirect_to);
+    exit;
+});
+
+add_filter('wp_login_errors', function ($errors) {
+    if (!empty($_GET['new_user_approve_registration_message'])) {
+        $errors->add('new_user_approve_registration_message', base64_decode($_GET['new_user_approve_registration_message']), 'message');
+    }
+    if (!empty($_GET['registration_required'])) {
+        $errors->add('registration_required', base64_decode($_GET['registration_required']), 'message');
+    }
+    return $errors;
+});
