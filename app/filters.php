@@ -416,3 +416,61 @@ add_filter('wp_login_errors', function ($errors) {
     }
     return $errors;
 });
+
+add_filter('new_user_approve_approve_user_message', function ($message, $user) {
+    $settings = get_option('wce_email_settings');
+    if (!empty($settings['allow_custom_registration_email']) && $settings['allow_custom_registration_email'] == 'true') {
+        $info = array('emailbody' => $message);
+        if (class_exists('WCE_TEMPLATE_PROCESSOR')) {
+            $obj = new \WCE_TEMPLATE_PROCESSOR();
+            $message = $obj->get_email_content($info);
+            if (!empty($user)) {
+                $_GET['user'] = $user;
+            }
+        }
+    }
+    return $message;
+}, 10, 2);
+
+add_filter('new_user_approve_approve_user_subject', function ($subject) {
+    $settings = get_option('wce_email_settings');
+    $customisation_allowed = ($settings['allow_custom_registration_admin'] == 'true') ? true : false;
+    if ($customisation_allowed and  !empty($settings['registration_email_subject'])) {
+        $subject = $settings['registration_email_subject'];
+        if (!empty($_GET['user'])) {
+            $user = $_GET['user'];
+            $email = stripslashes($user->data->user_email);
+            $subject = str_replace('{email}', $email, $subject);
+        }
+    }
+    return $subject;
+});
+
+add_filter('new_user_approve_approve_user_message_default', function ($message) {
+    $settings = get_option('wce_email_settings');
+    $customisation_allowed = ($settings['allow_custom_registration_email'] == 'true') ? true : false;
+    if ($customisation_allowed and !empty($settings['registration_email_body'])) {
+        $message  = $settings['registration_email_body'];
+        $message = str_replace('{set_password}', '{reset_password_url}', $message);
+        $message = str_replace('{email}', '{user_email}', $message);
+    }
+    return $message;
+});
+
+add_filter('nua_email_tags', function ($email_tags) {
+    $count = 0;
+    foreach ($email_tags as $email_tag) {
+        if ($email_tag['tag'] == 'reset_password_url') {
+            $email_tags[$count]['function'] = function ($attributes) {
+                $link = '';
+                if (function_exists('nua_email_tag_reset_password_url')) {
+                    $url = nua_email_tag_reset_password_url($attributes);
+                    $link = '<a href="'.$url.'">Set New Password</a>';
+                }
+                return $link;
+            };
+        }
+        $count++;
+    }
+    return $email_tags;
+});
