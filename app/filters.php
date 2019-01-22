@@ -267,7 +267,6 @@ add_filter('acf/load_value/key=field_5b7efba009d6d', function ($value, $post_id,
 
 // change status to expiry if vacancy has expired
 add_filter('acf/load_value/key=field_5bc8a669b23c2', function ($value, $post_id, $field) {
-
     $expiry = get_field('date', $post_id);
     $date = date_create_from_format('d/m/Y', $expiry) ? date_create_from_format('d/m/Y', $expiry) : date_create_from_format('Y-m-d', $expiry);
     $date = date_format($date, 'm/d/Y');
@@ -389,24 +388,6 @@ add_filter('acf/load_value', function ($value, $post_id, $field) {
     return $value;
 }, 10, 3);
 
-add_filter('comment_reply_link', function ($link, $args, $comment, $post) {
-    if (is_user_logged_in()) {
-        $onclick = sprintf(
-            'return addComment.moveForm( "%1$s-%2$s", "%2$s", "%3$s", "%4$s" )',
-            $args['add_below'],
-            $comment->comment_ID,
-            $args['respond_id'],
-            $post->ID
-        );
-
-        $link = sprintf(
-            "<a rel='nofollow' class='comment-reply-link' href='%s' onclick='%s' aria-label='%s'>%s</a>",
-            esc_url(add_query_arg('replytocom', $comment->comment_ID, get_permalink($post->ID))) . "#" . $args['respond_id'],
-            $onclick,
-            esc_attr(sprintf($args['reply_to_text'], $comment->comment_author)),
-            $args['reply_text']
-        );
-        $link = $args['before'] . $link . $args['after'];
-    }
-    return $link;
-}, 1000, 4);
+add_filter('wpseo_remove_reply_to_com', function ($bool) {
+    return false;
+});
