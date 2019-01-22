@@ -474,3 +474,25 @@ add_filter('nua_email_tags', function ($email_tags) {
     }
     return $email_tags;
 });
+
+add_filter('comment_reply_link', function ($link, $args, $comment, $post) {
+    if (is_user_logged_in()) {
+        $onclick = sprintf(
+            'return addComment.moveForm( "%1$s-%2$s", "%2$s", "%3$s", "%4$s" )',
+            $args['add_below'],
+            $comment->comment_ID,
+            $args['respond_id'],
+            $post->ID
+        );
+
+        $link = sprintf(
+            "<a rel='nofollow' class='comment-reply-link' href='%s' onclick='%s' aria-label='%s'>%s</a>",
+            esc_url(add_query_arg('replytocom', $comment->comment_ID, get_permalink($post->ID))) . "#" . $args['respond_id'],
+            $onclick,
+            esc_attr(sprintf($args['reply_to_text'], $comment->comment_author)),
+            $args['reply_text']
+        );
+        $link = $args['before'] . $link . $args['after'];
+    }
+    return $link;
+}, 1000, 4);
