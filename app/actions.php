@@ -366,13 +366,46 @@ add_shortcode('permalink', function ($atts) {
 });
 
 /**
+ * Get user associated role .
+ */
+function get_mooiwerk_user_role($user_id)
+{
+    $user_meta = get_userdata($user_id);
+    $user_roles = $user_meta->roles;
+    if (in_array('volunteer', $user_roles)) {
+        return 'volunteer';
+    } elseif (in_array('organisation', $user_roles)) {
+        return 'organisation';
+    }
+    return 'other';
+}
+
+/**
  * Automatically accept volunteer registrations.
  */
 add_action('user_register', function ($user_id) {
-    $user_meta = get_userdata($user_id);
-    $user_roles=$user_meta->roles;
-    if (in_array('volunteer', $user_roles)) {
+    $user_role = get_mooiwerk_user_role($user_id);
+    if ($user_role == 'volunteer') {
+         //Store userrole in $_GET global for use by hooks that don't accept $user parameter.
+         $_GET['nua_userrole'] = 'volunteer';
         do_action('new_user_approve_approve_user', $user_id);
-        $_GET['nua_userrole'] = 'volunteer';
+    } elseif ($user_role =='organisation') {
+        $_GET['nua_userrole'] = 'organisation';
     }
 });
+
+
+/**
+ * function to store userrole in $_GET global for use by hooks that don't accept $user parameter.
+ */
+function set_nua_user_role($user_id)
+{
+    if (empty($_GET['nua_userrole'])) {
+        $user_role = get_mooiwerk_user_role($user_id);
+        if (in_array($user_role, ['volunteer', 'organisation'])) {
+            $_GET['nua_userrole'] = $user_role;
+        }
+    }
+};
+add_action('new_user_approve_approve_user', 'set_nua_user_role');
+add_action('new_user_approve_deny_user', 'set_nua_user_role');

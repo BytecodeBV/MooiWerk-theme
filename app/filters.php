@@ -387,13 +387,17 @@ add_filter('acf/load_value', function ($value, $post_id, $field) {
     return $value;
 }, 10, 3);
 
+//preserve login messages for use in redirection to the login page
 add_filter('new_user_approve_pending_message', function ($message) {
     if (!empty($message)) {
+        //use $_GET as a bus/global to store login messages for access by subsequent hooks
         $_GET['nua_message'] = base64_encode($message);
     }
     return $message;
 });
 
+//fix for the nua login page error: 
+//redirect to login page instead of calling login_header funcion which is unavailable atm
 add_filter('new_user_approve_registration_message', function ($message) {
     $arg = '';
     if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] = 'volunteer') {
@@ -407,6 +411,7 @@ add_filter('new_user_approve_registration_message', function ($message) {
     exit;
 });
 
+//Add nua error messages to login page
 add_filter('wp_login_errors', function ($errors) {
     if (!empty($_GET['new_user_approve_registration_message'])) {
         $errors->add('new_user_approve_registration_message', base64_decode($_GET['new_user_approve_registration_message']), 'message');
@@ -417,46 +422,46 @@ add_filter('wp_login_errors', function ($errors) {
     return $errors;
 });
 
-add_filter('new_user_approve_approve_user_message', function ($message, $user) {
-    $settings = get_option('wce_email_settings');
-    if (!empty($settings['allow_custom_registration_email']) && $settings['allow_custom_registration_email'] == 'true') {
-        $info = array('emailbody' => $message);
-        if (class_exists('WCE_TEMPLATE_PROCESSOR')) {
-            $obj = new \WCE_TEMPLATE_PROCESSOR();
-            $message = $obj->get_email_content($info);
-            if (!empty($user)) {
-                $_GET['user'] = $user;
-            }
-        }
-    }
-    return $message;
-}, 10, 2);
-
-add_filter('new_user_approve_approve_user_subject', function ($subject) {
-    $settings = get_option('wce_email_settings');
-    $customisation_allowed = ($settings['allow_custom_registration_admin'] == 'true') ? true : false;
-    if ($customisation_allowed and  !empty($settings['registration_email_subject'])) {
-        $subject = $settings['registration_email_subject'];
-        if (!empty($_GET['user'])) {
-            $user = $_GET['user'];
-            $email = stripslashes($user->data->user_email);
-            $subject = str_replace('{email}', $email, $subject);
-        }
-    }
-    return $subject;
-});
-
+//Replace nua approve message with wce registration message and swap wce tags with nua tags
 add_filter('new_user_approve_approve_user_message_default', function ($message) {
-    $settings = get_option('wce_email_settings');
-    $customisation_allowed = ($settings['allow_custom_registration_email'] == 'true') ? true : false;
-    if ($customisation_allowed and !empty($settings['registration_email_body'])) {
-        $message  = $settings['registration_email_body'];
-        $message = str_replace('{set_password}', '{reset_password_url}', $message);
-        $message = str_replace('{email}', '{user_email}', $message);
+    if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'volunteer') {
+        $custom = '<p>Beste {username},</p>';
+        $custom .= '<p>Welkom bij MOOIWERK. Wat leuk dat jij je als vrijwilliger hebt aangemeld.'
+            .' Om je aanmelding compleet te maken ontvang je hier je wachtwoord. Dit kun je'
+            .' zelf aanpassen als je ingelogd bent:</p>';
+        $custom .= '<p>{password link}</p>';
+        $custom .= '<p>Wist je dat je als Bredase vrijwilliger gratis kan leren en ontwikkelen?'
+            .' Kijk hier voor ons actuele aanbod:'
+            .' <a href="www.mooiwerkbreda.nl/vrijwilligersacademie">www.mooiwerkbreda.nl/vrijwilligersacademie</a></p>';
+        $custom .= '<p>Heb je vragen? Neem een kijkje bij de veel gestelde vragen. Je kan ook'.
+            ' een chat starten door te klikken op de groene balk rechts onder op de website.</p>';
+        $custom .= '<p>Met vriendelijke groet,</p>';
+        $custom .= '<p>Team MOOIWERK</p>';
+    
+        return $custom;
     }
+
+    //TODO: get userrole in admin approval flow and store in $_GET for this to fire
+    if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'organisation') {
+        $custom = '<p>Beste {username},</p>';
+        $custom .= '<p>Welkom bij MOOIWERK. De aanvraag is goedgekeurd!</p>';
+        $custom .= '<p>Om je aanmelding compleet te maken ontvang je hier je wachtwoord.'
+            .' Dit kun je zelf aanpassen als je ingelogd bent: </p>';
+        $custom .= '<p>{password link}</p>';
+        $custom .= '<p>Vul je profiel eerst zoveel mogelijk aan om het zo aantrekkelijk mogelijk te maken.'
+            .' Vervolgens kun je aan de slag met het plaatsen van vacatures en reageren op reacties van vrijwilligers.</p>';
+        $custom .= '<p>Heb je vragen? Neem een kijkje bij de veel gestelde vragen. Je kan ook een chat starten door te'
+            .' klikken op de groene balk rechts onder op de website.</p>';
+        $custom .= '<p>Met vriendelijke groet,</p>';
+        $custom .= '<p>Team MOOIWERK</p>';
+    
+        return $custom;
+    }
+
     return $message;
 });
 
+//replace reset_password_url tag handler with a custom function
 add_filter('nua_email_tags', function ($email_tags) {
     $count = 0;
     foreach ($email_tags as $email_tag) {
@@ -475,6 +480,104 @@ add_filter('nua_email_tags', function ($email_tags) {
     return $email_tags;
 });
 
+//Replace nua approve subject with wce registration subject and resolve tags
+add_filter('new_user_approve_approve_user_subject', function ($subject) {
+    if (!empty($_GET['nua_userrole'])) {
+        $subject = ($_GET['nua_userrole'] == 'organisation')? 'MOOIWERK - aanvraag is goed gekeurd' : 'Welkom bij MOOIWERK ----';
+    }
+    return $subject;
+});
+
+//Use created wce email template to send user approval email
+function use_wce_template ($message, $user)
+{
+    $settings = get_option('wce_email_settings');
+    //check if wce is enabled for user approval email
+    if (!empty($settings['allow_custom_registration_email']) && $settings['allow_custom_registration_email'] == 'true') {
+        $info = array('emailbody' => $message);
+        //check if template processor exists
+        if (class_exists('WCE_TEMPLATE_PROCESSOR')) {
+            $obj = new \WCE_TEMPLATE_PROCESSOR();
+            //use wce template
+            $message = $obj->get_email_content($info);
+            //Use $_GET as a bus/global to store $user info for access by subsequent hooks that need it
+            if (!empty($user)) {
+                $_GET['user'] = $user;
+            }
+        }
+    }
+    return $message;
+}
+add_filter('new_user_approve_approve_user_message', __NAMESPACE__ . '\\use_wce_template', 10, 2);
+
+/**
+ * The default email message that will be sent to users as they are denied.
+ *
+ * @return string
+ */
+add_filter('new_user_approve_deny_user_message_default', function ($message) {
+    //TODO: get userrole in admin approval flow and store in $_GET for this to fire
+    if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'organisation') {
+        $custom = '<p>Beste {username},</p>';
+        $custom .= '<p>Helaas is je aanvraag afgekeurd.</p>';
+        $custom .= '<p>Hiervoor kunnen verschillende redenen zijn:</p>';
+        $custom .= '</ul>';
+        $custom .= '<li>Ben je geen organisatie, maar heb je een individuele hulpvraag? Dan kun je'
+            .'terecht bij Zorg voor elkaar Breda (076 – 525 15 15).</li>';
+        $custom .= '<li>Een organisatie mag maar één profiel hebben, maar misschien heeft iemand'
+            .'anders van jullie organisatie al een profiel aangemaakt.</li>';
+        $custom .= '</ul>';
+        $custom .= '<p>Wil je graag duidelijkheid over de reden waarom je account geweigerd is? Start dan'
+            .'een chat via de groene balk rechts onder op de website.</p>';
+        $custom .= '<p>Met vriendelijke groet,</p>';
+        $custom .= '<p>Team MOOIWERK</p>';
+
+        return $custom;
+    }
+
+    return $message;
+});
+
+//Custom nua deny mail subject
+add_filter('new_user_approve_deny_user_subject', function ($subject) {
+    $subject = 'MOOIWERK - aanvraag is afgekeurd';
+    return $subject;
+});
+
+//use wce email template for user deny message
+add_filter('new_user_approve_deny_user_message', __NAMESPACE__ . '\\use_wce_template', 10, 2);
+
+
+/**
+ * The default message that will be shown to the user after registration has completed.
+ *
+ * @return string
+ */
+add_filter('new_user_approve_pending_message_default_x', function ($message) {
+    if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'organisation') {
+        $custom = '<p>Beste {username},</p>';
+        $custom .= '<p>Wat leuk dat jij jouw organisatie hebt aangemeld. Wij gaan met jouw aanvraag aan de slag.</p>';
+        $custom .= '<pHeb je in de tussentijd vragen? Neem een kijkje bij de veel gestelde vragen. Je kan ook een'
+            .' chat starten door te klikken op de groene balk rechts onder op de website</p>';
+        $custom .= '<p>Met vriendelijke groet,</p>';
+        $custom .= '<p>Team MOOIWERK</p>';
+
+        return $custom;
+    }
+
+    return $message;
+});
+
+//Custom nua pending mail subject
+add_filter('new_user_approve_deny_user_subject', function ($subject) {
+    $subject = 'MOOIWERK - aanvraag is geplaatst';
+    return $subject;
+});
+
+//use wce email template for user pending message
+add_filter('new_user_approve_deny_user_message', 'use_wce_template', 10, 2);
+
+//Allow comment reply on Yeost SEO
 add_filter('wpseo_remove_reply_to_com', function ($bool) {
     return false;
 });
