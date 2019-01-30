@@ -381,22 +381,54 @@ function get_mooiwerk_user_role($user_id)
 }
 
 /**
- * Automatically accept volunteer registrations.
+ * Run first and set user role in $_GET global.
  */
 add_action('user_register', function ($user_id) {
     $user_role = get_mooiwerk_user_role($user_id);
     if ($user_role == 'volunteer') {
-         //Store userrole in $_GET global for use by hooks that don't accept $user parameter.
-         $_GET['nua_userrole'] = 'volunteer';
-        do_action('new_user_approve_approve_user', $user_id);
+        //Store userrole in $_GET global for use by hooks that don't accept $user parameter.
+        $_GET['nua_userrole'] = 'volunteer';
+        //if user is volunteer, we don't need to send approval email.
+        if (pw_new_user_approve()) {
+            remove_action('user_register', array(pw_new_user_approve(), 'request_admin_approval_email_2' ));
+        }
     } elseif ($user_role =='organisation') {
         $_GET['nua_userrole'] = 'organisation';
     }
-});
+}, 5, 1);
+
+/**
+ * Run later and send approval notification email.
+ */
+add_action('user_register', function ($user_id) {
+    $role =  get_mooiwerk_user_role($user_id);
+    //send approval notification email to user
+    if (isset($_GET['nua_status']) && $_GET['nua_status'] == 'pending' && $role == 'organisation') {
+        $user = new WP_User($user_id);
+        $custom = '<p>Beste '.$user->data->user_nicename.',</p>';
+        $custom .= '<p>Wat leuk dat jij jouw organisatie hebt aangemeld. Wij gaan met jouw aanvraag aan de slag.</p>';
+        $custom .= '<p>Heb je in de tussentijd vragen? Neem een kijkje bij de veel gestelde vragen. Je kan ook een'
+        .' chat starten door te klikken op de groene balk rechts onder op de website</p>';
+        $custom .= '<p>Met vriendelijke groet,</p>';
+        $custom .= '<p>Team MOOIWERK</p>';
+        $message = App\use_wce_template($custom, $user);
+        $subject = 'MOOIWERK - aanvraag is geplaatst';
+        wp_mail($user->data->user_email, $subject, $message);
+    }
+}, 300, 1);
+
+/**
+ * Run last and automatically accept volunteer registrations.
+ */
+add_action('user_register', function ($user_id) {
+    if (isset($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'volunteer') {
+        do_action('new_user_approve_approve_user', $user_id);
+    }
+}, 1000, 1);
 
 
 /**
- * function to store userrole in $_GET global for use by hooks that don't accept $user parameter.
+ * function to store userrole in $_GET global for use with admin approval process.
  */
 function set_nua_user_role($user_id)
 {
@@ -407,5 +439,5 @@ function set_nua_user_role($user_id)
         }
     }
 };
-add_action('new_user_approve_approve_user', 'set_nua_user_role');
-add_action('new_user_approve_deny_user', 'set_nua_user_role');
+add_action('new_user_approve_approve_user', 'set_nua_user_role', 5, 1);
+add_action('new_user_approve_deny_user', 'set_nua_user_role', 5, 1);

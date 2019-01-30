@@ -411,7 +411,7 @@ add_filter('new_user_approve_registration_message', function ($message) {
     exit;
 });
 
-//Add nua error messages to login page
+//Add nua error messages from redirection to login page
 add_filter('wp_login_errors', function ($errors) {
     if (!empty($_GET['new_user_approve_registration_message'])) {
         $errors->add('new_user_approve_registration_message', base64_decode($_GET['new_user_approve_registration_message']), 'message');
@@ -422,14 +422,14 @@ add_filter('wp_login_errors', function ($errors) {
     return $errors;
 });
 
-//Replace nua approve message with wce registration message and swap wce tags with nua tags
+//Set custom nua approve message
 add_filter('new_user_approve_approve_user_message_default', function ($message) {
     if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'volunteer') {
         $custom = '<p>Beste {username},</p>';
         $custom .= '<p>Welkom bij MOOIWERK. Wat leuk dat jij je als vrijwilliger hebt aangemeld.'
             .' Om je aanmelding compleet te maken ontvang je hier je wachtwoord. Dit kun je'
             .' zelf aanpassen als je ingelogd bent:</p>';
-        $custom .= '<p>{password link}</p>';
+        $custom .= '<p>{reset_password_url}</p>';
         $custom .= '<p>Wist je dat je als Bredase vrijwilliger gratis kan leren en ontwikkelen?'
             .' Kijk hier voor ons actuele aanbod:'
             .' <a href="www.mooiwerkbreda.nl/vrijwilligersacademie">www.mooiwerkbreda.nl/vrijwilligersacademie</a></p>';
@@ -447,7 +447,7 @@ add_filter('new_user_approve_approve_user_message_default', function ($message) 
         $custom .= '<p>Welkom bij MOOIWERK. De aanvraag is goedgekeurd!</p>';
         $custom .= '<p>Om je aanmelding compleet te maken ontvang je hier je wachtwoord.'
             .' Dit kun je zelf aanpassen als je ingelogd bent: </p>';
-        $custom .= '<p>{password link}</p>';
+        $custom .= '<p>{reset_password_url}</p>';
         $custom .= '<p>Vul je profiel eerst zoveel mogelijk aan om het zo aantrekkelijk mogelijk te maken.'
             .' Vervolgens kun je aan de slag met het plaatsen van vacatures en reageren op reacties van vrijwilligers.</p>';
         $custom .= '<p>Heb je vragen? Neem een kijkje bij de veel gestelde vragen. Je kan ook een chat starten door te'
@@ -489,7 +489,7 @@ add_filter('new_user_approve_approve_user_subject', function ($subject) {
 });
 
 //Use created wce email template to send user approval email
-function use_wce_template ($message, $user)
+function use_wce_template($message, $user)
 {
     $settings = get_option('wce_email_settings');
     //check if wce is enabled for user approval email
@@ -500,6 +500,7 @@ function use_wce_template ($message, $user)
             $obj = new \WCE_TEMPLATE_PROCESSOR();
             //use wce template
             $message = $obj->get_email_content($info);
+            //DELETE
             //Use $_GET as a bus/global to store $user info for access by subsequent hooks that need it
             if (!empty($user)) {
                 $_GET['user'] = $user;
@@ -553,29 +554,12 @@ add_filter('new_user_approve_deny_user_message', __NAMESPACE__ . '\\use_wce_temp
  *
  * @return string
  */
-add_filter('new_user_approve_pending_message_default_x', function ($message) {
-    if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'organisation') {
-        $custom = '<p>Beste {username},</p>';
-        $custom .= '<p>Wat leuk dat jij jouw organisatie hebt aangemeld. Wij gaan met jouw aanvraag aan de slag.</p>';
-        $custom .= '<pHeb je in de tussentijd vragen? Neem een kijkje bij de veel gestelde vragen. Je kan ook een'
-            .' chat starten door te klikken op de groene balk rechts onder op de website</p>';
-        $custom .= '<p>Met vriendelijke groet,</p>';
-        $custom .= '<p>Team MOOIWERK</p>';
-
-        return $custom;
+add_filter('new_user_approve_default_status', function ($status) {
+    if (empty($_GET['nua_status'])) {
+        $_GET['nua_status'] == $status;
     }
-
-    return $message;
+    return $status;
 });
-
-//Custom nua pending mail subject
-add_filter('new_user_approve_deny_user_subject', function ($subject) {
-    $subject = 'MOOIWERK - aanvraag is geplaatst';
-    return $subject;
-});
-
-//use wce email template for user pending message
-add_filter('new_user_approve_deny_user_message', 'use_wce_template', 10, 2);
 
 //Allow comment reply on Yeost SEO
 add_filter('wpseo_remove_reply_to_com', function ($bool) {
