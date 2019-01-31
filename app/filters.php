@@ -425,16 +425,16 @@ add_filter('wp_login_errors', function ($errors) {
 //Set custom nua approve message
 add_filter('new_user_approve_approve_user_message_default', function ($message) {
     if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'volunteer') {
-        $custom = '<p>Beste {username},</p>';
+        $custom = '<p>Beste {username},</p><br>';
         $custom .= '<p>Welkom bij MOOIWERK. Wat leuk dat jij je als vrijwilliger hebt aangemeld.'
             .' Om je aanmelding compleet te maken ontvang je hier je wachtwoord. Dit kun je'
-            .' zelf aanpassen als je ingelogd bent:</p>';
-        $custom .= '<p>{reset_password_url}</p>';
+            .' zelf aanpassen als je ingelogd bent:</p><br>';
+        $custom .= '<p>{reset_password_url}</p><br>';
         $custom .= '<p>Wist je dat je als Bredase vrijwilliger gratis kan leren en ontwikkelen?'
             .' Kijk hier voor ons actuele aanbod:'
-            .' <a href="www.mooiwerkbreda.nl/vrijwilligersacademie">www.mooiwerkbreda.nl/vrijwilligersacademie</a></p>';
+            .' <a href="www.mooiwerkbreda.nl/vrijwilligersacademie">www.mooiwerkbreda.nl/vrijwilligersacademie</a></p><br>';
         $custom .= '<p>Heb je vragen? Neem een kijkje bij de veel gestelde vragen. Je kan ook'.
-            ' een chat starten door te klikken op de groene balk rechts onder op de website.</p>';
+            ' een chat starten door te klikken op de groene balk rechts onder op de website.</p><br>';
         $custom .= '<p>Met vriendelijke groet,</p>';
         $custom .= '<p>Team MOOIWERK</p>';
     
@@ -443,15 +443,15 @@ add_filter('new_user_approve_approve_user_message_default', function ($message) 
 
     //TODO: get userrole in admin approval flow and store in $_GET for this to fire
     if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'organisation') {
-        $custom = '<p>Beste {username},</p>';
-        $custom .= '<p>Welkom bij MOOIWERK. De aanvraag is goedgekeurd!</p>';
+        $custom = '<p>Beste {username},</p><br>';
+        $custom .= '<p>Welkom bij MOOIWERK. De aanvraag is goedgekeurd!</p><br>';
         $custom .= '<p>Om je aanmelding compleet te maken ontvang je hier je wachtwoord.'
-            .' Dit kun je zelf aanpassen als je ingelogd bent: </p>';
-        $custom .= '<p>{reset_password_url}</p>';
+            .' Dit kun je zelf aanpassen als je ingelogd bent: </p><br>';
+        $custom .= '<p>{reset_password_url}</p><br>';
         $custom .= '<p>Vul je profiel eerst zoveel mogelijk aan om het zo aantrekkelijk mogelijk te maken.'
-            .' Vervolgens kun je aan de slag met het plaatsen van vacatures en reageren op reacties van vrijwilligers.</p>';
+            .' Vervolgens kun je aan de slag met het plaatsen van vacatures en reageren op reacties van vrijwilligers.</p><br>';
         $custom .= '<p>Heb je vragen? Neem een kijkje bij de veel gestelde vragen. Je kan ook een chat starten door te'
-            .' klikken op de groene balk rechts onder op de website.</p>';
+            .' klikken op de groene balk rechts onder op de website.</p><br>';
         $custom .= '<p>Met vriendelijke groet,</p>';
         $custom .= '<p>Team MOOIWERK</p>';
     
@@ -519,17 +519,17 @@ add_filter('new_user_approve_approve_user_message', __NAMESPACE__ . '\\use_wce_t
 add_filter('new_user_approve_deny_user_message_default', function ($message) {
     //TODO: get userrole in admin approval flow and store in $_GET for this to fire
     if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'organisation') {
-        $custom = '<p>Beste {username},</p>';
-        $custom .= '<p>Helaas is je aanvraag afgekeurd.</p>';
-        $custom .= '<p>Hiervoor kunnen verschillende redenen zijn:</p>';
+        $custom = '<p>Beste {username},</p><br>';
+        $custom .= '<p>Helaas is je aanvraag afgekeurd.</p><br>';
+        $custom .= '<p>Hiervoor kunnen verschillende redenen zijn:</p><br>';
         $custom .= '</ul>';
         $custom .= '<li>Ben je geen organisatie, maar heb je een individuele hulpvraag? Dan kun je'
             .'terecht bij Zorg voor elkaar Breda (076 – 525 15 15).</li>';
         $custom .= '<li>Een organisatie mag maar één profiel hebben, maar misschien heeft iemand'
             .'anders van jullie organisatie al een profiel aangemaakt.</li>';
-        $custom .= '</ul>';
+        $custom .= '</ul><br>';
         $custom .= '<p>Wil je graag duidelijkheid over de reden waarom je account geweigerd is? Start dan'
-            .'een chat via de groene balk rechts onder op de website.</p>';
+            .'een chat via de groene balk rechts onder op de website.</p><br>';
         $custom .= '<p>Met vriendelijke groet,</p>';
         $custom .= '<p>Team MOOIWERK</p>';
 
@@ -547,19 +547,6 @@ add_filter('new_user_approve_deny_user_subject', function ($subject) {
 
 //use wce email template for user deny message
 add_filter('new_user_approve_deny_user_message', __NAMESPACE__ . '\\use_wce_template', 10, 2);
-
-
-/**
- * The default message that will be shown to the user after registration has completed.
- *
- * @return string
- */
-add_filter('new_user_approve_default_status', function ($status) {
-    if (empty($_GET['nua_status'])) {
-        $_GET['nua_status'] == $status;
-    }
-    return $status;
-});
 
 //Allow comment reply on Yeost SEO
 add_filter('wpseo_remove_reply_to_com', function ($bool) {

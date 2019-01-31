@@ -370,6 +370,10 @@ add_shortcode('permalink', function ($atts) {
  */
 function get_mooiwerk_user_role($user_id)
 {
+    //use form argument if available cause the function can be called when role has not been set yet
+    if (isset($_POST['type']) && in_array($_POST['type'], ['volunteer', 'organisation'])) {
+        return $_POST['type'];
+    }
     $user_meta = get_userdata($user_id);
     $user_roles = $user_meta->roles;
     if (in_array('volunteer', $user_roles)) {
@@ -401,21 +405,19 @@ add_action('user_register', function ($user_id) {
  * Run later and send approval notification email.
  */
 add_action('user_register', function ($user_id) {
-    $role =  get_mooiwerk_user_role($user_id);
-    //send approval notification email to user
-    if (isset($_GET['nua_status']) && $_GET['nua_status'] == 'pending' && $role == 'organisation') {
+    if (isset($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'organisation') {
         $user = new WP_User($user_id);
-        $custom = '<p>Beste '.$user->data->user_nicename.',</p>';
-        $custom .= '<p>Wat leuk dat jij jouw organisatie hebt aangemeld. Wij gaan met jouw aanvraag aan de slag.</p>';
+        $custom = '<p>Beste '.$user->data->user_nicename.',</p><br>';
+        $custom .= '<p>Wat leuk dat jij jouw organisatie hebt aangemeld. Wij gaan met jouw aanvraag aan de slag.</p><br>';
         $custom .= '<p>Heb je in de tussentijd vragen? Neem een kijkje bij de veel gestelde vragen. Je kan ook een'
-        .' chat starten door te klikken op de groene balk rechts onder op de website</p>';
+        .' chat starten door te klikken op de groene balk rechts onder op de website</p><br>';
         $custom .= '<p>Met vriendelijke groet,</p>';
         $custom .= '<p>Team MOOIWERK</p>';
         $message = App\use_wce_template($custom, $user);
         $subject = 'MOOIWERK - aanvraag is geplaatst';
         wp_mail($user->data->user_email, $subject, $message);
     }
-}, 300, 1);
+}, 900, 1);
 
 /**
  * Run last and automatically accept volunteer registrations.
