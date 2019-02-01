@@ -396,7 +396,7 @@ add_filter('new_user_approve_pending_message', function ($message) {
     return $message;
 });
 
-//fix for the nua login page error: 
+//fix for the nua login page error:
 //redirect to login page instead of calling login_header funcion which is unavailable atm
 add_filter('new_user_approve_registration_message', function ($message) {
     $arg = '';
@@ -547,6 +547,20 @@ add_filter('new_user_approve_deny_user_subject', function ($subject) {
 
 //use wce email template for user deny message
 add_filter('new_user_approve_deny_user_message', __NAMESPACE__ . '\\use_wce_template', 10, 2);
+
+
+/**
+ * The default message that will be shown to the user after registration has completed.
+ *
+ * @return string
+ */
+
+add_filter('new_user_approve_default_status', function ($status) {
+    if (!isset($_GET['nua_status'])) {
+        $_GET['nua_status'] = $status;
+    }
+    return $status;
+});
 
 //Allow comment reply on Yeost SEO
 add_filter('wpseo_remove_reply_to_com', function ($bool) {

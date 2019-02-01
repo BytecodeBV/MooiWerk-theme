@@ -393,7 +393,7 @@ add_action('user_register', function ($user_id) {
         //Store userrole in $_GET global for use by hooks that don't accept $user parameter.
         $_GET['nua_userrole'] = 'volunteer';
         //if user is volunteer, we don't need to send approval email.
-        if (pw_new_user_approve()) {
+        if (function_exists('pw_new_user_approve') && pw_new_user_approve()) {
             remove_action('user_register', array(pw_new_user_approve(), 'request_admin_approval_email_2' ));
         }
     } elseif ($user_role =='organisation') {
@@ -405,7 +405,10 @@ add_action('user_register', function ($user_id) {
  * Run later and send approval notification email.
  */
 add_action('user_register', function ($user_id) {
-    if (isset($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'organisation') {
+    if (isset($_GET['nua_status'])
+        && $_GET['nua_status'] == 'pending'
+        && isset($_GET['nua_userrole'])
+        && $_GET['nua_userrole'] == 'organisation') {
         $user = new WP_User($user_id);
         $custom = '<p>Beste '.$user->data->user_nicename.',</p><br>';
         $custom .= '<p>Wat leuk dat jij jouw organisatie hebt aangemeld. Wij gaan met jouw aanvraag aan de slag.</p><br>';
