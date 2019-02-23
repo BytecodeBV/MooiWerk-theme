@@ -274,7 +274,8 @@ add_action('admin_head', function () {
 add_action('wp_ajax_subscribe', 'newsletter_subscription');
 add_action('wp_ajax_nopriv_subscribe', 'newsletter_subscription');
 
-function newsletter_subscription() {
+function newsletter_subscription()
+{
     $url = get_option('ac_url', 'https://breda-actief.api-us1.com');
 
     $params = [
@@ -337,3 +338,111 @@ function newsletter_subscription() {
         wp_send_json_success($result);
     }
 }
+
+add_shortcode('permalink', function ($atts) {
+    extract(shortcode_atts(array(
+        'id' => null,
+        'title' => "",
+        'text' => "",  // default value if none supplied
+        'class' => "btn btn-outline-primary btn-lg signup__link"
+    ), $atts));
+    
+    $link = '';
+
+    if (!empty($id)) {
+        $link = get_permalink($id);
+    } elseif (!empty($title)) {
+        $post = get_page_by_title($title);
+        if ($post) {
+            $link = get_permalink($post);
+        }
+    }
+    
+    if ($text) {
+        return "<a href='$link' class='$class'>$text</a>";
+    } else {
+        return $link;
+    }
+});
+
+/**
+ * Get user associated role .
+ */
+function get_mooiwerk_user_role($user_id)
+{
+    //use form argument if available cause the function can be called when role has not been set yet
+    if (isset($_POST['type']) && in_array($_POST['type'], ['volunteer', 'organisation'])) {
+        return $_POST['type'];
+    }
+    $user_meta = get_userdata($user_id);
+    $user_roles = $user_meta->roles;
+    if (in_array('volunteer', $user_roles)) {
+        return 'volunteer';
+    } elseif (in_array('organisation', $user_roles)) {
+        return 'organisation';
+    }
+    return 'other';
+}
+
+/**
+ * Run first and set user role in $_GET global.
+ */
+add_action('user_register', function ($user_id) {
+    $user_role = get_mooiwerk_user_role($user_id);
+    if ($user_role == 'volunteer') {
+        //Store userrole in $_GET global for use by hooks that don't accept $user parameter.
+        $_GET['nua_userrole'] = 'volunteer';
+        //if user is volunteer, we don't need to send approval email.
+        if (function_exists('pw_new_user_approve') && pw_new_user_approve()) {
+            remove_action('user_register', array(pw_new_user_approve(), 'request_admin_approval_email_2' ));
+        }
+    } elseif ($user_role =='organisation') {
+        $_GET['nua_userrole'] = 'organisation';
+    }
+}, 5, 1);
+
+/**
+ * Run later and send approval notification email.
+ */
+add_action('user_register', function ($user_id) {
+    if (isset($_GET['nua_status'])
+        && $_GET['nua_status'] == 'pending'
+        && isset($_GET['nua_userrole'])
+        && $_GET['nua_userrole'] == 'organisation') {
+        $user = new WP_User($user_id);
+        $custom = '<p>Beste '.$user->data->user_nicename.',</p><br>';
+        $custom .= '<p>Wat leuk dat jij jouw organisatie hebt aangemeld. Wij gaan met jouw aanvraag aan de slag.</p><br>';
+        $custom .= '<p>Heb je in de tussentijd vragen? Neem een kijkje bij de veel gestelde vragen. Je kan ook een'
+        .' chat starten door te klikken op de groene balk rechts onder op de website</p><br>';
+        $custom .= '<p>Met vriendelijke groet,</p>';
+        $custom .= '<p>Team MOOIWERK</p>';
+        $message = App\use_wce_template($custom, $user);
+        $subject = 'MOOIWERK - aanvraag is geplaatst';
+        wp_mail($user->data->user_email, $subject, $message);
+    }
+}, 900, 1);
+
+/**
+ * Run last and automatically accept volunteer registrations.
+ */
+add_action('user_register', function ($user_id) {
+    if (isset($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'volunteer') {
+        do_action('new_user_approve_approve_user', $user_id);
+    }
+}, 1000, 1);
+
+
+/**
+ * function to store userrole in $_GET global for use with admin approval process.
+ */
+function set_nua_user_role($user_id)
+{
+    if (empty($_GET['nua_userrole'])) {
+        $user_role = get_mooiwerk_user_role($user_id);
+        if (in_array($user_role, ['volunteer', 'organisation'])) {
+            $_GET['nua_userrole'] = $user_role;
+        }
+    }
+};
+add_action('new_user_approve_approve_user', 'set_nua_user_role', 5, 1);
+add_action('new_user_approve_deny_user', 'set_nua_user_role', 5, 1);

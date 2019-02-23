@@ -371,7 +371,6 @@ add_filter('woocommerce_checkout_get_value', function ($input, $key) {
  * Redirect users after add to cart.
  */
 add_filter('woocommerce_add_to_cart_redirect', function ($url) {
-    error_log('cart url: ' . wc_get_cart_url());
     return wc_get_cart_url();
 });
 
@@ -388,6 +387,182 @@ add_filter('acf/load_value', function ($value, $post_id, $field) {
     return $value;
 }, 10, 3);
 
+//preserve login messages for use in redirection to the login page
+add_filter('new_user_approve_pending_message', function ($message) {
+    if (!empty($message)) {
+        //use $_GET as a bus/global to store login messages for access by subsequent hooks
+        $_GET['nua_message'] = base64_encode($message);
+    }
+    return $message;
+});
+
+//fix for the nua login page error:
+//redirect to login page instead of calling login_header funcion which is unavailable atm
+add_filter('new_user_approve_registration_message', function ($message) {
+    $arg = '';
+    if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] = 'volunteer') {
+        $arg = 'checkemail=confirm';
+    } elseif (!empty($_GET['nua_message'])) {
+        $arg = 'registration_required='.$_GET['nua_message'];
+    }
+    $arg .= '&new_user_approve_registration_message='.base64_encode($message);
+    $redirect_to = ! empty($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : site_url('wp-login.php?'.$arg);
+    wp_safe_redirect($redirect_to);
+    exit;
+});
+
+//Add nua error messages from redirection to login page
+add_filter('wp_login_errors', function ($errors) {
+    if (!empty($_GET['new_user_approve_registration_message'])) {
+        $errors->add('new_user_approve_registration_message', base64_decode($_GET['new_user_approve_registration_message']), 'message');
+    }
+    if (!empty($_GET['registration_required'])) {
+        $errors->add('registration_required', base64_decode($_GET['registration_required']), 'message');
+    }
+    return $errors;
+});
+
+//Set custom nua approve message
+add_filter('new_user_approve_approve_user_message_default', function ($message) {
+    if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'volunteer') {
+        $custom = '<p>Beste {username},</p><br>';
+        $custom .= '<p>Welkom bij MOOIWERK. Wat leuk dat jij je als vrijwilliger hebt aangemeld.'
+            .' Om je aanmelding compleet te maken ontvang je hier je wachtwoord. Dit kun je'
+            .' zelf aanpassen als je ingelogd bent:</p><br>';
+        $custom .= '<p>{reset_password_url}</p><br>';
+        $custom .= '<p>Wist je dat je als Bredase vrijwilliger gratis kan leren en ontwikkelen?'
+            .' Kijk hier voor ons actuele aanbod:'
+            .' <a href="www.mooiwerkbreda.nl/vrijwilligersacademie">www.mooiwerkbreda.nl/vrijwilligersacademie</a></p><br>';
+        $custom .= '<p>Heb je vragen? Neem een kijkje bij de veel gestelde vragen. Je kan ook'.
+            ' een chat starten door te klikken op de groene balk rechts onder op de website.</p><br>';
+        $custom .= '<p>Met vriendelijke groet,</p>';
+        $custom .= '<p>Team MOOIWERK</p>';
+    
+        return $custom;
+    }
+
+    //TODO: get userrole in admin approval flow and store in $_GET for this to fire
+    if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'organisation') {
+        $custom = '<p>Beste {username},</p><br>';
+        $custom .= '<p>Welkom bij MOOIWERK. De aanvraag is goedgekeurd!</p><br>';
+        $custom .= '<p>Om je aanmelding compleet te maken ontvang je hier je wachtwoord.'
+            .' Dit kun je zelf aanpassen als je ingelogd bent: </p><br>';
+        $custom .= '<p>{reset_password_url}</p><br>';
+        $custom .= '<p>Vul je profiel eerst zoveel mogelijk aan om het zo aantrekkelijk mogelijk te maken.'
+            .' Vervolgens kun je aan de slag met het plaatsen van vacatures en reageren op reacties van vrijwilligers.</p><br>';
+        $custom .= '<p>Heb je vragen? Neem een kijkje bij de veel gestelde vragen. Je kan ook een chat starten door te'
+            .' klikken op de groene balk rechts onder op de website.</p><br>';
+        $custom .= '<p>Met vriendelijke groet,</p>';
+        $custom .= '<p>Team MOOIWERK</p>';
+    
+        return $custom;
+    }
+
+    return $message;
+});
+
+//replace reset_password_url tag handler with a custom function
+add_filter('nua_email_tags', function ($email_tags) {
+    $count = 0;
+    foreach ($email_tags as $email_tag) {
+        if ($email_tag['tag'] == 'reset_password_url') {
+            $email_tags[$count]['function'] = function ($attributes) {
+                $link = '';
+                if (function_exists('nua_email_tag_reset_password_url')) {
+                    $url = nua_email_tag_reset_password_url($attributes);
+                    $link = '<a href="'.$url.'">Set New Password</a>';
+                }
+                return $link;
+            };
+        }
+        $count++;
+    }
+    return $email_tags;
+});
+
+//Replace nua approve subject with wce registration subject and resolve tags
+add_filter('new_user_approve_approve_user_subject', function ($subject) {
+    if (!empty($_GET['nua_userrole'])) {
+        $subject = ($_GET['nua_userrole'] == 'organisation')? 'MOOIWERK - aanvraag is goed gekeurd' : 'Welkom bij MOOIWERK ----';
+    }
+    return $subject;
+});
+
+//Use created wce email template to send user approval email
+function use_wce_template($message, $user)
+{
+    $settings = get_option('wce_email_settings');
+    //check if wce is enabled for user approval email
+    if (!empty($settings['allow_custom_registration_email']) && $settings['allow_custom_registration_email'] == 'true') {
+        $info = array('emailbody' => $message);
+        //check if template processor exists
+        if (class_exists('WCE_TEMPLATE_PROCESSOR')) {
+            $obj = new \WCE_TEMPLATE_PROCESSOR();
+            //use wce template
+            $message = $obj->get_email_content($info);
+            //DELETE
+            //Use $_GET as a bus/global to store $user info for access by subsequent hooks that need it
+            if (!empty($user)) {
+                $_GET['user'] = $user;
+            }
+        }
+    }
+    return $message;
+}
+add_filter('new_user_approve_approve_user_message', __NAMESPACE__ . '\\use_wce_template', 10, 2);
+
+/**
+ * The default email message that will be sent to users as they are denied.
+ *
+ * @return string
+ */
+add_filter('new_user_approve_deny_user_message_default', function ($message) {
+    //TODO: get userrole in admin approval flow and store in $_GET for this to fire
+    if (!empty($_GET['nua_userrole']) && $_GET['nua_userrole'] == 'organisation') {
+        $custom = '<p>Beste {username},</p><br>';
+        $custom .= '<p>Helaas is je aanvraag afgekeurd.</p><br>';
+        $custom .= '<p>Hiervoor kunnen verschillende redenen zijn:</p><br>';
+        $custom .= '</ul>';
+        $custom .= '<li>Ben je geen organisatie, maar heb je een individuele hulpvraag? Dan kun je'
+            .'terecht bij Zorg voor elkaar Breda (076 – 525 15 15).</li>';
+        $custom .= '<li>Een organisatie mag maar één profiel hebben, maar misschien heeft iemand'
+            .'anders van jullie organisatie al een profiel aangemaakt.</li>';
+        $custom .= '</ul><br>';
+        $custom .= '<p>Wil je graag duidelijkheid over de reden waarom je account geweigerd is? Start dan'
+            .'een chat via de groene balk rechts onder op de website.</p><br>';
+        $custom .= '<p>Met vriendelijke groet,</p>';
+        $custom .= '<p>Team MOOIWERK</p>';
+
+        return $custom;
+    }
+
+    return $message;
+});
+
+//Custom nua deny mail subject
+add_filter('new_user_approve_deny_user_subject', function ($subject) {
+    $subject = 'MOOIWERK - aanvraag is afgekeurd';
+    return $subject;
+});
+
+//use wce email template for user deny message
+add_filter('new_user_approve_deny_user_message', __NAMESPACE__ . '\\use_wce_template', 10, 2);
+
+
+/**
+ * The default message that will be shown to the user after registration has completed.
+ *
+ * @return string
+ */
+
+add_filter('new_user_approve_default_status', function ($status) {
+    if (!isset($_GET['nua_status'])) {
+        $_GET['nua_status'] = $status;
+    }
+    return $status;
+});
+
+//Allow comment reply on Yeost SEO
 add_filter('wpseo_remove_reply_to_com', function ($bool) {
     return false;
 });
