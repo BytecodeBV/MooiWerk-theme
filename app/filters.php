@@ -267,7 +267,6 @@ add_filter('acf/load_value/key=field_5b7efba009d6d', function ($value, $post_id,
 
 // change status to expiry if vacancy has expired
 add_filter('acf/load_value/key=field_5bc8a669b23c2', function ($value, $post_id, $field) {
-
     $expiry = get_field('date', $post_id);
     $date = date_create_from_format('d/m/Y', $expiry) ? date_create_from_format('d/m/Y', $expiry) : date_create_from_format('Y-m-d', $expiry);
     $date = date_format($date, 'm/d/Y');
@@ -388,3 +387,7 @@ add_filter('acf/load_value', function ($value, $post_id, $field) {
     }
     return $value;
 }, 10, 3);
+
+add_filter('wpseo_remove_reply_to_com', function ($bool) {
+    return false;
+});
